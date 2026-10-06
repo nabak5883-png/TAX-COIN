@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TAX COIN - Official Telegram Mini App & Arcade Games</title>
+    <title>TAX COIN - Official Telegram Mini App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -30,7 +30,7 @@
             position: relative;
         }
 
-        /* Golden grid ambient overlay */
+        /* Subtle golden grid background overlay */
         body::before {
             content: "";
             position: fixed;
@@ -57,90 +57,6 @@
         ::-webkit-scrollbar-thumb {
             background: rgba(245, 158, 11, 0.4);
             border-radius: 10px;
-        }
-
-        .glass-card {
-            background: rgba(17, 24, 39, 0.82);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.5);
-        }
-
-        .gold-border-glow {
-            border: 1px solid rgba(251, 191, 36, 0.35);
-            box-shadow: 0 4px 25px -5px rgba(245, 158, 11, 0.2);
-        }
-
-        .gold-pill-btn {
-            background: linear-gradient(180deg, #facc15 0%, #eab308 100%);
-            color: #090d16;
-            font-weight: 800;
-            box-shadow: 0 2px 12px rgba(234, 179, 8, 0.35);
-        }
-
-        .gold-pill-btn:active {
-            transform: scale(0.95);
-        }
-
-        .aviator-cashout-btn {
-            background: linear-gradient(180deg, #a3e635 0%, #65a30d 100%);
-            color: #090d16;
-            font-weight: 900;
-            box-shadow: 0 0 20px rgba(132, 204, 22, 0.45);
-        }
-
-        .aviator-grid-bg {
-            background-color: #060913;
-            background-image: 
-                radial-gradient(ellipse at 80% 90%, rgba(220, 38, 38, 0.15) 0%, transparent 60%),
-                linear-gradient(rgba(30, 41, 59, 0.4) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(30, 41, 59, 0.4) 1px, transparent 1px);
-            background-size: 100% 100%, 24px 24px, 24px 24px;
-        }
-
-        .mines-grid-bg {
-            background-color: #050b14;
-            background-image: 
-                radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.12) 0%, transparent 70%),
-                linear-gradient(rgba(30, 41, 59, 0.35) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(30, 41, 59, 0.35) 1px, transparent 1px);
-            background-size: 100% 100%, 20px 20px, 20px 20px;
-        }
-
-        .mines-tile {
-            transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-            touch-action: manipulation;
-        }
-
-        .mines-tile:active:not(:disabled) {
-            transform: scale(0.92);
-        }
-
-        .mines-tile.revealed-gem {
-            background: radial-gradient(circle at 35% 35%, #059669 0%, #064e3b 70%, #022c22 100%);
-            border-color: #34d399;
-            box-shadow: 0 0 15px rgba(52, 211, 153, 0.4);
-            animation: gemPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .mines-tile.revealed-bomb {
-            background: radial-gradient(circle at 35% 35%, #dc2626 0%, #991b1b 70%, #450a0a 100%);
-            border-color: #f87171;
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
-            animation: bombPop 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97);
-        }
-
-        @keyframes gemPop {
-            0% { transform: scale(0.7) rotate(-8deg); opacity: 0.5; }
-            70% { transform: scale(1.1) rotate(4deg); }
-            100% { transform: scale(1) rotate(0); opacity: 1; }
-        }
-
-        @keyframes bombPop {
-            0% { transform: scale(0.8); }
-            50% { transform: scale(1.18); }
-            100% { transform: scale(1); }
         }
 
         .coin-wrapper {
@@ -175,9 +91,42 @@
         }
 
         @keyframes floatUpFade {
-            0% { opacity: 1; transform: translateY(0) scale(0.85); }
-            40% { opacity: 1; transform: translateY(-40px) scale(1.1); }
-            100% { opacity: 0; transform: translateY(-95px) scale(0.95); }
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(0.85);
+            }
+            40% {
+                opacity: 1;
+                transform: translateY(-40px) scale(1.1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-95px) scale(0.95);
+            }
+        }
+
+        .glass-card {
+            background: rgba(17, 24, 39, 0.78);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .gold-border-glow {
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            box-shadow: 0 4px 25px -5px rgba(245, 158, 11, 0.2);
+        }
+
+        .gold-pill-btn {
+            background: linear-gradient(180deg, #facc15 0%, #eab308 100%);
+            color: #090d16;
+            font-weight: 800;
+            box-shadow: 0 2px 12px rgba(234, 179, 8, 0.35);
+        }
+
+        .gold-pill-btn:active {
+            transform: scale(0.94);
         }
 
         .wheel-spin {
@@ -209,27 +158,27 @@
                 </div>
             </div>
 
-            <!-- Top Header Controls: Dedicated Games Button, Spin, Boost, Sound -->
+            <!-- Right Controls: Aviator, Spin, Boost & Sound -->
             <div class="flex items-center gap-1.5">
-                <!-- Highlighted Games Hub Header Button -->
-                <button type="button" onclick="switchTab('games')" class="px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 border border-amber-400/50 text-[11px] font-black flex items-center gap-1.5 shadow-md shadow-orange-500/25 active:scale-95 transition">
-                    <i class="fa-solid fa-gamepad text-white text-xs animate-pulse"></i>
-                    <span class="text-white tracking-wide">Games</span>
+                <button type="button" onclick="openAviatorModal()" class="px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 border border-rose-400/50 text-xs font-extrabold flex items-center gap-1 shadow-md shadow-rose-500/25 active:scale-95 transition">
+                    <i class="fa-solid fa-plane-departure text-amber-300 animate-pulse"></i>
+                    <span>Aviator</span>
                 </button>
-                <button type="button" onclick="openSpinModal()" class="px-2 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 border border-purple-400/40 text-[11px] font-bold flex items-center gap-1 shadow-md shadow-purple-500/20 active:scale-95 transition">
+                <button type="button" onclick="openSpinModal()" class="px-2 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 border border-purple-400/40 text-xs font-bold flex items-center gap-1 shadow-md shadow-purple-500/20 active:scale-95 transition">
                     <i class="fa-solid fa-dharmachakra animate-spin text-amber-300"></i>
-                    <span>Spin</span>
+                    <span class="hidden sm:inline">Spin</span>
                 </button>
-                <button type="button" onclick="openBoostModal()" class="px-2 py-1.5 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[11px] font-extrabold flex items-center gap-1 active:scale-95 transition">
+                <button type="button" onclick="openBoostModal()" class="px-2 py-1.5 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs font-extrabold flex items-center gap-1 active:scale-95 transition">
                     <i class="fa-solid fa-bolt"></i>
-                    <span>Boost</span>
+                    <span class="hidden sm:inline">Boost</span>
                 </button>
-                <button type="button" id="sound-btn" onclick="toggleSound()" class="w-7 h-7 rounded-xl glass-card flex items-center justify-center text-amber-400 active:scale-90 transition">
-                    <i class="fa-solid fa-volume-high text-[11px]" id="sound-icon"></i>
+                <button type="button" id="sound-btn" onclick="toggleSound()" class="w-8 h-8 rounded-xl glass-card flex items-center justify-center text-amber-400 active:scale-90 transition">
+                    <i class="fa-solid fa-volume-high text-xs" id="sound-icon"></i>
                 </button>
             </div>
         </div>
 
+        <!-- Stats Strip (Shown on Mine & Miners tabs) -->
         <div id="top-stats-strip" class="grid grid-cols-3 gap-2 mt-0.5">
             <div class="glass-card rounded-xl p-1.5 text-center border-t border-amber-500/25">
                 <div class="text-[10px] text-slate-400 font-medium">Earn per tap</div>
@@ -242,7 +191,7 @@
                 <div class="text-[10px] text-slate-400 font-medium">Profit per hour</div>
                 <div class="text-xs font-extrabold text-emerald-400 flex items-center justify-center gap-1 mt-0.5">
                     <i class="fa-solid fa-bolt text-[10px]"></i>
-                    <span id="stat-pph">+120</span>
+                    <span id="stat-pph">+0</span>
                 </div>
             </div>
             <div class="glass-card rounded-xl p-1.5 text-center border-t border-sky-500/25">
@@ -254,10 +203,9 @@
 
     <main class="flex-1 overflow-y-auto px-4 pb-24 pt-1 relative z-10">
 
-        <!-- ============================================== -->
-        <!-- TAB 1: MINE SCREEN (TAP & EARN) -->
-        <!-- ============================================== -->
+        <!-- TAB 1: MINE (TAP SCREEN) -->
         <section id="tab-mine" class="tab-page h-full flex flex-col justify-between items-center py-1">
+            <!-- Main Balance Display -->
             <div class="w-full text-center">
                 <div class="flex items-center justify-center gap-2">
                     <svg class="w-8 h-8 drop-shadow-[0_0_10px_rgba(251,191,36,0.6)] shrink-0" viewBox="0 0 64 64">
@@ -287,7 +235,7 @@
                     </div>
                 </div>
 
-                <!-- Skins Switcher -->
+                <!-- Skin Switcher Pills -->
                 <div class="inline-flex items-center gap-1 bg-slate-900/80 p-1 rounded-full border border-slate-800 mt-2">
                     <button type="button" onclick="setSkin('gold')" id="skin-gold" class="px-3 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 transition">Classic Gold</button>
                     <button type="button" onclick="setSkin('cyber')" id="skin-cyber" class="px-3 py-0.5 rounded-full text-[10px] font-bold text-slate-400 hover:text-white transition">Cyber Neon</button>
@@ -334,12 +282,13 @@
 
                         <rect x="82" y="164" width="96" height="22" rx="11" fill="#451a03" opacity="0.75" stroke="#fde047" stroke-width="1"/>
                         <text x="130" y="179" text-anchor="middle" fill="#fde047" font-family="Inter, sans-serif" font-weight="800" font-size="11" letter-spacing="3.5">OFFICIAL</text>
+
                         <path d="M 55 75 A 95 95 0 0 1 195 65 A 105 100 0 0 0 55 75 Z" fill="#ffffff" opacity="0.22"/>
                     </svg>
                 </div>
             </div>
 
-            <!-- Energy & Turbo Row -->
+            <!-- Bottom Energy & Quick Turbo Row -->
             <div class="w-full max-w-md">
                 <div class="flex items-center justify-between mb-1.5">
                     <div class="flex items-center gap-2">
@@ -364,173 +313,26 @@
                     </div>
                 </div>
 
+                <!-- Energy Progress Bar -->
                 <div class="w-full h-3 bg-slate-800/90 rounded-full overflow-hidden p-0.5 border border-slate-700">
                     <div id="energy-bar" class="h-full bg-gradient-to-r from-amber-500 via-yellow-400 to-lime-300 rounded-full transition-all duration-200" style="width: 100%"></div>
                 </div>
             </div>
         </section>
 
-        <!-- ============================================== -->
-        <!-- TAB: GAMES HUB (DEDICATED GAMES OPTION) -->
-        <!-- ============================================== -->
-        <section id="tab-games" class="tab-page hidden space-y-3.5 pt-1">
-            <!-- Arcade Banner -->
-            <div class="glass-card gold-border-glow rounded-3xl p-4 relative overflow-hidden">
-                <div class="flex items-center justify-between relative z-10">
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <span class="px-2.5 py-0.5 rounded-md text-[10px] font-black bg-gradient-to-r from-amber-500/30 to-orange-500/30 text-amber-300 border border-amber-400/40 font-cyber">TAX ARCADE</span>
-                            <span class="text-xs text-emerald-400 font-bold flex items-center gap-1">
-                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> 5 Live Games
-                            </span>
-                        </div>
-                        <h2 class="text-xl font-black text-white font-cyber mt-1.5 tracking-tight">TAX CASINO & GAMES</h2>
-                        <p class="text-xs text-slate-300 mt-0.5">Pick a game, bet TAX coins & multiply your pool earnings!</p>
-                    </div>
-                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-rose-600 flex items-center justify-center text-slate-950 text-2xl shadow-xl shadow-orange-500/30">
-                        <i class="fa-solid fa-gamepad"></i>
-                    </div>
-                </div>
-
-                <!-- Mini Ticker -->
-                <div class="mt-3 pt-2.5 border-t border-white/10 flex items-center gap-2 text-[11px] text-slate-300 overflow-hidden">
-                    <span class="text-amber-400 font-extrabold shrink-0 flex items-center gap-1"><i class="fa-solid fa-fire text-rose-500"></i> Recent Wins:</span>
-                    <marquee behavior="scroll" direction="left" scrollamount="4" class="text-slate-300">
-                        🏆 Collector #8683 won +1,450 TAX in Aviator (5.80x) • Satoshi_Tax won +890 TAX in Mines (4 Gems) • Bengal_Whale won +500 TAX on Lucky Wheel! • TonMaster won +195 TAX on Coin Flip!
-                    </marquee>
-                </div>
-            </div>
-
-            <!-- Games Grid (All Games in one unified location) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                
-                <!-- GAME 1: TAX AVIATOR -->
-                <div class="glass-card rounded-2xl p-4 border border-rose-500/30 relative overflow-hidden flex flex-col justify-between hover:border-rose-400/60 transition group">
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-600 to-red-600 flex items-center justify-center text-white text-xl shadow-lg shadow-red-500/30">
-                                <i class="fa-solid fa-plane-departure"></i>
-                            </div>
-                            <div>
-                                <div class="flex items-center gap-1.5">
-                                    <h3 class="font-cyber font-extrabold text-white text-sm">TAX Aviator</h3>
-                                    <span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-rose-500/20 text-rose-400 border border-rose-500/40">HOT 🔥</span>
-                                </div>
-                                <div class="text-[11px] text-slate-400 mt-0.5">Crash Jet • Up to 100x Multiplier</div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">
-                        Place your bet and watch the Tax Jet surge! Cash out before the jet flies away.
-                    </p>
-                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between">
-                        <span class="text-[10px] text-emerald-400 font-bold"><i class="fa-solid fa-chart-line mr-1"></i>RTP 96%</span>
-                        <button type="button" onclick="openAviatorModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-black text-xs shadow-md shadow-red-500/30 active:scale-95 transition flex items-center gap-1.5">
-                            <i class="fa-solid fa-play text-[10px]"></i> Play Aviator
-                        </button>
-                    </div>
-                </div>
-
-                <!-- GAME 2: TAX MINES -->
-                <div class="glass-card rounded-2xl p-4 border border-emerald-500/30 relative overflow-hidden flex flex-col justify-between hover:border-emerald-400/60 transition group">
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-600 flex items-center justify-center text-white text-xl shadow-lg shadow-emerald-500/30">
-                                <i class="fa-solid fa-bomb text-amber-300 animate-pulse"></i>
-                            </div>
-                            <div>
-                                <div class="flex items-center gap-1.5">
-                                    <h3 class="font-cyber font-extrabold text-white text-sm">TAX Mines</h3>
-                                    <span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">5x5 GRID</span>
-                                </div>
-                                <div class="text-[11px] text-slate-400 mt-0.5">Pick 1-24 Mines • Uncover TAX Gems</div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">
-                        Uncover gleaming TAX Gems on a 25-tile grid. Avoid bombs & cash out anytime with huge multipliers!
-                    </p>
-                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between">
-                        <span class="text-[10px] text-cyan-400 font-bold"><i class="fa-solid fa-gem mr-1"></i>RTP 97%</span>
-                        <button type="button" onclick="openMinesModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs shadow-md shadow-emerald-500/30 active:scale-95 transition flex items-center gap-1.5">
-                            <i class="fa-solid fa-gem text-[10px]"></i> Play Mines
-                        </button>
-                    </div>
-                </div>
-
-                <!-- GAME 3: TAX COIN FLIP -->
-                <div class="glass-card rounded-2xl p-4 border border-amber-500/30 relative overflow-hidden flex flex-col justify-between hover:border-amber-400/60 transition group">
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-600 flex items-center justify-center text-slate-950 text-xl shadow-lg shadow-amber-500/30">
-                                <i class="fa-solid fa-coins"></i>
-                            </div>
-                            <div>
-                                <div class="flex items-center gap-1.5">
-                                    <h3 class="font-cyber font-extrabold text-white text-sm">TAX Coin Flip</h3>
-                                    <span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-amber-500/20 text-amber-300 border border-amber-400/40">2X WIN ⚡</span>
-                                </div>
-                                <div class="text-[11px] text-slate-400 mt-0.5">Heads or Tails • Double or Nothing</div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">
-                        Pick Heads or Tails, flip the golden TAX Coin, and instantly multiply your bet by 1.95x!
-                    </p>
-                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between">
-                        <span class="text-[10px] text-amber-300 font-bold"><i class="fa-solid fa-bolt mr-1"></i>Instant 1.95x</span>
-                        <button type="button" onclick="openCoinFlipModal()" class="px-4 py-2 rounded-xl gold-pill-btn text-xs font-black shadow-md shadow-amber-500/20 active:scale-95 transition flex items-center gap-1.5">
-                            <i class="fa-solid fa-rotate text-[10px]"></i> Play Flip
-                        </button>
-                    </div>
-                </div>
-
-                <!-- GAME 4: LUCKY REFUND WHEEL -->
-                <div class="glass-card rounded-2xl p-4 border border-purple-500/30 relative overflow-hidden flex flex-col justify-between hover:border-purple-400/60 transition group">
-                    <div class="flex items-start justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-white text-xl shadow-lg shadow-purple-500/30">
-                                <i class="fa-solid fa-dharmachakra animate-spin text-amber-300"></i>
-                            </div>
-                            <div>
-                                <div class="flex items-center gap-1.5">
-                                    <h3 class="font-cyber font-extrabold text-white text-sm">Refund Wheel</h3>
-                                    <span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-purple-500/20 text-purple-300 border border-purple-400/40">DAILY 🎁</span>
-                                </div>
-                                <div class="text-[11px] text-slate-400 mt-0.5">Spin & Win up to 1,000 TAX</div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">
-                        Spin the Lucky TAX Wheel every day to claim guaranteed free coin jackpots straight to your pool.
-                    </p>
-                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between">
-                        <span class="text-[10px] text-purple-400 font-bold"><i class="fa-solid fa-gift mr-1"></i>Free Daily Spins</span>
-                        <button type="button" onclick="openSpinModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs shadow-md shadow-purple-500/20 active:scale-95 transition flex items-center gap-1.5">
-                            <i class="fa-solid fa-dharmachakra text-[10px]"></i> Spin Wheel
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- ============================================== -->
-        <!-- TAB 3: TASKS SCREEN -->
-        <!-- ============================================== -->
+        <!-- TAB 2: TASKS -->
         <section id="tab-tasks" class="tab-page hidden space-y-3 pt-1">
             <div class="glass-card gold-border-glow rounded-2xl p-3.5 text-center">
                 <h2 class="text-base font-extrabold text-white font-cyber">TAX MISSIONS</h2>
                 <p class="text-xs text-slate-400 mt-0.5">Complete official tasks to earn instant Pool TAX rewards</p>
             </div>
+
             <div id="tasks-container" class="space-y-2.5">
-                <!-- Populated dynamically -->
+                <!-- Populated by JS -->
             </div>
         </section>
 
-        <!-- ============================================== -->
-        <!-- TAB 4: MINERS EMPIRE SCREEN (PPH) -->
-        <!-- ============================================== -->
+        <!-- TAB 3: MINERS (PASSIVE EMPIRE + TAP UPGRADES) -->
         <section id="tab-miners" class="tab-page hidden space-y-3 pt-1">
             <div class="glass-card gold-border-glow rounded-2xl p-3.5 flex items-center justify-between">
                 <div>
@@ -541,17 +343,17 @@
                 </div>
                 <div class="text-right">
                     <span class="text-[10px] text-slate-400 uppercase">Current PPH</span>
-                    <div class="text-sm font-black text-emerald-400" id="empire-pph-header">+120 / hr</div>
+                    <div class="text-sm font-black text-emerald-400" id="empire-pph-header">+0 / hr</div>
                 </div>
             </div>
+
+            <!-- Dynamic Mining Cards Grid -->
             <div id="empire-cards-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                <!-- Populated dynamically -->
+                <!-- Populated by JS -->
             </div>
         </section>
 
-        <!-- ============================================== -->
-        <!-- TAB 5: FRIENDS SCREEN -->
-        <!-- ============================================== -->
+        <!-- TAB 4: FRIENDS -->
         <section id="tab-friends" class="tab-page hidden space-y-3 pt-1">
             <div class="glass-card gold-border-glow rounded-2xl p-4 text-center space-y-3">
                 <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-2xl mx-auto">
@@ -562,36 +364,62 @@
                     <p class="text-xs text-slate-300 mt-1">Earn <span class="text-amber-400 font-bold">+250.0000 TAX</span> in your Pool Wallet for every friend who joins!</p>
                 </div>
 
-                <div class="bg-slate-900/90 rounded-xl p-2.5 border border-white/10 flex items-center justify-between text-xs">
-                    <span class="text-slate-400">Friends Invited:</span>
-                    <strong id="invited-count" class="text-amber-400 font-black">0 Friends</strong>
+                <!-- Bot Username Configuration Bar -->
+                <div class="bg-slate-900/90 rounded-xl p-2.5 border border-white/10 text-left space-y-1.5">
+                    <div class="flex items-center justify-between">
+                        <label class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Your Telegram Bot Username</label>
+                        <span class="text-[10px] text-amber-400 font-semibold cursor-pointer" onclick="promptBotUsername()">Edit ✏️</span>
+                    </div>
+                    <div class="flex items-center bg-slate-950 px-2.5 py-1.5 rounded-lg border border-slate-700/80">
+                        <span class="text-xs text-slate-500 font-mono">@</span>
+                        <input id="ref-bot-username-input" type="text" value="TaxCoinArcadeBot" onchange="updateCustomBotUsername(this.value)" class="w-full bg-transparent text-xs text-amber-300 font-bold font-mono focus:outline-none pl-1" placeholder="TaxCoinArcadeBot">
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-2 gap-2">
-                    <button type="button" onclick="copyRefLink()" class="py-2.5 rounded-xl gold-pill-btn text-xs flex items-center justify-center gap-1.5 transition">
-                        <i class="fa-solid fa-copy"></i> Copy Invite Link
+                <!-- Generated Referral Link Display Box -->
+                <div class="bg-slate-900/90 rounded-xl p-2.5 border border-white/10 text-left space-y-1">
+                    <div class="flex justify-between items-center text-[10px]">
+                        <span class="text-slate-400 font-semibold">Your Unique Invite Link:</span>
+                        <span class="text-emerald-400 font-bold" id="invited-count">0 Friends</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 bg-slate-950 px-2 py-1.5 rounded-lg border border-slate-800">
+                        <input id="referral-link-display" type="text" readonly class="w-full bg-transparent text-[11px] text-slate-300 font-mono focus:outline-none select-all overflow-hidden text-ellipsis">
+                        <button type="button" onclick="copyRefLink()" class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 text-xs font-bold active:scale-95 transition shrink-0">
+                            Copy
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Action Buttons: Telegram Direct Share & Test -->
+                <div class="space-y-2">
+                    <button type="button" onclick="shareInviteTelegram()" class="w-full py-3 rounded-xl gold-pill-btn text-xs font-extrabold flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 active:scale-95 transition">
+                        <i class="fa-brands fa-telegram text-base"></i> <span>Invite a Friend via Telegram</span>
                     </button>
-                    <button type="button" onclick="simulateFriendInvite()" class="py-2.5 rounded-xl bg-slate-800 border border-amber-500/40 text-amber-400 font-extrabold text-xs flex items-center justify-center gap-1.5 active:scale-95 transition">
-                        <i class="fa-solid fa-user-plus"></i> Test +1 Friend
-                    </button>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button type="button" onclick="copyRefLink()" class="py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-white/10 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 active:scale-95 transition">
+                            <i class="fa-solid fa-copy text-amber-400"></i> Copy Link
+                        </button>
+                        <button type="button" onclick="simulateFriendInvite()" class="py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-amber-500/30 text-amber-400 font-extrabold text-xs flex items-center justify-center gap-1.5 active:scale-95 transition">
+                            <i class="fa-solid fa-user-plus"></i> Test +1 Friend
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <div class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1 pt-1">Top Tax Collectors</div>
             <div id="leaderboard-list" class="space-y-2">
-                <!-- Leaderboard elements -->
+                <!-- Populated dynamically -->
             </div>
         </section>
 
-        <!-- ============================================== -->
-        <!-- TAB 6: PROFILE SCREEN (FULL WALLET & CONTROLS) -->
-        <!-- ============================================== -->
+        <!-- TAB 5: PROFILE -->
         <section id="tab-profile" class="tab-page hidden space-y-2.5 pt-1">
+            <!-- Profile Title -->
             <div class="text-center pb-1">
                 <h2 class="text-xl font-extrabold text-white tracking-wide">Profile</h2>
             </div>
 
-            <!-- User ID -->
+            <!-- 1. User ID -->
             <div onclick="copyUserId()" class="glass-card rounded-2xl p-3.5 flex items-center justify-between cursor-pointer active:scale-[0.99] transition">
                 <div class="flex items-center gap-3.5">
                     <div class="w-11 h-11 rounded-xl bg-slate-800/90 border border-white/10 flex items-center justify-center text-sky-400 text-lg">
@@ -605,7 +433,7 @@
                 <span class="text-[11px] text-slate-500 font-semibold"><i class="fa-regular fa-copy mr-1"></i>Copy</span>
             </div>
 
-            <!-- Account Verification -->
+            <!-- 2. Account Verification -->
             <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                     <div class="w-11 h-11 rounded-xl bg-slate-800/90 border border-white/10 flex items-center justify-center text-emerald-400 text-xl">
@@ -621,7 +449,7 @@
                 </button>
             </div>
 
-            <!-- Sound effects -->
+            <!-- 3. Sound effects -->
             <div onclick="toggleSound()" class="glass-card rounded-2xl p-3.5 flex items-center justify-between cursor-pointer active:scale-[0.99] transition">
                 <div class="flex items-center gap-3.5">
                     <div class="w-11 h-11 rounded-xl bg-slate-800/90 border border-white/10 flex items-center justify-center text-sky-300 text-lg">
@@ -634,7 +462,7 @@
                 </div>
             </div>
 
-            <!-- VIP JVault Lock -->
+            <!-- 4. VIP (JVault Lock · Assets Bonus) -->
             <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                     <div class="w-11 h-11 rounded-xl bg-slate-800/90 border border-white/10 flex items-center justify-center text-cyan-400 text-lg">
@@ -650,7 +478,7 @@
                 </button>
             </div>
 
-            <!-- Assets -->
+            <!-- 5. Assets -->
             <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                     <div class="w-11 h-11 rounded-xl bg-slate-800/90 border border-white/10 flex items-center justify-center text-amber-400 text-lg">
@@ -660,13 +488,13 @@
                         <div class="text-sm font-bold text-white">Assets</div>
                         <div class="flex items-center gap-2 mt-1 flex-wrap">
                             <span id="profile-assets-tax" class="text-xs font-semibold text-slate-300">891.0487 TAX</span>
-                            <span id="profile-assets-usd" class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-400 text-xs font-extrabold">≈ 0.567$</span>
+                            <span id="profile-assets-usd" class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-400 text-xs font-extrabold shadow-[0_0_12px_rgba(16,185,129,0.25)]">≈ 0.567$</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Holding Wallet -->
+            <!-- 6. Holding Wallet -->
             <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                     <div class="w-11 h-11 rounded-xl bg-slate-800/90 border border-white/10 flex items-center justify-center text-amber-400 text-lg">
@@ -679,7 +507,7 @@
                 </div>
             </div>
 
-            <!-- Pool Wallet -->
+            <!-- 7. Pool Wallet -->
             <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                     <div class="w-11 h-11 rounded-xl bg-slate-800/90 border border-white/10 flex items-center justify-center text-slate-200 text-lg">
@@ -693,11 +521,12 @@
                 <div id="profile-pool-tax" class="text-base sm:text-lg font-extrabold text-emerald-400 tracking-tight">891.0487 TAX</div>
             </div>
 
-            <!-- Controls: Withdraw & History -->
+            <!-- CONTROLS SECTION -->
             <div class="text-center pt-3 pb-1">
                 <h3 class="text-lg font-extrabold text-white tracking-wide">Controls</h3>
             </div>
 
+            <!-- 8. Withdraw -->
             <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                     <div class="w-11 h-11 rounded-xl bg-slate-800/90 border border-white/10 flex items-center justify-center text-sky-400 text-lg">
@@ -713,6 +542,7 @@
                 </button>
             </div>
 
+            <!-- 9. History -->
             <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between">
                 <div class="flex items-center gap-3.5">
                     <div class="w-11 h-11 rounded-xl bg-slate-800/90 border border-white/10 flex items-center justify-center text-slate-200 text-lg">
@@ -731,311 +561,39 @@
 
     </main>
 
-    <!-- ============================================== -->
-    <!-- BOTTOM NAVIGATION (NOW WITH DEDICATED GAMES TAB) -->
-    <!-- ============================================== -->
     <nav class="fixed bottom-0 left-0 right-0 px-2 pb-2 pt-1.5 z-30 bg-slate-950/95 backdrop-blur-lg border-t border-white/10">
-        <div class="grid grid-cols-6 gap-1 max-w-md mx-auto items-center">
-            
+        <div class="grid grid-cols-5 gap-1 max-w-md mx-auto items-center">
             <button type="button" id="nav-mine" onclick="switchTab('mine')" class="nav-btn flex flex-col items-center py-1.5 rounded-xl text-amber-400 transition">
-                <i class="fa-solid fa-hammer text-base sm:text-lg"></i>
-                <span class="text-[10px] font-semibold mt-0.5">Mine</span>
+                <i class="fa-solid fa-hammer text-lg"></i>
+                <span class="text-[11px] font-semibold mt-1">Mine</span>
             </button>
 
-            <!-- Dedicated Games Option in Bottom Nav -->
-            <button type="button" id="nav-games" onclick="switchTab('games')" class="nav-btn flex flex-col items-center py-1.5 rounded-xl text-slate-400 hover:text-white transition">
-                <i class="fa-solid fa-gamepad text-base sm:text-lg"></i>
-                <span class="text-[10px] font-semibold mt-0.5">Games</span>
+            <button type="button" id="nav-tasks" onclick="switchTab('tasks')" class="nav-btn flex flex-col items-center py-1.5 rounded-xl text-slate-400 hover:text-white transition">
+                <i class="fa-solid fa-clipboard-list text-lg"></i>
+                <span class="text-[11px] font-semibold mt-1">Tasks</span>
             </button>
 
             <!-- Center Highlighted Miners Button -->
             <button type="button" id="nav-miners" onclick="switchTab('miners')" class="nav-btn flex flex-col items-center py-1 rounded-xl text-slate-300 transition">
-                <div class="w-10 h-10 rounded-2xl bg-emerald-950/90 border border-emerald-400/40 shadow-[0_0_15px_rgba(16,185,129,0.3)] flex items-center justify-center text-amber-400 text-lg -mt-2">
+                <div class="w-11 h-11 rounded-2xl bg-emerald-950/90 border border-emerald-400/40 shadow-[0_0_15px_rgba(16,185,129,0.3)] flex items-center justify-center text-amber-400 text-xl -mt-2">
                     <i class="fa-solid fa-bolt"></i>
                 </div>
-                <span class="text-[10px] font-semibold mt-0.5">Miners</span>
-            </button>
-
-            <button type="button" id="nav-tasks" onclick="switchTab('tasks')" class="nav-btn flex flex-col items-center py-1.5 rounded-xl text-slate-400 hover:text-white transition">
-                <i class="fa-solid fa-clipboard-list text-base sm:text-lg"></i>
-                <span class="text-[10px] font-semibold mt-0.5">Tasks</span>
+                <span class="text-[11px] font-semibold mt-0.5">Miners</span>
             </button>
 
             <button type="button" id="nav-friends" onclick="switchTab('friends')" class="nav-btn flex flex-col items-center py-1.5 rounded-xl text-slate-400 hover:text-white transition">
-                <i class="fa-solid fa-user-group text-base sm:text-lg"></i>
-                <span class="text-[10px] font-semibold mt-0.5">Friends</span>
+                <i class="fa-solid fa-user-group text-lg"></i>
+                <span class="text-[11px] font-semibold mt-1">Friends</span>
             </button>
 
             <button type="button" id="nav-profile" onclick="switchTab('profile')" class="nav-btn flex flex-col items-center py-1.5 rounded-xl text-slate-400 hover:text-white transition">
-                <i class="fa-solid fa-user text-base sm:text-lg"></i>
-                <span class="text-[10px] font-semibold mt-0.5">Profile</span>
+                <i class="fa-solid fa-user text-lg"></i>
+                <span class="text-[11px] font-semibold mt-1">Profile</span>
             </button>
         </div>
     </nav>
 
-    <!-- ============================================== -->
-    <!-- MODAL: TAX AVIATOR CRASH GAME -->
-    <!-- ============================================== -->
-    <div id="aviator-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex-col justify-between p-3 sm:p-4 overflow-y-auto">
-        <div class="max-w-md w-full mx-auto flex flex-col h-full justify-between space-y-2.5">
-            
-            <div class="glass-card rounded-2xl p-3 flex items-center justify-between border border-rose-500/30">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-rose-600 to-red-500 flex items-center justify-center text-white text-xl shadow-lg shadow-red-500/40">
-                        <i class="fa-solid fa-plane"></i>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <span class="font-cyber font-extrabold text-sm text-white tracking-wide">TAX AVIATOR</span>
-                            <span class="px-2 py-0.5 rounded-md text-[10px] font-black bg-rose-500/20 border border-rose-500/50 text-rose-400">CRASH</span>
-                        </div>
-                        <div class="text-[11px] text-slate-400">Cash out before the Tax Jet flies away!</div>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-3">
-                    <div class="text-right">
-                        <div class="text-[10px] text-slate-400">Pool Balance</div>
-                        <div id="aviator-pool-bal" class="text-xs font-black text-amber-400 font-cyber">891.0487 TAX</div>
-                    </div>
-                    <button type="button" onclick="closeAviatorModal()" class="w-9 h-9 rounded-xl bg-slate-800/90 text-slate-300 hover:text-white flex items-center justify-center active:scale-90 transition">
-                        <i class="fa-solid fa-xmark text-sm"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Multipliers History Bar -->
-            <div id="aviator-history-bar" class="flex items-center gap-1.5 overflow-x-auto py-1 px-0.5 no-scrollbar shrink-0">
-                <!-- Populated dynamically -->
-            </div>
-
-            <!-- Flight Radar Canvas Arena -->
-            <div class="glass-card rounded-2xl border border-rose-500/20 aviator-grid-bg relative h-64 sm:h-72 w-full overflow-hidden flex items-center justify-center">
-                <canvas id="aviator-canvas" class="absolute inset-0 w-full h-full block"></canvas>
-
-                <!-- Center Flight Multiplier / Status Overlay -->
-                <div class="relative z-10 flex flex-col items-center justify-center text-center pointer-events-none px-4">
-                    <div id="aviator-status-badge" class="text-xs font-bold uppercase tracking-widest text-amber-400 mb-1 flex items-center gap-1.5 drop-shadow">
-                        <i class="fa-solid fa-plane text-xs animate-pulse"></i>
-                        <span id="aviator-status-text">FLIGHT IN PROGRESS</span>
-                    </div>
-
-                    <div id="aviator-multiplier-display" class="font-cyber font-black text-5xl sm:text-6xl text-white tracking-tight drop-shadow-[0_4px_25px_rgba(245,158,11,0.5)]">
-                        1.00x
-                    </div>
-
-                    <div id="aviator-win-badge" class="mt-2 px-4 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-900/30">
-                        Win: <span id="aviator-potential-win">+0.0000 TAX</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Betting Controls Section -->
-            <div class="glass-card rounded-2xl p-3.5 space-y-3 border border-white/10">
-                <div class="flex items-center justify-between text-[11px] font-bold text-slate-300 px-0.5">
-                    <span>BET AMOUNT (TAX)</span>
-                    <label class="flex items-center gap-2 cursor-pointer">
-                        <span>AUTO CASHOUT</span>
-                        <input id="aviator-auto-toggle" type="checkbox" class="w-4 h-4 rounded accent-emerald-500 cursor-pointer">
-                    </label>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2">
-                    <div class="flex items-center bg-slate-900/90 rounded-xl border border-slate-700/80 px-2 py-1">
-                        <input id="aviator-bet-input" type="number" step="any" value="25" min="1" class="w-full bg-transparent text-amber-400 font-cyber font-bold text-sm focus:outline-none">
-                        <div class="flex items-center gap-1 text-[11px] font-bold text-slate-400 ml-1">
-                            <button type="button" onclick="halveAviatorBet()" class="px-1.5 py-0.5 rounded hover:bg-slate-800 text-slate-300 active:scale-90 transition">½</button>
-                            <button type="button" onclick="doubleAviatorBet()" class="px-1.5 py-0.5 rounded hover:bg-slate-800 text-slate-300 active:scale-90 transition">2x</button>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center bg-slate-900/90 rounded-xl border border-slate-700/80 px-2.5 py-1">
-                        <input id="aviator-auto-val" type="number" step="0.1" value="2.00" min="1.01" class="w-full bg-transparent text-emerald-400 font-cyber font-bold text-sm focus:outline-none text-right">
-                        <span class="text-xs text-slate-400 font-bold ml-1">x</span>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-4 gap-1.5">
-                    <button type="button" onclick="setAviatorBet(25)" class="py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">25 TAX</button>
-                    <button type="button" onclick="setAviatorBet(50)" class="py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">50 TAX</button>
-                    <button type="button" onclick="setAviatorBet(100)" class="py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">100 TAX</button>
-                    <button type="button" onclick="setAviatorBetMax()" class="py-1.5 rounded-xl bg-amber-500/20 text-amber-300 font-extrabold text-xs border border-amber-400/40 active:scale-95 transition">MAX</button>
-                </div>
-
-                <button type="button" id="aviator-action-btn" onclick="handleAviatorAction()" class="w-full py-3.5 rounded-xl aviator-cashout-btn text-sm font-black tracking-wide flex items-center justify-center gap-2 transition">
-                    <i class="fa-solid fa-rocket"></i>
-                    <span id="aviator-btn-label">BET 25 TAX</span>
-                </button>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- ============================================== -->
-    <!-- MODAL: TAX MINES 5x5 GRID GAME -->
-    <!-- ============================================== -->
-    <div id="mines-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex-col justify-between p-3 sm:p-4 overflow-y-auto">
-        <div class="max-w-md w-full mx-auto flex flex-col h-full justify-between space-y-2.5">
-            
-            <div class="glass-card rounded-2xl p-3 flex items-center justify-between border border-emerald-500/30">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white text-xl shadow-lg shadow-emerald-500/40">
-                        <i class="fa-solid fa-gem text-amber-300"></i>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <span class="font-cyber font-extrabold text-sm text-white tracking-wide">TAX MINES</span>
-                            <span class="px-2 py-0.5 rounded-md text-[10px] font-black bg-emerald-500/20 border border-emerald-500/50 text-emerald-300">5x5 GRID</span>
-                        </div>
-                        <div class="text-[11px] text-slate-400">Find TAX Gems & avoid the Treasury Bombs!</div>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-3">
-                    <div class="text-right">
-                        <div class="text-[10px] text-slate-400">Pool Balance</div>
-                        <div id="mines-pool-bal" class="text-xs font-black text-amber-400 font-cyber">891.0487 TAX</div>
-                    </div>
-                    <button type="button" onclick="closeMinesModal()" class="w-9 h-9 rounded-xl bg-slate-800/90 text-slate-300 hover:text-white flex items-center justify-center active:scale-90 transition">
-                        <i class="fa-solid fa-xmark text-sm"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Stats Bar -->
-            <div class="grid grid-cols-3 gap-2 shrink-0">
-                <div class="glass-card rounded-xl p-2 text-center border-t border-emerald-500/30">
-                    <div class="text-[10px] text-slate-400 font-medium">Gems Found</div>
-                    <div class="text-xs font-black text-emerald-400 flex items-center justify-center gap-1 mt-0.5">
-                        <i class="fa-solid fa-gem text-[10px]"></i>
-                        <span id="mines-gems-count">0 / 22</span>
-                    </div>
-                </div>
-                <div class="glass-card rounded-xl p-2 text-center border-t border-amber-500/30">
-                    <div class="text-[10px] text-slate-400 font-medium">Multiplier</div>
-                    <div class="text-sm font-cyber font-black text-amber-400 mt-0.5" id="mines-current-mult">1.00x</div>
-                </div>
-                <div class="glass-card rounded-xl p-2 text-center border-t border-cyan-500/30">
-                    <div class="text-[10px] text-slate-400 font-medium">Next Gem</div>
-                    <div class="text-xs font-black text-cyan-400 mt-0.5" id="mines-next-mult">1.10x</div>
-                </div>
-            </div>
-
-            <!-- 5x5 Mines Arena Grid -->
-            <div class="glass-card rounded-2xl border border-emerald-500/20 mines-grid-bg p-3 relative flex flex-col items-center justify-center">
-                <div id="mines-grid" class="grid grid-cols-5 gap-2 w-full max-w-[320px] aspect-square">
-                    <!-- Populated dynamically -->
-                </div>
-            </div>
-
-            <!-- Mines Controls & Betting Panel -->
-            <div class="glass-card rounded-2xl p-3.5 space-y-2.5 border border-white/10">
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <label class="text-[11px] font-bold text-slate-300 block mb-1">BET AMOUNT (TAX)</label>
-                        <div class="flex items-center bg-slate-900/90 rounded-xl border border-slate-700/80 px-2 py-1">
-                            <input id="mines-bet-input" type="number" step="any" value="25" min="1" class="w-full bg-transparent text-amber-400 font-cyber font-bold text-sm focus:outline-none">
-                            <div class="flex items-center gap-1 text-[11px] font-bold text-slate-400 ml-1">
-                                <button type="button" onclick="halveMinesBet()" class="px-1.5 py-0.5 rounded hover:bg-slate-800 text-slate-300 active:scale-90 transition">½</button>
-                                <button type="button" onclick="doubleMinesBet()" class="px-1.5 py-0.5 rounded hover:bg-slate-800 text-slate-300 active:scale-90 transition">2x</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="text-[11px] font-bold text-slate-300 block mb-1">MINES COUNT (1-24)</label>
-                        <div class="flex items-center bg-slate-900/90 rounded-xl border border-slate-700/80 px-2.5 py-1">
-                            <select id="mines-count-select" onchange="changeMinesCount()" class="w-full bg-transparent text-rose-400 font-cyber font-bold text-sm focus:outline-none cursor-pointer">
-                                <option value="1" class="bg-slate-900 text-white">1 Mine (Safe)</option>
-                                <option value="2" class="bg-slate-900 text-white">2 Mines</option>
-                                <option value="3" selected class="bg-slate-900 text-white">3 Mines (Standard)</option>
-                                <option value="5" class="bg-slate-900 text-white">5 Mines (Hot)</option>
-                                <option value="10" class="bg-slate-900 text-white">10 Mines (High Risk)</option>
-                                <option value="15" class="bg-slate-900 text-white">15 Mines (Extreme)</option>
-                                <option value="20" class="bg-slate-900 text-white">20 Mines (Insane)</option>
-                                <option value="24" class="bg-slate-900 text-white">24 Mines (1 Gem God)</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-4 gap-1.5">
-                    <button type="button" onclick="setMinesBet(25)" class="py-1 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">25 TAX</button>
-                    <button type="button" onclick="setMinesBet(50)" class="py-1 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">50 TAX</button>
-                    <button type="button" onclick="setMinesBet(100)" class="py-1 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">100 TAX</button>
-                    <button type="button" onclick="setMinesBetMax()" class="py-1 rounded-xl bg-amber-500/20 text-amber-300 font-extrabold text-xs border border-amber-400/40 active:scale-95 transition">MAX</button>
-                </div>
-
-                <button type="button" id="mines-action-btn" onclick="handleMinesAction()" class="w-full py-3.5 rounded-xl gold-pill-btn text-sm font-black tracking-wide flex items-center justify-center gap-2 transition">
-                    <i class="fa-solid fa-play"></i>
-                    <span id="mines-btn-label">START GAME (25 TAX)</span>
-                </button>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- ============================================== -->
-    <!-- MODAL: TAX COIN FLIP (HEADS OR TAILS) -->
-    <!-- ============================================== -->
-    <div id="coinflip-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex-col justify-between p-4 overflow-y-auto">
-        <div class="glass-card gold-border-glow rounded-3xl max-w-sm w-full mx-auto p-5 my-auto text-center space-y-3.5 relative">
-            <button type="button" onclick="closeCoinFlipModal()" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div>
-                <div class="flex items-center justify-center gap-1.5 text-xs font-bold text-amber-400 uppercase tracking-widest font-cyber">
-                    <i class="fa-solid fa-coins"></i> TAX COIN FLIP
-                </div>
-                <h3 class="text-base font-black text-white mt-0.5">Double Your TAX (1.95x Win)</h3>
-                <p class="text-[11px] text-slate-300 mt-0.5">Pick Heads or Tails & test your luck!</p>
-            </div>
-
-            <!-- 3D Coin Animation Display -->
-            <div class="w-32 h-32 mx-auto my-2 flex items-center justify-center perspective-1000">
-                <div id="flip-coin-visual" class="w-28 h-28 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-700 p-1 shadow-[0_0_35px_rgba(245,158,11,0.5)] flex items-center justify-center transition-all duration-700">
-                    <div class="w-full h-full rounded-full bg-slate-950 border-2 border-amber-300 flex flex-col items-center justify-center text-amber-400 font-cyber">
-                        <span id="flip-coin-symbol" class="text-3xl font-black">TAX</span>
-                        <span id="flip-coin-sub" class="text-[10px] font-bold text-slate-400">HEADS</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Choice Selector -->
-            <div class="grid grid-cols-2 gap-2">
-                <button type="button" onclick="setCoinFlipChoice('heads')" id="flip-choice-heads" class="py-2.5 rounded-xl border border-amber-400 bg-amber-500/20 text-amber-300 font-black text-xs flex items-center justify-center gap-1.5 transition">
-                    <i class="fa-solid fa-crown"></i> HEADS (TAX)
-                </button>
-                <button type="button" onclick="setCoinFlipChoice('tails')" id="flip-choice-tails" class="py-2.5 rounded-xl border border-white/10 bg-slate-900 text-slate-400 font-bold text-xs flex items-center justify-center gap-1.5 transition">
-                    <i class="fa-solid fa-shield-halved"></i> TAILS (SHIELD)
-                </button>
-            </div>
-
-            <div>
-                <div class="flex justify-between text-[11px] font-bold text-slate-300 mb-1">
-                    <span>BET AMOUNT (TAX)</span>
-                    <span class="text-amber-400">Win: <strong id="flip-win-preview">48.75 TAX</strong></span>
-                </div>
-                <div class="flex items-center bg-slate-900 rounded-xl border border-slate-700 px-3 py-1.5">
-                    <input id="flip-bet-input" oninput="updateFlipWinPreview()" type="number" step="any" value="25" min="1" class="w-full bg-transparent text-amber-400 font-cyber font-bold text-sm focus:outline-none">
-                </div>
-                <div class="grid grid-cols-4 gap-1.5 mt-2">
-                    <button type="button" onclick="setFlipBet(25)" class="py-1 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">25</button>
-                    <button type="button" onclick="setFlipBet(50)" class="py-1 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">50</button>
-                    <button type="button" onclick="setFlipBet(100)" class="py-1 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">100</button>
-                    <button type="button" onclick="setFlipBetMax()" class="py-1 rounded-xl bg-amber-500/20 text-amber-300 font-extrabold text-xs border border-amber-400/40 active:scale-95 transition">MAX</button>
-                </div>
-            </div>
-
-            <button type="button" id="flip-action-btn" onclick="flipCoinNow()" class="w-full py-3.5 rounded-xl gold-pill-btn text-sm font-black tracking-wide flex items-center justify-center gap-2 transition">
-                <i class="fa-solid fa-rotate"></i>
-                <span id="flip-btn-label">FLIP COIN (25 TAX)</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- MODAL: BOOST UPGRADES -->
+    <!-- BOOST UPGRADES MODAL -->
     <div id="boost-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4">
         <div class="glass-card gold-border-glow rounded-3xl max-w-sm w-full p-5 space-y-3 relative">
             <button type="button" onclick="closeBoostModal()" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
@@ -1088,7 +646,7 @@
         </div>
     </div>
 
-    <!-- MODAL: DAILY SPIN WHEEL -->
+    <!-- DAILY SPIN MODAL -->
     <div id="spin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4">
         <div class="glass-card gold-border-glow rounded-3xl max-w-sm w-full p-5 text-center relative">
             <button type="button" onclick="closeSpinModal()" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
@@ -1119,7 +677,7 @@
         </div>
     </div>
 
-    <!-- MODAL: ACCOUNT VERIFICATION -->
+    <!-- ACCOUNT VERIFICATION MODAL -->
     <div id="verify-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4">
         <div class="glass-card gold-border-glow rounded-3xl max-w-sm w-full p-5 space-y-4 relative text-center">
             <button type="button" onclick="closeVerifyModal()" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
@@ -1144,7 +702,7 @@
         </div>
     </div>
 
-    <!-- MODAL: VIP JVAULT LOCK -->
+    <!-- VIP JVAULT LOCK MODAL -->
     <div id="vip-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4">
         <div class="glass-card gold-border-glow rounded-3xl max-w-sm w-full p-5 space-y-4 relative text-center">
             <button type="button" onclick="closeVipModal()" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
@@ -1178,7 +736,7 @@
         </div>
     </div>
 
-    <!-- MODAL: WITHDRAW -->
+    <!-- WITHDRAW MODAL -->
     <div id="withdraw-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4">
         <div class="glass-card gold-border-glow rounded-3xl max-w-sm w-full p-5 space-y-3.5 relative">
             <button type="button" onclick="closeWithdrawModal()" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
@@ -1237,7 +795,7 @@
         </div>
     </div>
 
-    <!-- MODAL: WITHDRAWAL HISTORY -->
+    <!-- WITHDRAWAL HISTORY MODAL -->
     <div id="history-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4">
         <div class="glass-card gold-border-glow rounded-3xl max-w-sm w-full p-5 space-y-3.5 relative">
             <button type="button" onclick="closeHistoryModal()" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
@@ -1250,12 +808,99 @@
                 <span id="withdraw-count-badge" class="text-[10px] text-emerald-400 font-bold">0 Requests</span>
             </div>
             <div id="withdraw-history-list" class="space-y-2 max-h-64 overflow-y-auto pr-1">
-                <!-- Dynamic withdraw history -->
+                <!-- Populated dynamically -->
             </div>
         </div>
     </div>
 
-    <!-- TOAST NOTIFICATION -->
+    <!-- TAX AVIATOR CRASH GAME MODAL -->
+    <div id="aviator-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden items-center justify-center p-3">
+        <div class="glass-card gold-border-glow rounded-3xl max-w-md w-full p-4 space-y-3 relative border border-rose-500/40 shadow-[0_0_40px_rgba(225,29,72,0.25)]">
+            <button type="button" onclick="closeAviatorModal()" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center z-20">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Header -->
+            <div class="flex items-center justify-between pr-9">
+                <div class="flex items-center gap-2">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-rose-500 to-red-700 flex items-center justify-center text-white shadow-lg shadow-rose-600/30">
+                        <i class="fa-solid fa-plane-up text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-white font-cyber tracking-wide flex items-center gap-1.5">
+                            TAX AVIATOR <span class="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/20 border border-rose-400/40 text-rose-300 font-sans">CRASH</span>
+                        </h3>
+                        <p class="text-[10px] text-slate-400">Cash out before the Tax Jet flies away!</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <div class="text-[10px] text-slate-400">Pool Balance</div>
+                    <div id="aviator-pool-bal" class="text-xs font-extrabold text-amber-400 font-mono">891.0487 TAX</div>
+                </div>
+            </div>
+
+            <!-- Recent Crash Multipliers Strip -->
+            <div id="aviator-history-strip" class="flex items-center gap-1.5 overflow-x-auto py-1 px-1 bg-slate-950/80 rounded-xl border border-white/5 text-[10px] font-mono">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Flight Canvas Display -->
+            <div class="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden bg-slate-950 border border-rose-500/30 shadow-inner">
+                <canvas id="aviator-canvas" class="w-full h-full block"></canvas>
+
+                <!-- Center Multiplier Overlay -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none z-10">
+                    <span id="aviator-status-badge" class="text-[11px] font-extrabold uppercase tracking-widest text-slate-400 mb-0.5">READY FOR TAKEOFF</span>
+                    <div id="aviator-multiplier-text" class="text-4xl sm:text-5xl font-black font-cyber text-white drop-shadow-[0_0_20px_rgba(244,63,94,0.6)]">1.00x</div>
+                    <div id="aviator-live-win-pill" class="hidden mt-1.5 px-3 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-extrabold">
+                        Win: +0.0000 TAX
+                    </div>
+                </div>
+            </div>
+
+            <!-- Betting Controls -->
+            <div class="bg-slate-900/90 rounded-2xl p-3 border border-white/10 space-y-2.5">
+                <div class="grid grid-cols-2 gap-2">
+                    <!-- Bet Amount -->
+                    <div>
+                        <label class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Bet Amount (TAX)</label>
+                        <div class="flex items-center bg-slate-950 rounded-xl border border-slate-700 overflow-hidden">
+                            <input id="aviator-bet-input" type="number" step="10" min="10" value="50" class="w-full px-2.5 py-2 bg-transparent text-xs font-extrabold text-amber-400 focus:outline-none font-mono">
+                            <button type="button" onclick="adjustAviatorBet(0.5)" class="px-2 py-2 text-[10px] font-bold text-slate-400 hover:text-white border-l border-slate-800">½</button>
+                            <button type="button" onclick="adjustAviatorBet(2)" class="px-2 py-2 text-[10px] font-bold text-amber-400 hover:text-amber-300 border-l border-slate-800">2x</button>
+                        </div>
+                    </div>
+
+                    <!-- Auto Cashout -->
+                    <div>
+                        <div class="flex items-center justify-between mb-1">
+                            <label class="text-[10px] text-slate-400 font-bold uppercase">Auto Cashout</label>
+                            <input id="aviator-auto-check" type="checkbox" class="accent-amber-400 w-3.5 h-3.5 rounded cursor-pointer">
+                        </div>
+                        <div class="flex items-center bg-slate-950 rounded-xl border border-slate-700 overflow-hidden">
+                            <input id="aviator-auto-input" type="number" step="0.1" min="1.1" value="2.00" class="w-full px-2.5 py-2 bg-transparent text-xs font-extrabold text-emerald-400 focus:outline-none font-mono">
+                            <span class="px-2.5 text-xs font-bold text-slate-500">x</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Bet Chips -->
+                <div class="grid grid-cols-4 gap-1.5">
+                    <button type="button" onclick="setAviatorBet(25)" class="py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-slate-300 border border-white/5">25 TAX</button>
+                    <button type="button" onclick="setAviatorBet(50)" class="py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-slate-300 border border-white/5">50 TAX</button>
+                    <button type="button" onclick="setAviatorBet(100)" class="py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-slate-300 border border-white/5">100 TAX</button>
+                    <button type="button" onclick="setAviatorBet('MAX')" class="py-1 rounded-lg bg-amber-500/20 text-[11px] font-extrabold text-amber-300 border border-amber-400/30">MAX</button>
+                </div>
+
+                <!-- Main Launch / Cashout Button -->
+                <button type="button" id="aviator-action-btn" onclick="handleAviatorAction()" class="w-full py-3 rounded-xl bg-gradient-to-r from-rose-600 via-red-500 to-amber-500 text-white font-black text-sm tracking-wide shadow-lg shadow-rose-600/30 active:scale-[0.98] transition uppercase font-cyber">
+                    🚀 BET & TAKE OFF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM TOAST NOTIFICATION -->
     <div id="toast-box" class="fixed top-4 left-1/2 -translate-x-1/2 z-[100] pointer-events-none opacity-0 transition-all duration-300 transform -translate-y-4 w-max max-w-[90vw]">
         <div class="px-4 py-2.5 rounded-2xl bg-slate-900/95 border border-amber-400/50 shadow-2xl flex items-center gap-2 text-xs font-bold text-white">
             <i id="toast-icon" class="fa-solid fa-circle-check text-amber-400"></i>
@@ -1264,7 +909,7 @@
     </div>
 
     <script>
-        // Telegram WebApp Setup
+        // Telegram WebApp Initialization
         const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
         if (tg) {
             try {
@@ -1273,7 +918,7 @@
             } catch (e) {}
         }
 
-        // Primary Game State (Starts with 891.0487 TAX to match screenshot)
+        // Core Application State
         const state = {
             balance: 891.0487,
             holdingBalance: 0,
@@ -1311,6 +956,7 @@
             }
         };
 
+        // USD Conversion Ratio (891.0487 TAX ≈ $0.567 -> 1 TAX = $0.00063633)
         const TAX_TO_USD_RATE = 0.00063633;
 
         const empireCatalog = [
@@ -1326,8 +972,6 @@
             { id: "daily_checkin", title: "🎁 Claim Daily Tax Return", reward: 250, btnText: "Claim" },
             { id: "join_tg", title: "📢 Join Official TAX COIN Channel", reward: 500, btnText: "Join & Claim" },
             { id: "follow_x", title: "🐦 Follow TAX COIN on X (Twitter)", reward: 400, btnText: "Follow" },
-            { id: "play_aviator", title: "🚀 Play 1 Round of TAX Aviator", reward: 350, btnText: "Play Now" },
-            { id: "play_mines", title: "💣 Play 1 Round of TAX Mines", reward: 350, btnText: "Play Mines" },
             { id: "verify_acc", title: "✅ Verify Your Account in Profile", reward: 300, btnText: "Claim", reqVerified: true },
             { id: "lock_vip", title: "💎 Lock Coins in VIP JVault", reward: 500, btnText: "Claim", reqHolding: 1 }
         ];
@@ -1362,58 +1006,24 @@
                     osc.type = 'sine';
                     osc.frequency.setValueAtTime(540, now);
                     osc.frequency.exponentialRampToValueAtTime(880, now + 0.055);
-                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.setValueAtTime(0.11, now);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
                     osc.start(now);
                     osc.stop(now + 0.065);
-                } else if (type === 'gem') {
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(659.25, now);
-                    osc.frequency.setValueAtTime(987.77, now + 0.07);
-                    osc.frequency.setValueAtTime(1318.51, now + 0.14);
-                    gain.gain.setValueAtTime(0.18, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
-                    osc.start(now);
-                    osc.stop(now + 0.3);
-                } else if (type === 'mine_boom') {
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(150, now);
-                    osc.frequency.exponentialRampToValueAtTime(30, now + 0.4);
-                    gain.gain.setValueAtTime(0.3, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
-                    osc.start(now);
-                    osc.stop(now + 0.46);
                 } else if (type === 'upgrade') {
                     osc.type = 'triangle';
                     osc.frequency.setValueAtTime(440, now);
                     osc.frequency.setValueAtTime(660, now + 0.08);
                     osc.frequency.setValueAtTime(880, now + 0.16);
-                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.setValueAtTime(0.16, now);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
                     osc.start(now);
                     osc.stop(now + 0.29);
-                } else if (type === 'cashout') {
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(587.33, now);
-                    osc.frequency.setValueAtTime(880, now + 0.1);
-                    osc.frequency.setValueAtTime(1174.66, now + 0.2);
-                    gain.gain.setValueAtTime(0.2, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
-                    osc.start(now);
-                    osc.stop(now + 0.42);
-                } else if (type === 'crash') {
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(180, now);
-                    osc.frequency.exponentialRampToValueAtTime(40, now + 0.35);
-                    gain.gain.setValueAtTime(0.25, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
-                    osc.start(now);
-                    osc.stop(now + 0.4);
                 } else if (type === 'error') {
                     osc.type = 'sawtooth';
                     osc.frequency.setValueAtTime(190, now);
                     osc.frequency.setValueAtTime(130, now + 0.1);
-                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.setValueAtTime(0.11, now);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
                     osc.start(now);
                     osc.stop(now + 0.19);
@@ -1450,7 +1060,7 @@
 
                 if (state.energy < state.tapPower && !state.turboActive) {
                     playSound('error');
-                    showToast("⚡ Low Energy! Tap Free Refill or wait.", true);
+                    showToast("⚡ Low Energy! Click the green Battery icon for a Free Refill.", true);
                     return;
                 }
 
@@ -1490,873 +1100,6 @@
             setTimeout(() => el.remove(), 800);
         }
 
-        function formatTax(num) {
-            return Number(num || 0).toFixed(4);
-        }
-
-        const aviator = {
-            state: "WAITING", // WAITING, FLYING, CRASHED
-            multiplier: 1.00,
-            crashPoint: 2.00,
-            flightStartTime: 0,
-            hasBet: false,
-            betAmount: 25,
-            hasCashedOut: false,
-            cashedOutAt: 0,
-            animFrameId: null,
-            recentMultipliers: [1.85, 1.14, 3.42, 1.08, 6.20, 2.15],
-            particles: []
-        };
-
-        const aviatorCanvas = document.getElementById('aviator-canvas');
-        const aviatorCtx = aviatorCanvas ? aviatorCanvas.getContext('2d') : null;
-
-        function resizeAviatorCanvas() {
-            if (!aviatorCanvas || !aviatorCanvas.parentElement) return;
-            const rect = aviatorCanvas.parentElement.getBoundingClientRect();
-            const w = Math.floor(rect.width || 320);
-            const h = Math.floor(rect.height || 260);
-            if (w > 0 && h > 0) {
-                aviatorCanvas.width = w;
-                aviatorCanvas.height = h;
-            }
-        }
-        window.addEventListener('resize', resizeAviatorCanvas);
-
-        function generateAviatorCrashPoint() {
-            const rand = Math.random();
-            if (rand < 0.04) return 1.00;
-            let point = 0.96 / (1 - rand);
-            return Math.max(1.01, Math.min(100.00, Math.floor(point * 100) / 100));
-        }
-
-        // Coordinate calculations with finite protection to fix createLinearGradient errors
-        function getSafeJetPosition(multiplier, width, height) {
-            const safeW = (isFinite(width) && width > 0) ? width : 320;
-            const safeH = (isFinite(height) && height > 0) ? height : 260;
-
-            const m = (typeof multiplier === 'number' && isFinite(multiplier)) ? Math.max(1.00, multiplier) : 1.00;
-            const rawProgress = Math.log(m) / Math.log(10.0);
-            const progress = Math.min(1.0, Math.max(0.0, isFinite(rawProgress) ? rawProgress : 0));
-
-            const startX = 25;
-            const endX = safeW - 45;
-            const startY = safeH - 30;
-            const endY = 40;
-
-            const x = startX + (endX - startX) * progress;
-            const curve = Math.sin((progress * Math.PI) / 2);
-            const y = startY - (startY - endY) * curve;
-
-            return {
-                x: isFinite(x) ? Math.max(10, Math.min(safeW, x)) : startX,
-                y: isFinite(y) ? Math.max(10, Math.min(safeH, y)) : startY,
-                startX,
-                startY
-            };
-        }
-
-        function drawJet(ctx, x, y, angle) {
-            ctx.save();
-            ctx.translate(x, y);
-            ctx.rotate(angle);
-
-            ctx.shadowColor = '#f59e0b';
-            ctx.shadowBlur = 15;
-
-            ctx.fillStyle = '#ef4444';
-            ctx.beginPath();
-            ctx.moveTo(14, 0);
-            ctx.lineTo(-12, -7);
-            ctx.lineTo(-6, 0);
-            ctx.lineTo(-12, 7);
-            ctx.closePath();
-            ctx.fill();
-
-            ctx.fillStyle = '#f59e0b';
-            ctx.beginPath();
-            ctx.moveTo(0, 0);
-            ctx.lineTo(-6, -15);
-            ctx.lineTo(-1, -15);
-            ctx.lineTo(5, 0);
-            ctx.lineTo(-1, 15);
-            ctx.lineTo(-6, 15);
-            ctx.closePath();
-            ctx.fill();
-
-            ctx.fillStyle = '#ffffff';
-            ctx.beginPath();
-            ctx.arc(4, 0, 2.5, 0, Math.PI * 2);
-            ctx.fill();
-
-            ctx.restore();
-        }
-
-        function addExplosionParticles(x, y) {
-            for (let i = 0; i < 24; i++) {
-                const angle = Math.random() * Math.PI * 2;
-                const speed = 1 + Math.random() * 5;
-                aviator.particles.push({
-                    x: x,
-                    y: y,
-                    vx: Math.cos(angle) * speed,
-                    vy: Math.sin(angle) * speed,
-                    life: 1.0,
-                    size: 3 + Math.random() * 4,
-                    color: Math.random() > 0.5 ? '#ef4444' : '#f59e0b'
-                });
-            }
-        }
-
-        function renderAviatorFrame() {
-            if (!aviatorCanvas || !aviatorCtx) return;
-            const w = aviatorCanvas.width;
-            const h = aviatorCanvas.height;
-
-            aviatorCtx.clearRect(0, 0, w, h);
-
-            const mult = Math.max(1.00, Number(aviator.multiplier) || 1.00);
-            const pos = getSafeJetPosition(mult, w, h);
-
-            if (aviator.state === "FLYING" || aviator.state === "CRASHED") {
-                if (isFinite(pos.startX) && isFinite(pos.startY) && isFinite(pos.x) && isFinite(pos.y)) {
-                    try {
-                        const grad = aviatorCtx.createLinearGradient(pos.startX, pos.startY, pos.x, pos.y);
-                        grad.addColorStop(0, 'rgba(239, 68, 68, 0.05)');
-                        grad.addColorStop(0.6, 'rgba(245, 158, 11, 0.22)');
-                        grad.addColorStop(1, 'rgba(250, 204, 21, 0.45)');
-
-                        aviatorCtx.beginPath();
-                        aviatorCtx.moveTo(pos.startX, pos.startY);
-                        aviatorCtx.quadraticCurveTo(pos.startX + (pos.x - pos.startX) * 0.4, pos.startY, pos.x, pos.y);
-                        aviatorCtx.lineTo(pos.x, pos.startY);
-                        aviatorCtx.closePath();
-                        aviatorCtx.fillStyle = grad;
-                        aviatorCtx.fill();
-                    } catch (e) {
-                        aviatorCtx.fillStyle = 'rgba(245, 158, 11, 0.2)';
-                    }
-
-                    aviatorCtx.beginPath();
-                    aviatorCtx.moveTo(pos.startX, pos.startY);
-                    aviatorCtx.quadraticCurveTo(pos.startX + (pos.x - pos.startX) * 0.4, pos.startY, pos.x, pos.y);
-                    aviatorCtx.strokeStyle = (aviator.state === "CRASHED") ? '#ef4444' : '#f59e0b';
-                    aviatorCtx.lineWidth = 3.5;
-                    aviatorCtx.shadowColor = (aviator.state === "CRASHED") ? '#ef4444' : '#f59e0b';
-                    aviatorCtx.shadowBlur = 10;
-                    aviatorCtx.stroke();
-                    aviatorCtx.shadowBlur = 0;
-                }
-
-                if (aviator.state === "FLYING") {
-                    const angle = -0.32;
-                    drawJet(aviatorCtx, pos.x, pos.y, angle);
-
-                    if (Math.random() > 0.3) {
-                        aviator.particles.push({
-                            x: pos.x - 12,
-                            y: pos.y + 4,
-                            vx: -1.5 - Math.random(),
-                            vy: 0.5 - Math.random(),
-                            life: 0.7,
-                            size: 2.5 + Math.random() * 3,
-                            color: 'rgba(250, 204, 21, 0.6)'
-                        });
-                    }
-                }
-            }
-
-            for (let i = aviator.particles.length - 1; i >= 0; i--) {
-                const p = aviator.particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-                p.life -= 0.03;
-                if (p.life <= 0) {
-                    aviator.particles.splice(i, 1);
-                    continue;
-                }
-                aviatorCtx.save();
-                aviatorCtx.globalAlpha = Math.max(0, p.life);
-                aviatorCtx.fillStyle = p.color;
-                aviatorCtx.beginPath();
-                aviatorCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                aviatorCtx.fill();
-                aviatorCtx.restore();
-            }
-
-            if (aviator.state === "FLYING") {
-                const now = performance.now();
-                const elapsedSec = (now - aviator.flightStartTime) / 1000;
-                const calculatedMult = 1.00 + Math.pow(elapsedSec * 0.42, 1.45);
-                aviator.multiplier = Math.max(1.00, Math.floor(calculatedMult * 100) / 100);
-
-                const autoToggle = document.getElementById('aviator-auto-toggle');
-                const autoVal = parseFloat(document.getElementById('aviator-auto-val')?.value) || 2.0;
-                if (autoToggle && autoToggle.checked && aviator.hasBet && !aviator.hasCashedOut) {
-                    if (aviator.multiplier >= autoVal) {
-                        cashOutAviator(autoVal);
-                    }
-                }
-
-                if (aviator.multiplier >= aviator.crashPoint) {
-                    triggerAviatorCrash();
-                } else {
-                    updateAviatorUI();
-                }
-            }
-
-            aviator.animFrameId = requestAnimationFrame(renderAviatorFrame);
-        }
-
-        function triggerAviatorCrash() {
-            aviator.state = "CRASHED";
-            aviator.multiplier = aviator.crashPoint;
-            playSound('crash');
-
-            const w = aviatorCanvas.width;
-            const h = aviatorCanvas.height;
-            const pos = getSafeJetPosition(aviator.crashPoint, w, h);
-            addExplosionParticles(pos.x, pos.y);
-
-            aviator.recentMultipliers.unshift(aviator.crashPoint);
-            if (aviator.recentMultipliers.length > 7) aviator.recentMultipliers.pop();
-            renderAviatorHistoryPills();
-
-            const statusText = document.getElementById('aviator-status-text');
-            const statusBadge = document.getElementById('aviator-status-badge');
-            const multDisplay = document.getElementById('aviator-multiplier-display');
-
-            if (statusBadge) statusBadge.className = "text-xs font-black uppercase tracking-widest text-red-500 mb-1 flex items-center gap-1.5";
-            if (statusText) statusText.textContent = "💥 FLEW AWAY!";
-            if (multDisplay) multDisplay.className = "font-cyber font-black text-5xl sm:text-6xl text-red-500 tracking-tight drop-shadow-[0_4px_25px_rgba(239,68,68,0.7)]";
-
-            const btn = document.getElementById('aviator-action-btn');
-            const btnLabel = document.getElementById('aviator-btn-label');
-            if (btn && btnLabel) {
-                if (aviator.hasBet && !aviator.hasCashedOut) {
-                    btnLabel.textContent = `LOST -${aviator.betAmount} TAX`;
-                    btn.className = "w-full py-3.5 rounded-xl bg-red-950/80 border border-red-500/50 text-red-300 text-sm font-black";
-                } else if (aviator.hasCashedOut) {
-                    btnLabel.textContent = `WON +${(aviator.betAmount * aviator.cashedOutAt).toFixed(2)} TAX!`;
-                    btn.className = "w-full py-3.5 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-sm font-black";
-                } else {
-                    btnLabel.textContent = `NEXT ROUND IN 3s...`;
-                    btn.className = "w-full py-3.5 rounded-xl bg-slate-800 text-slate-400 text-sm font-bold";
-                }
-            }
-
-            setTimeout(() => {
-                startAviatorWaitingRound();
-            }, 3500);
-        }
-
-        function startAviatorWaitingRound() {
-            aviator.state = "WAITING";
-            aviator.multiplier = 1.00;
-            aviator.hasBet = false;
-            aviator.hasCashedOut = false;
-            aviator.particles = [];
-
-            const statusText = document.getElementById('aviator-status-text');
-            const statusBadge = document.getElementById('aviator-status-badge');
-            const multDisplay = document.getElementById('aviator-multiplier-display');
-            const winBadge = document.getElementById('aviator-potential-win');
-
-            if (statusBadge) statusBadge.className = "text-xs font-bold uppercase tracking-widest text-amber-400 mb-1 flex items-center gap-1.5 drop-shadow";
-            if (statusText) statusText.textContent = "⏳ PREPARING FLIGHT...";
-            if (multDisplay) {
-                multDisplay.className = "font-cyber font-black text-5xl sm:text-6xl text-white tracking-tight drop-shadow-[0_4px_25px_rgba(245,158,11,0.5)]";
-                multDisplay.textContent = "1.00x";
-            }
-            if (winBadge) winBadge.textContent = "Win: +0.0000 TAX";
-
-            updateAviatorActionButton();
-
-            setTimeout(() => {
-                if (aviator.state === "WAITING") {
-                    startAviatorFlight();
-                }
-            }, 4000);
-        }
-
-        function startAviatorFlight() {
-            aviator.state = "FLYING";
-            aviator.multiplier = 1.00;
-            aviator.crashPoint = generateAviatorCrashPoint();
-            aviator.flightStartTime = performance.now();
-
-            const statusText = document.getElementById('aviator-status-text');
-            const statusBadge = document.getElementById('aviator-status-badge');
-            if (statusBadge) statusBadge.className = "text-xs font-bold uppercase tracking-widest text-amber-400 mb-1 flex items-center gap-1.5 drop-shadow";
-            if (statusText) statusText.textContent = "FLIGHT IN PROGRESS";
-
-            updateAviatorActionButton();
-        }
-
-        function updateAviatorUI() {
-            const multDisplay = document.getElementById('aviator-multiplier-display');
-            const winBadge = document.getElementById('aviator-potential-win');
-            if (multDisplay) {
-                multDisplay.textContent = `${aviator.multiplier.toFixed(2)}x`;
-            }
-
-            if (aviator.hasBet && !aviator.hasCashedOut) {
-                const currentWin = (aviator.betAmount * aviator.multiplier).toFixed(4);
-                if (winBadge) winBadge.textContent = `Win: +${currentWin} TAX`;
-
-                const btnLabel = document.getElementById('aviator-btn-label');
-                if (btnLabel) {
-                    btnLabel.textContent = `CASH OUT ${(aviator.betAmount * aviator.multiplier).toFixed(2)} TAX`;
-                }
-            } else {
-                if (winBadge) winBadge.textContent = `Win: +0.0000 TAX`;
-            }
-        }
-
-        function updateAviatorActionButton() {
-            const btn = document.getElementById('aviator-action-btn');
-            const btnLabel = document.getElementById('aviator-btn-label');
-            const betInput = document.getElementById('aviator-bet-input');
-            if (!btn || !btnLabel) return;
-
-            const betVal = parseFloat(betInput?.value) || 25;
-
-            if (aviator.state === "WAITING") {
-                if (aviator.hasBet) {
-                    btn.className = "w-full py-3.5 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-300 text-sm font-black";
-                    btnLabel.textContent = `BET PLACED (${aviator.betAmount} TAX)`;
-                } else {
-                    btn.className = "w-full py-3.5 rounded-xl gold-pill-btn text-sm font-black";
-                    btnLabel.textContent = `BET ${betVal} TAX`;
-                }
-            } else if (aviator.state === "FLYING") {
-                if (aviator.hasBet && !aviator.hasCashedOut) {
-                    btn.className = "w-full py-3.5 rounded-xl aviator-cashout-btn text-sm font-black";
-                    btnLabel.textContent = `CASH OUT ${(aviator.betAmount * aviator.multiplier).toFixed(2)} TAX`;
-                } else if (aviator.hasCashedOut) {
-                    btn.className = "w-full py-3.5 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-sm font-black";
-                    btnLabel.textContent = `CASHED OUT (${(aviator.betAmount * aviator.cashedOutAt).toFixed(2)} TAX)`;
-                } else {
-                    btn.className = "w-full py-3.5 rounded-xl bg-slate-800 text-slate-400 text-sm font-bold cursor-not-allowed";
-                    btnLabel.textContent = "WAITING FOR NEXT FLIGHT...";
-                }
-            }
-        }
-
-        window.handleAviatorAction = function() {
-            if (aviator.state === "WAITING") {
-                if (aviator.hasBet) {
-                    state.balance += aviator.betAmount;
-                    aviator.hasBet = false;
-                    showToast("↩️ Bet Cancelled & refunded to Pool.");
-                    updateAviatorActionButton();
-                    updateTopStatsUI();
-                } else {
-                    const betInput = document.getElementById('aviator-bet-input');
-                    const betVal = parseFloat(betInput?.value) || 25;
-                    if (betVal <= 0) return showToast("Enter a valid bet amount!", true);
-                    if (betVal > state.balance) {
-                        playSound('error');
-                        return showToast("Insufficient Pool Wallet balance!", true);
-                    }
-                    state.balance -= betVal;
-                    aviator.hasBet = true;
-                    aviator.betAmount = betVal;
-                    playSound('tap');
-                    showToast(`✈️ Bet ${betVal} TAX placed for next flight!`);
-                    updateAviatorActionButton();
-                    updateTopStatsUI();
-                }
-            } else if (aviator.state === "FLYING") {
-                if (aviator.hasBet && !aviator.hasCashedOut) {
-                    cashOutAviator(aviator.multiplier);
-                }
-            }
-        };
-
-        function cashOutAviator(multiplierLocked) {
-            if (!aviator.hasBet || aviator.hasCashedOut) return;
-            aviator.hasCashedOut = true;
-            aviator.cashedOutAt = multiplierLocked;
-
-            const winTotal = aviator.betAmount * multiplierLocked;
-            state.balance += winTotal;
-
-            playSound('cashout');
-            showToast(`🎉 CASHOUT! Won +${winTotal.toFixed(4)} TAX (${multiplierLocked.toFixed(2)}x)!`);
-
-            updateAviatorActionButton();
-            updateTopStatsUI();
-            if (window.triggerCloudSave) window.triggerCloudSave();
-        }
-
-        window.halveAviatorBet = function() {
-            const inp = document.getElementById('aviator-bet-input');
-            if (!inp) return;
-            const current = parseFloat(inp.value) || 25;
-            inp.value = Math.max(1, Math.floor(current / 2));
-            updateAviatorActionButton();
-        };
-
-        window.doubleAviatorBet = function() {
-            const inp = document.getElementById('aviator-bet-input');
-            if (!inp) return;
-            const current = parseFloat(inp.value) || 25;
-            inp.value = Math.min(Math.floor(state.balance), Math.max(1, current * 2));
-            updateAviatorActionButton();
-        };
-
-        window.setAviatorBet = function(amount) {
-            const inp = document.getElementById('aviator-bet-input');
-            if (inp) {
-                inp.value = amount;
-                updateAviatorActionButton();
-            }
-        };
-
-        window.setAviatorBetMax = function() {
-            const inp = document.getElementById('aviator-bet-input');
-            if (inp) {
-                inp.value = Math.max(1, Math.floor(state.balance));
-                updateAviatorActionButton();
-            }
-        };
-
-        function renderAviatorHistoryPills() {
-            const bar = document.getElementById('aviator-history-bar');
-            if (!bar) return;
-            bar.innerHTML = aviator.recentMultipliers.map(m => {
-                const val = Number(m).toFixed(2);
-                let colorClass = "bg-sky-950/80 border-sky-400/40 text-sky-400";
-                if (m >= 3.0) colorClass = "bg-purple-950/80 border-purple-400/40 text-purple-400";
-                else if (m >= 2.0) colorClass = "bg-emerald-950/80 border-emerald-400/40 text-emerald-400";
-                return `<span class="px-2.5 py-1 rounded-lg text-xs font-black border ${colorClass}">${val}x</span>`;
-            }).join('');
-        }
-
-        window.openAviatorModal = function() {
-            const modal = document.getElementById('aviator-modal');
-            if (!modal) return;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-
-            document.getElementById('aviator-pool-bal').textContent = `${formatTax(state.balance)} TAX`;
-            renderAviatorHistoryPills();
-
-            setTimeout(() => {
-                resizeAviatorCanvas();
-                if (!aviator.animFrameId) {
-                    startAviatorWaitingRound();
-                    renderAviatorFrame();
-                }
-            }, 50);
-        };
-
-        window.closeAviatorModal = function() {
-            const modal = document.getElementById('aviator-modal');
-            if (!modal) return;
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            updateTopStatsUI();
-        };
-
-        const mines = {
-            active: false,
-            betAmount: 25,
-            mineCount: 3,
-            grid: Array(25).fill(false),
-            revealed: Array(25).fill(false),
-            gemsFound: 0,
-            currentMultiplier: 1.00,
-            nextMultiplier: 1.10
-        };
-
-        function calculateMinesMultiplier(mineCount, gemsFound) {
-            if (gemsFound <= 0) return 1.00;
-            const totalTiles = 25;
-            const safeTiles = totalTiles - mineCount;
-            if (gemsFound > safeTiles) return 1.00;
-
-            let prob = 1.0;
-            for (let i = 0; i < gemsFound; i++) {
-                prob *= (safeTiles - i) / (totalTiles - i);
-            }
-            if (prob <= 0) return 1.00;
-            const rawMult = (0.97 / prob);
-            return Math.max(1.01, Math.floor(rawMult * 100) / 100);
-        }
-
-        function initMinesGrid() {
-            const container = document.getElementById('mines-grid');
-            if (!container) return;
-            container.innerHTML = '';
-
-            for (let i = 0; i < 25; i++) {
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.id = `mines-tile-${i}`;
-                btn.onclick = () => onMinesTileClicked(i);
-                btn.className = "mines-tile w-full aspect-square rounded-xl bg-slate-800/90 border border-white/10 hover:border-emerald-400/50 flex items-center justify-center text-lg font-black text-slate-300 shadow-md";
-                btn.innerHTML = `<span class="tile-icon text-slate-600 text-xs"><i class="fa-solid fa-cube"></i></span>`;
-                container.appendChild(btn);
-            }
-        }
-
-        window.openMinesModal = function() {
-            const modal = document.getElementById('mines-modal');
-            if (!modal) return;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-
-            document.getElementById('mines-pool-bal').textContent = `${formatTax(state.balance)} TAX`;
-            initMinesGrid();
-            updateMinesUI();
-        };
-
-        window.closeMinesModal = function() {
-            const modal = document.getElementById('mines-modal');
-            if (!modal) return;
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            updateTopStatsUI();
-        };
-
-        window.changeMinesCount = function() {
-            if (mines.active) return;
-            const sel = document.getElementById('mines-count-select');
-            if (sel) {
-                mines.mineCount = parseInt(sel.value) || 3;
-                updateMinesUI();
-            }
-        };
-
-        window.setMinesBet = function(val) {
-            if (mines.active) return;
-            const inp = document.getElementById('mines-bet-input');
-            if (inp) {
-                inp.value = val;
-                updateMinesUI();
-            }
-        };
-
-        window.setMinesBetMax = function() {
-            if (mines.active) return;
-            const inp = document.getElementById('mines-bet-input');
-            if (inp) {
-                inp.value = Math.max(1, Math.floor(state.balance));
-                updateMinesUI();
-            }
-        };
-
-        window.halveMinesBet = function() {
-            if (mines.active) return;
-            const inp = document.getElementById('mines-bet-input');
-            if (inp) {
-                const cur = parseFloat(inp.value) || 25;
-                inp.value = Math.max(1, Math.floor(cur / 2));
-                updateMinesUI();
-            }
-        };
-
-        window.doubleMinesBet = function() {
-            if (mines.active) return;
-            const inp = document.getElementById('mines-bet-input');
-            if (inp) {
-                const cur = parseFloat(inp.value) || 25;
-                inp.value = Math.min(Math.floor(state.balance), Math.max(1, cur * 2));
-                updateMinesUI();
-            }
-        };
-
-        window.handleMinesAction = function() {
-            if (!mines.active) {
-                startMinesGame();
-            } else {
-                cashOutMines();
-            }
-        };
-
-        function startMinesGame() {
-            const betInp = document.getElementById('mines-bet-input');
-            const betVal = parseFloat(betInp?.value) || 25;
-
-            if (betVal <= 0) return showToast("Enter a valid bet amount!", true);
-            if (betVal > state.balance) {
-                playSound('error');
-                return showToast("Insufficient Pool Wallet balance!", true);
-            }
-
-            state.balance -= betVal;
-            mines.active = true;
-            mines.betAmount = betVal;
-            mines.gemsFound = 0;
-            mines.revealed = Array(25).fill(false);
-            mines.grid = Array(25).fill(false);
-
-            let placed = 0;
-            while (placed < mines.mineCount) {
-                const randIdx = Math.floor(Math.random() * 25);
-                if (!mines.grid[randIdx]) {
-                    mines.grid[randIdx] = true;
-                    placed++;
-                }
-            }
-
-            playSound('tap');
-            showToast(`💣 Game Started with ${mines.mineCount} Mines! Find the gems!`);
-
-            document.getElementById('mines-bet-input').disabled = true;
-            document.getElementById('mines-count-select').disabled = true;
-
-            initMinesGrid();
-            updateMinesUI();
-            updateTopStatsUI();
-        }
-
-        function onMinesTileClicked(idx) {
-            if (!mines.active || mines.revealed[idx]) return;
-
-            mines.revealed[idx] = true;
-            const tileBtn = document.getElementById(`mines-tile-${idx}`);
-
-            if (mines.grid[idx]) {
-                tileBtn.className = "mines-tile revealed-bomb w-full aspect-square rounded-xl border flex items-center justify-center text-xl text-white";
-                tileBtn.innerHTML = `<i class="fa-solid fa-bomb text-red-100"></i>`;
-                playSound('mine_boom');
-                triggerMinesGameOver(idx);
-            } else {
-                mines.gemsFound++;
-                tileBtn.className = "mines-tile revealed-gem w-full aspect-square rounded-xl border flex items-center justify-center text-xl text-emerald-200";
-                tileBtn.innerHTML = `<i class="fa-solid fa-gem text-emerald-300"></i>`;
-                playSound('gem');
-
-                const totalSafe = 25 - mines.mineCount;
-                if (mines.gemsFound >= totalSafe) {
-                    cashOutMines(true);
-                } else {
-                    updateMinesUI();
-                }
-            }
-        }
-
-        function cashOutMines(allCleared = false) {
-            if (!mines.active || mines.gemsFound === 0) return;
-
-            const winTotal = mines.betAmount * mines.currentMultiplier;
-            state.balance += winTotal;
-            playSound('cashout');
-
-            if (allCleared) {
-                showToast(`🏆 ALL GEMS CLEARED! Jackpot +${winTotal.toFixed(4)} TAX!`);
-            } else {
-                showToast(`🎉 CASHOUT! Won +${winTotal.toFixed(4)} TAX (${mines.currentMultiplier.toFixed(2)}x)!`);
-            }
-
-            revealAllMinesRemaining();
-            mines.active = false;
-            resetMinesControls();
-            updateTopStatsUI();
-            if (window.triggerCloudSave) window.triggerCloudSave();
-        }
-
-        function triggerMinesGameOver(hitIndex) {
-            mines.active = false;
-            showToast(`💥 BOOM! Hit a mine. Lost ${mines.betAmount} TAX`, true);
-            revealAllMinesRemaining(hitIndex);
-            resetMinesControls();
-            updateTopStatsUI();
-        }
-
-        function revealAllMinesRemaining(hitIndex = -1) {
-            for (let i = 0; i < 25; i++) {
-                const btn = document.getElementById(`mines-tile-${i}`);
-                if (!btn) continue;
-                btn.disabled = true;
-
-                if (!mines.revealed[i]) {
-                    if (mines.grid[i]) {
-                        btn.className = "mines-tile w-full aspect-square rounded-xl bg-red-950/40 border border-red-500/40 flex items-center justify-center text-base text-red-400 opacity-80";
-                        btn.innerHTML = `<i class="fa-solid fa-bomb text-red-400"></i>`;
-                    } else {
-                        btn.className = "mines-tile w-full aspect-square rounded-xl bg-emerald-950/30 border border-emerald-500/20 flex items-center justify-center text-sm text-emerald-500 opacity-60";
-                        btn.innerHTML = `<i class="fa-solid fa-gem text-emerald-600"></i>`;
-                    }
-                }
-            }
-        }
-
-        function resetMinesControls() {
-            document.getElementById('mines-bet-input').disabled = false;
-            document.getElementById('mines-count-select').disabled = false;
-
-            const btn = document.getElementById('mines-action-btn');
-            const label = document.getElementById('mines-btn-label');
-            if (btn && label) {
-                btn.className = "w-full py-3.5 rounded-xl gold-pill-btn text-sm font-black tracking-wide flex items-center justify-center gap-2 transition";
-                const betVal = parseFloat(document.getElementById('mines-bet-input')?.value) || 25;
-                label.textContent = `START GAME (${betVal} TAX)`;
-            }
-        }
-
-        function updateMinesUI() {
-            const curMult = calculateMinesMultiplier(mines.mineCount, mines.gemsFound);
-            const nxtMult = calculateMinesMultiplier(mines.mineCount, mines.gemsFound + 1);
-            mines.currentMultiplier = curMult;
-            mines.nextMultiplier = nxtMult;
-
-            const safeTiles = 25 - mines.mineCount;
-            document.getElementById('mines-gems-count').textContent = `${mines.gemsFound} / ${safeTiles}`;
-            document.getElementById('mines-current-mult').textContent = `${curMult.toFixed(2)}x`;
-            document.getElementById('mines-next-mult').textContent = `${nxtMult.toFixed(2)}x`;
-
-            const poolBal = document.getElementById('mines-pool-bal');
-            if (poolBal) poolBal.textContent = `${formatTax(state.balance)} TAX`;
-
-            const btn = document.getElementById('mines-action-btn');
-            const label = document.getElementById('mines-btn-label');
-            if (btn && label) {
-                if (mines.active) {
-                    if (mines.gemsFound > 0) {
-                        const winAmt = (mines.betAmount * curMult).toFixed(2);
-                        btn.className = "w-full py-3.5 rounded-xl aviator-cashout-btn text-sm font-black tracking-wide flex items-center justify-center gap-2 transition";
-                        label.innerHTML = `CASH OUT <span class="text-slate-900">${winAmt} TAX</span> (${curMult.toFixed(2)}x)`;
-                    } else {
-                        btn.className = "w-full py-3.5 rounded-xl bg-slate-800 text-slate-400 text-sm font-bold flex items-center justify-center gap-2 cursor-not-allowed";
-                        label.textContent = `PICK A TILE (0 / ${safeTiles})`;
-                    }
-                } else {
-                    const betVal = parseFloat(document.getElementById('mines-bet-input')?.value) || 25;
-                    btn.className = "w-full py-3.5 rounded-xl gold-pill-btn text-sm font-black tracking-wide flex items-center justify-center gap-2 transition";
-                    label.textContent = `START GAME (${betVal} TAX)`;
-                }
-            }
-        }
-
-        const coinFlipState = {
-            choice: 'heads',
-            isFlipping: false
-        };
-
-        window.openCoinFlipModal = function() {
-            const modal = document.getElementById('coinflip-modal');
-            if (!modal) return;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            updateFlipWinPreview();
-        };
-
-        window.closeCoinFlipModal = function() {
-            const modal = document.getElementById('coinflip-modal');
-            if (!modal) return;
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            updateTopStatsUI();
-        };
-
-        window.setCoinFlipChoice = function(choice) {
-            if (coinFlipState.isFlipping) return;
-            coinFlipState.choice = choice;
-
-            const headsBtn = document.getElementById('flip-choice-heads');
-            const tailsBtn = document.getElementById('flip-choice-tails');
-
-            if (choice === 'heads') {
-                headsBtn.className = "py-2.5 rounded-xl border border-amber-400 bg-amber-500/20 text-amber-300 font-black text-xs flex items-center justify-center gap-1.5 transition";
-                tailsBtn.className = "py-2.5 rounded-xl border border-white/10 bg-slate-900 text-slate-400 font-bold text-xs flex items-center justify-center gap-1.5 transition";
-            } else {
-                tailsBtn.className = "py-2.5 rounded-xl border border-cyan-400 bg-cyan-500/20 text-cyan-300 font-black text-xs flex items-center justify-center gap-1.5 transition";
-                headsBtn.className = "py-2.5 rounded-xl border border-white/10 bg-slate-900 text-slate-400 font-bold text-xs flex items-center justify-center gap-1.5 transition";
-            }
-            playSound('tap');
-        };
-
-        window.setFlipBet = function(amt) {
-            const inp = document.getElementById('flip-bet-input');
-            if (inp) {
-                inp.value = amt;
-                updateFlipWinPreview();
-            }
-        };
-
-        window.setFlipBetMax = function() {
-            const inp = document.getElementById('flip-bet-input');
-            if (inp) {
-                inp.value = Math.max(1, Math.floor(state.balance));
-                updateFlipWinPreview();
-            }
-        };
-
-        window.updateFlipWinPreview = function() {
-            const inp = document.getElementById('flip-bet-input');
-            const preview = document.getElementById('flip-win-preview');
-            const btnLabel = document.getElementById('flip-btn-label');
-            const betVal = parseFloat(inp?.value) || 25;
-            const winVal = (betVal * 1.95).toFixed(2);
-
-            if (preview) preview.textContent = `${winVal} TAX`;
-            if (btnLabel && !coinFlipState.isFlipping) {
-                btnLabel.textContent = `FLIP COIN (${betVal} TAX)`;
-            }
-        };
-
-        window.flipCoinNow = function() {
-            if (coinFlipState.isFlipping) return;
-
-            const inp = document.getElementById('flip-bet-input');
-            const betVal = parseFloat(inp?.value) || 25;
-
-            if (betVal <= 0) return showToast("Enter a valid bet amount!", true);
-            if (betVal > state.balance) {
-                playSound('error');
-                return showToast("Insufficient Pool Wallet balance!", true);
-            }
-
-            state.balance -= betVal;
-            coinFlipState.isFlipping = true;
-            updateTopStatsUI();
-
-            const actionBtn = document.getElementById('flip-action-btn');
-            const btnLabel = document.getElementById('flip-btn-label');
-            const visual = document.getElementById('flip-coin-visual');
-            const sym = document.getElementById('flip-coin-symbol');
-            const sub = document.getElementById('flip-coin-sub');
-
-            actionBtn.disabled = true;
-            btnLabel.textContent = "FLIPPING...";
-            playSound('tap');
-
-            visual.style.transform = "rotateY(1800deg) scale(1.15)";
-
-            setTimeout(() => {
-                const outcome = Math.random() < 0.5 ? 'heads' : 'tails';
-                visual.style.transform = "rotateY(0deg) scale(1)";
-
-                if (outcome === 'heads') {
-                    sym.textContent = "TAX";
-                    sub.textContent = "HEADS";
-                } else {
-                    sym.textContent = "🛡️";
-                    sub.textContent = "TAILS";
-                }
-
-                if (outcome === coinFlipState.choice) {
-                    const winTotal = betVal * 1.95;
-                    state.balance += winTotal;
-                    playSound('cashout');
-                    showToast(`🎉 WON! ${outcome.toUpperCase()}! +${winTotal.toFixed(4)} TAX!`);
-                } else {
-                    playSound('mine_boom');
-                    showToast(`❌ Lost ${betVal} TAX! Result was ${outcome.toUpperCase()}`, true);
-                }
-
-                coinFlipState.isFlipping = false;
-                actionBtn.disabled = false;
-                updateFlipWinPreview();
-                updateTopStatsUI();
-                if (window.triggerCloudSave) window.triggerCloudSave();
-            }, 1200);
-        };
-
         function recalculatePph() {
             let total = 0;
             empireCatalog.forEach(item => {
@@ -2364,6 +1107,10 @@
                 total += lvl * item.basePph;
             });
             state.pph = total;
+        }
+
+        function formatTax(num) {
+            return Number(num || 0).toFixed(4);
         }
 
         function updateTopStatsUI() {
@@ -2385,9 +1132,7 @@
             document.getElementById('regen-rate-display').textContent = state.regenRate;
             document.getElementById('energy-bar').style.width = `${Math.min(100, (state.energy / state.maxEnergy) * 100)}%`;
 
-            const aviatorPool = document.getElementById('aviator-pool-bal');
-            if (aviatorPool) aviatorPool.textContent = `${formatTax(poolBal)} TAX`;
-
+            // League Calculation
             let currentLeagueIdx = 0;
             for (let i = 0; i < leagues.length; i++) {
                 if (poolBal >= leagues[i].min) currentLeagueIdx = i;
@@ -2399,6 +1144,7 @@
             document.getElementById('league-percent').textContent = `${pct}%`;
             document.getElementById('league-bar').style.width = `${Math.max(4, pct)}%`;
 
+            // Sync Profile Tab Values
             const assetsTaxEl = document.getElementById('profile-assets-tax');
             const assetsUsdEl = document.getElementById('profile-assets-usd');
             const holdingEl = document.getElementById('profile-holding-tax');
@@ -2416,39 +1162,453 @@
 
             const availWithdraw = document.getElementById('withdraw-avail-bal');
             if (availWithdraw) availWithdraw.textContent = `${formatTax(poolBal)} TAX`;
+
+            const aviatorBal = document.getElementById('aviator-pool-bal');
+            if (aviatorBal) aviatorBal.textContent = `${formatTax(poolBal)} TAX`;
         }
+
+        const aviatorState = {
+            status: 'IDLE',
+            multiplier: 1.00,
+            crashPoint: 1.00,
+            betAmount: 0,
+            cashedOut: false,
+            cashOutMult: 0,
+            startTime: 0,
+            animFrame: null,
+            history: [1.85, 1.14, 3.42, 1.08, 6.20, 2.15]
+        };
+
+        function generateCrashPoint() {
+            const r = Math.random();
+            if (r < 0.04) return 1.00;
+            const crash = Math.max(1.01, Number((0.96 / (1 - r)).toFixed(2)));
+            return Math.min(crash, 100.00);
+        }
+
+        function renderAviatorHistory() {
+            const strip = document.getElementById('aviator-history-strip');
+            if (!strip) return;
+            strip.innerHTML = aviatorState.history.slice(0, 8).map(m => {
+                let badgeClass = 'bg-slate-800 text-sky-400 border-sky-500/30';
+                if (m >= 5) badgeClass = 'bg-purple-500/20 text-purple-300 border-purple-400/50';
+                else if (m >= 2) badgeClass = 'bg-emerald-500/20 text-emerald-300 border-emerald-400/40';
+                return `<span class="px-2 py-0.5 rounded-lg border ${badgeClass} font-bold shrink-0">${m.toFixed(2)}x</span>`;
+            }).join('');
+        }
+
+        window.openAviatorModal = function() {
+            updateTopStatsUI();
+            renderAviatorHistory();
+            document.getElementById('aviator-modal').classList.remove('hidden');
+            document.getElementById('aviator-modal').classList.add('flex');
+            resizeAviatorCanvas();
+            drawAviatorFrame();
+        };
+
+        window.closeAviatorModal = function() {
+            if (aviatorState.status === 'FLYING' && !aviatorState.cashedOut) {
+                return showToast("⚠️️ Cash out or wait for flight to finish first!", true);
+            }
+            document.getElementById('aviator-modal').classList.add('hidden');
+            document.getElementById('aviator-modal').classList.remove('flex');
+        };
+
+        window.setAviatorBet = function(val) {
+            if (aviatorState.status === 'FLYING') return;
+            const inp = document.getElementById('aviator-bet-input');
+            if (!inp) return;
+            if (val === 'MAX') {
+                inp.value = Math.max(10, Math.floor(state.balance));
+            } else {
+                inp.value = val;
+            }
+        };
+
+        window.adjustAviatorBet = function(factor) {
+            if (aviatorState.status === 'FLYING') return;
+            const inp = document.getElementById('aviator-bet-input');
+            if (!inp) return;
+            const current = parseFloat(inp.value) || 10;
+            const nextVal = Math.max(10, Math.min(Math.floor(state.balance) || 10, Math.floor(current * factor)));
+            inp.value = nextVal;
+        };
+
+        window.handleAviatorAction = function() {
+            if (aviatorState.status === 'FLYING') {
+                if (!aviatorState.cashedOut) {
+                    cashOutAviator();
+                }
+                return;
+            }
+            startAviatorFlight();
+        };
+
+        function startAviatorFlight() {
+            const betInput = document.getElementById('aviator-bet-input');
+            const bet = parseFloat(betInput.value) || 0;
+
+            if (bet < 10) {
+                playSound('error');
+                return showToast("⚠️️ Minimum bet is 10 TAX!", true);
+            }
+            if (bet > state.balance) {
+                playSound('error');
+                return showToast("⚠️ Not enough TAX in Pool Wallet!", true);
+            }
+
+            state.balance -= bet;
+            updateTopStatsUI();
+
+            aviatorState.status = 'FLYING';
+            aviatorState.multiplier = 1.00;
+            aviatorState.crashPoint = generateCrashPoint();
+            aviatorState.betAmount = bet;
+            aviatorState.cashedOut = false;
+            aviatorState.cashOutMult = 0;
+            aviatorState.startTime = performance.now();
+
+            const statusBadge = document.getElementById('aviator-status-badge');
+            const multText = document.getElementById('aviator-multiplier-text');
+            const winPill = document.getElementById('aviator-live-win-pill');
+            const actionBtn = document.getElementById('aviator-action-btn');
+
+            statusBadge.textContent = "✈️ FLIGHT IN PROGRESS";
+            statusBadge.className = "text-[11px] font-extrabold uppercase tracking-widest text-amber-400 mb-0.5";
+            multText.className = "text-4xl sm:text-5xl font-black font-cyber text-white drop-shadow-[0_0_20px_rgba(244,63,94,0.6)]";
+            winPill.classList.remove('hidden');
+
+            actionBtn.textContent = `💰 CASH OUT (${bet.toFixed(2)} TAX)`;
+            actionBtn.className = "w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-lime-400 text-slate-950 font-black text-sm tracking-wide shadow-lg shadow-emerald-500/40 active:scale-[0.98] transition uppercase font-cyber";
+
+            playSound('tap');
+            if (aviatorState.animFrame) cancelAnimationFrame(aviatorState.animFrame);
+            aviatorLoop(performance.now());
+        }
+
+        function cashOutAviator() {
+            if (aviatorState.status !== 'FLYING' || aviatorState.cashedOut) return;
+            aviatorState.cashedOut = true;
+            aviatorState.cashOutMult = aviatorState.multiplier;
+
+            const winAmount = aviatorState.betAmount * aviatorState.cashOutMult;
+            state.balance += winAmount;
+            updateTopStatsUI();
+
+            playSound('upgrade');
+            if (tg && tg.HapticFeedback) {
+                try { tg.HapticFeedback.notificationOccurred('success'); } catch (e) {}
+            }
+
+            const actionBtn = document.getElementById('aviator-action-btn');
+            const winPill = document.getElementById('aviator-live-win-pill');
+            actionBtn.textContent = `✅ CASHED OUT @ ${aviatorState.cashOutMult.toFixed(2)}x`;
+            actionBtn.className = "w-full py-3 rounded-xl bg-slate-800 text-emerald-400 border border-emerald-400/40 font-black text-sm tracking-wide uppercase font-cyber cursor-default";
+            winPill.textContent = `🎉 WON +${winAmount.toFixed(4)} TAX!`;
+
+            showToast(`✈️ Cashed Out @ ${aviatorState.cashOutMult.toFixed(2)}x! Won +${winAmount.toFixed(2)} TAX!`);
+        }
+
+        function finishAviatorCrash() {
+            aviatorState.status = 'CRASHED';
+            aviatorState.history.unshift(aviatorState.crashPoint);
+            if (aviatorState.history.length > 10) aviatorState.history.pop();
+            renderAviatorHistory();
+
+            const statusBadge = document.getElementById('aviator-status-badge');
+            const multText = document.getElementById('aviator-multiplier-text');
+            const actionBtn = document.getElementById('aviator-action-btn');
+            const winPill = document.getElementById('aviator-live-win-pill');
+
+            statusBadge.textContent = "💥 FLEW AWAY!";
+            statusBadge.className = "text-[11px] font-extrabold uppercase tracking-widest text-rose-500 mb-0.5";
+            multText.textContent = `${aviatorState.crashPoint.toFixed(2)}x`;
+            multText.className = "text-4xl sm:text-5xl font-black font-cyber text-rose-500 drop-shadow-[0_0_25px_rgba(244,63,94,0.8)]";
+
+            if (!aviatorState.cashedOut) {
+                playSound('error');
+                winPill.textContent = `Lost -${aviatorState.betAmount.toFixed(2)} TAX`;
+                winPill.className = "mt-1.5 px-3 py-0.5 rounded-full bg-rose-500/20 border border-rose-400/50 text-rose-300 text-xs font-extrabold";
+            }
+
+            actionBtn.textContent = "🚀 BET & TAKE OFF AGAIN";
+            actionBtn.className = "w-full py-3 rounded-xl bg-gradient-to-r from-rose-600 via-red-500 to-amber-500 text-white font-black text-sm tracking-wide shadow-lg shadow-rose-600/30 active:scale-[0.98] transition uppercase font-cyber";
+            drawAviatorFrame();
+        }
+
+        function aviatorLoop(now) {
+            if (aviatorState.status !== 'FLYING') return;
+            const elapsedSec = (now - aviatorState.startTime) / 1000;
+            const nextMult = Math.pow(Math.E, 0.14 * elapsedSec);
+            aviatorState.multiplier = Number(nextMult.toFixed(2));
+
+            const autoCheck = document.getElementById('aviator-auto-check');
+            const autoInput = document.getElementById('aviator-auto-input');
+            if (!aviatorState.cashedOut && autoCheck && autoCheck.checked) {
+                const targetMult = parseFloat(autoInput.value) || 2.00;
+                if (aviatorState.multiplier >= targetMult && targetMult <= aviatorState.crashPoint) {
+                    aviatorState.multiplier = targetMult;
+                    cashOutAviator();
+                }
+            }
+
+            if (aviatorState.multiplier >= aviatorState.crashPoint) {
+                aviatorState.multiplier = aviatorState.crashPoint;
+                finishAviatorCrash();
+                return;
+            }
+
+            const multText = document.getElementById('aviator-multiplier-text');
+            const winPill = document.getElementById('aviator-live-win-pill');
+            const actionBtn = document.getElementById('aviator-action-btn');
+
+            multText.textContent = `${aviatorState.multiplier.toFixed(2)}x`;
+            const potentialWin = aviatorState.betAmount * aviatorState.multiplier;
+
+            if (!aviatorState.cashedOut) {
+                winPill.className = "mt-1.5 px-3 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-extrabold";
+                winPill.textContent = `Win: +${potentialWin.toFixed(4)} TAX`;
+                actionBtn.textContent = `💰 CASH OUT (${potentialWin.toFixed(2)} TAX)`;
+            }
+
+            drawAviatorFrame();
+            aviatorState.animFrame = requestAnimationFrame(aviatorLoop);
+        }
+
+        function resizeAviatorCanvas() {
+            const canvas = document.getElementById('aviator-canvas');
+            if (!canvas) return;
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width || 340;
+            canvas.height = rect.height || 195;
+        }
+
+        function drawAviatorFrame() {
+            const canvas = document.getElementById('aviator-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+
+            ctx.clearRect(0, 0, w, h);
+
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+            ctx.lineWidth = 1;
+            const gridStep = 30;
+            for (let x = 0; x < w; x += gridStep) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, h);
+                ctx.stroke();
+            }
+            for (let y = 0; y < h; y += gridStep) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(w, y);
+                ctx.stroke();
+            }
+
+            const progress = aviatorState.status === 'IDLE'
+                ? 0.08
+                : Math.min(0.92, Math.log(aviatorState.multiplier) / Math.log(12));
+
+            const startX = 18;
+            const startY = h - 18;
+            const endX = startX + (w - 58) * progress;
+            const endY = startY - (h - 52) * Math.pow(progress, 1.15);
+            const ctrlX = startX + (endX - startX) * 0.65;
+            const ctrlY = startY;
+
+            const grad = ctx.createLinearGradient(0, endY, 0, startY);
+            if (aviatorState.status === 'CRASHED') {
+                grad.addColorStop(0, 'rgba(244, 63, 94, 0.25)');
+                grad.addColorStop(1, 'rgba(244, 63, 94, 0.0)');
+            } else {
+                grad.addColorStop(0, 'rgba(245, 158, 11, 0.35)');
+                grad.addColorStop(1, 'rgba(225, 29, 72, 0.02)');
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.quadraticCurveTo(ctrlX, ctrlY, endX, endY);
+            ctx.lineTo(endX, startY);
+            ctx.closePath();
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(startX, startY);
+            ctx.quadraticCurveTo(ctrlX, ctrlY, endX, endY);
+            ctx.strokeStyle = aviatorState.status === 'CRASHED' ? '#f43f5e' : '#fbbf24';
+            ctx.lineWidth = 3.5;
+            ctx.stroke();
+
+            if (aviatorState.status !== 'CRASHED') {
+                ctx.save();
+                ctx.translate(endX, endY);
+                ctx.rotate(-0.38);
+
+                ctx.shadowColor = '#f59e0b';
+                ctx.shadowBlur = 14;
+
+                ctx.fillStyle = '#fde047';
+                ctx.beginPath();
+                ctx.moveTo(14, 0);
+                ctx.lineTo(-10, -7);
+                ctx.lineTo(-6, 0);
+                ctx.lineTo(-10, 7);
+                ctx.closePath();
+                ctx.fill();
+
+                if (aviatorState.status === 'FLYING') {
+                    ctx.fillStyle = '#f43f5e';
+                    ctx.beginPath();
+                    ctx.moveTo(-8, -3);
+                    ctx.lineTo(-16 - Math.random() * 6, 0);
+                    ctx.lineTo(-8, 3);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            const modal = document.getElementById('aviator-modal');
+            if (modal && !modal.classList.contains('hidden')) {
+                resizeAviatorCanvas();
+                drawAviatorFrame();
+            }
+        });
 
         function getEmpireCardCost(item) {
             const lvl = state.empireLevels[item.id] || 0;
-            return Math.floor(item.baseCost * Math.pow(1.5, lvl));
+            return Math.floor(item.baseCost * Math.pow(1.55, lvl));
         }
 
         function renderEmpireCards() {
             const container = document.getElementById('empire-cards-list');
             if (!container) return;
             container.innerHTML = '';
+
             empireCatalog.forEach(item => {
                 const lvl = state.empireLevels[item.id] || 0;
                 const cost = getEmpireCardCost(item);
+                const currentPph = lvl * item.basePph;
+
                 const card = document.createElement('div');
-                card.className = "glass-card rounded-2xl p-3.5 flex items-center justify-between";
+                card.className = "glass-card rounded-2xl p-3.5 flex items-center justify-between border border-white/10";
                 card.innerHTML = `
                     <div class="flex items-center gap-3">
                         <div class="w-11 h-11 rounded-xl bg-slate-800/90 border border-white/10 flex items-center justify-center ${item.color} text-lg">
                             <i class="fa-solid ${item.icon}"></i>
                         </div>
                         <div>
-                            <div class="text-xs font-extrabold text-white">${item.name} <span class="text-[10px] text-amber-400 ml-1">Lvl ${lvl}</span></div>
-                            <div class="text-[11px] text-emerald-400 font-semibold">+${item.basePph.toLocaleString()} TAX / hr</div>
-                            <div class="text-xs font-extrabold text-amber-400 mt-0.5">🪙 ${cost.toLocaleString()} TAX</div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-xs font-extrabold text-white">${item.name}</span>
+                                <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-amber-400 font-bold">Lvl ${lvl}</span>
+                            </div>
+                            <div class="text-[11px] text-emerald-400 font-semibold mt-0.5">
+                                +${item.basePph.toLocaleString()}/hr <span class="text-slate-500">• Total: ${currentPph.toLocaleString()}/hr</span>
+                            </div>
                         </div>
                     </div>
-                    <button type="button" onclick="buyEmpireDepartment('${item.id}')" class="px-4 py-2 rounded-full gold-pill-btn text-xs transition">
-                        Upgrade
+                    <button type="button" onclick="buyEmpireDepartment('${item.id}')" class="px-3.5 py-2 rounded-xl gold-pill-btn text-xs flex flex-col items-center leading-tight shrink-0">
+                        <span>Upgrade</span>
+                        <span class="text-[10px] font-black opacity-90">🪙 ${cost.toLocaleString()}</span>
                     </button>
                 `;
                 container.appendChild(card);
             });
+        }
+
+        function updateAllUI() {
+            recalculatePph();
+            updateTopStatsUI();
+
+            const uidHeader = document.getElementById('uid-display');
+            const uidProfile = document.getElementById('profile-uid-text');
+            if (uidHeader) uidHeader.textContent = `ID: ${state.numericUid}`;
+            if (uidProfile) uidProfile.textContent = state.numericUid;
+
+            const verIcon = document.getElementById('verified-mini-icon');
+            const verStatus = document.getElementById('profile-verify-status');
+            const verBtn = document.getElementById('profile-verify-btn');
+            if (state.isVerified) {
+                if (verIcon) verIcon.classList.remove('hidden');
+                if (verStatus) {
+                    verStatus.textContent = "Verified ✅";
+                    verStatus.className = "text-xs text-emerald-400 font-bold mt-0.5";
+                }
+                if (verBtn) {
+                    verBtn.textContent = "Verified";
+                    verBtn.className = "px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-bold text-xs";
+                }
+            } else {
+                if (verIcon) verIcon.classList.add('hidden');
+                if (verStatus) {
+                    verStatus.textContent = "Unverified";
+                    verStatus.className = "text-xs text-slate-400 mt-0.5";
+                }
+                if (verBtn) {
+                    verBtn.textContent = "Verify";
+                    verBtn.className = "px-5 py-2 rounded-full gold-pill-btn text-xs transition";
+                }
+            }
+
+            const topSoundIcon = document.getElementById('sound-icon');
+            const profSoundIcon = document.getElementById('profile-sound-icon');
+            const profSoundStatus = document.getElementById('profile-sound-status');
+            if (topSoundIcon) {
+                topSoundIcon.className = state.soundEnabled
+                    ? "fa-solid fa-volume-high text-xs"
+                    : "fa-solid fa-volume-xmark text-xs text-slate-500";
+            }
+            if (profSoundIcon) {
+                profSoundIcon.className = state.soundEnabled
+                    ? "fa-solid fa-volume-high"
+                    : "fa-solid fa-volume-xmark text-slate-500";
+            }
+            if (profSoundStatus) {
+                profSoundStatus.textContent = state.soundEnabled
+                    ? "On — tap to mute"
+                    : "Off — tap to unmute";
+            }
+
+            const refillQuick = document.getElementById('refill-left-Quick');
+            const refillModal = document.getElementById('refill-left');
+            const turboQuick = document.getElementById('turbo-left');
+            const turboModal = document.getElementById('turbo-left-boost');
+            const spinsModal = document.getElementById('spins-left-modal');
+            const invitedEl = document.getElementById('invited-count');
+
+            if (refillQuick) refillQuick.textContent = state.refillsLeft;
+            if (refillModal) refillModal.textContent = state.refillsLeft;
+            if (turboQuick) turboQuick.textContent = state.turbosLeft;
+            if (turboModal) turboModal.textContent = state.turbosLeft;
+            if (spinsModal) spinsModal.textContent = state.spinsLeft;
+            if (invitedEl) invitedEl.textContent = `${state.invitedCount} Friends`;
+
+            const mtLvl = document.getElementById('multitap-lvl');
+            const mtCost = document.getElementById('multitap-cost-display');
+            const enLvl = document.getElementById('energy-lvl');
+            const enCost = document.getElementById('energy-cost-display');
+            const rgLvl = document.getElementById('regen-lvl');
+            const rgCost = document.getElementById('regen-cost-display');
+
+            if (mtLvl) mtLvl.textContent = `Lvl ${state.multitapLvl}`;
+            if (mtCost) mtCost.textContent = `🪙 ${state.multitapCost.toLocaleString()} TAX (+1/tap)`;
+            if (enLvl) enLvl.textContent = `Lvl ${state.energyLvl}`;
+            if (enCost) enCost.textContent = `🪙 ${state.energyCost.toLocaleString()} TAX (+500 Max)`;
+            if (rgLvl) rgLvl.textContent = `Lvl ${state.regenLvl}`;
+            if (rgCost) rgCost.textContent = `🪙 ${state.regenCost.toLocaleString()} TAX (+1/sec)`;
+
+            applySkinColors(state.skin);
+            renderEmpireCards();
+            renderTasks();
+            renderLeaderboard();
+            renderWithdrawHistory();
+            updateWithdrawPreview();
         }
 
         window.buyEmpireDepartment = function(deptId) {
@@ -2465,7 +1625,6 @@
             playSound('upgrade');
             showToast(`⚡ ${item.name} upgraded! +${item.basePph}/hr`);
             updateAllUI();
-            if (window.triggerCloudSave) window.triggerCloudSave();
         };
 
         function renderTasks() {
@@ -2495,14 +1654,6 @@
             const task = tasksCatalog.find(t => t.id === taskId);
             if (!task || state.completedTasks[taskId]) return;
 
-            if (task.id === 'play_aviator') {
-                openAviatorModal();
-                return;
-            }
-            if (task.id === 'play_mines') {
-                openMinesModal();
-                return;
-            }
             if (task.reqVerified && !state.isVerified) {
                 playSound('error');
                 switchTab('profile');
@@ -2521,10 +1672,9 @@
             playSound('upgrade');
             showToast(`🎉 Task Completed! +${task.reward} TAX Added!`);
             updateAllUI();
-            if (window.triggerCloudSave) window.triggerCloudSave();
         };
 
-        function renderLeaderboard() {
+        function renderLeaderboard(customPlayers) {
             const list = document.getElementById('leaderboard-list');
             if (!list) return;
             const pName = document.getElementById('player-name')?.textContent || "Tax Collector";
@@ -2535,16 +1685,17 @@
                 { name: pName + " (You)", balance: state.balance + (state.holdingBalance || 0), pph: state.pph }
             ];
 
-            demoPlayers.sort((a, b) => (b.balance || 0) - (a.balance || 0));
+            const combined = (customPlayers && customPlayers.length > 0) ? customPlayers : demoPlayers;
+            combined.sort((a, b) => (b.balance || 0) - (a.balance || 0));
 
-            list.innerHTML = demoPlayers.map((p, idx) => `
+            list.innerHTML = combined.slice(0, 5).map((p, idx) => `
                 <div class="glass-card px-3.5 py-2.5 rounded-2xl flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         <span class="w-6 h-6 rounded-lg ${idx === 0 ? 'bg-amber-400 text-slate-950' : idx === 1 ? 'bg-slate-300 text-slate-950' : idx === 2 ? 'bg-amber-700 text-white' : 'bg-slate-800 text-slate-400'} font-black text-xs flex items-center justify-center">
                             ${idx + 1}
                         </span>
                         <div>
-                            <div class="text-xs font-bold text-white">${p.name}</div>
+                            <div class="text-xs font-bold text-white">${p.name || 'Collector'}</div>
                             <div class="text-[10px] text-emerald-400">+${(p.pph || 0).toLocaleString()}/hr</div>
                         </div>
                     </div>
@@ -2565,7 +1716,9 @@
         };
 
         window.openVerifyModal = function() {
-            if (state.isVerified) return showToast("✅ Your account is already verified!");
+            if (state.isVerified) {
+                return showToast("✅ Your account is already verified!");
+            }
             document.getElementById('verify-modal').classList.remove('hidden');
             document.getElementById('verify-modal').classList.add('flex');
         };
@@ -2581,7 +1734,9 @@
 
         window.completeAccountVerification = function() {
             let val = document.getElementById('verify-wallet-input').value.trim();
-            if (!val) val = "UQA7xTaxCoinVerified" + state.numericUid.slice(-4);
+            if (!val) {
+                val = "UQA7xTaxCoinVerified" + state.numericUid.slice(-4);
+            }
             state.isVerified = true;
             state.walletAddress = val;
             state.balance += 250;
@@ -2589,7 +1744,6 @@
             closeVerifyModal();
             showToast("✅ Account Verified! +250.0000 TAX Bonus Added!");
             updateAllUI();
-            if (window.triggerCloudSave) window.triggerCloudSave();
         };
 
         window.openVipModal = function() {
@@ -2615,7 +1769,6 @@
             playSound('upgrade');
             showToast(`💎 Locked ${lockAmt} TAX! Holding Wallet +${bonusAmt.toFixed(2)} TAX!`);
             updateAllUI();
-            if (window.triggerCloudSave) window.triggerCloudSave();
         };
 
         window.unlockVipVault = function() {
@@ -2629,7 +1782,6 @@
             playSound('upgrade');
             showToast(`🔓 Transferred ${unlocked.toFixed(4)} TAX to Pool Wallet!`);
             updateAllUI();
-            if (window.triggerCloudSave) window.triggerCloudSave();
         };
 
         window.openWithdrawModal = function() {
@@ -2659,9 +1811,11 @@
             ['TON', 'USDT', 'UPI'].forEach(m => {
                 const btn = document.getElementById(`method-${m}`);
                 if (!btn) return;
-                btn.className = (m === method)
-                    ? "py-2 px-2 rounded-xl text-xs font-extrabold border border-amber-400 bg-amber-500/20 text-amber-300 flex items-center justify-center gap-1.5 transition"
-                    : "py-2 px-2 rounded-xl text-xs font-bold border border-white/10 bg-slate-900/80 text-slate-400 flex items-center justify-center gap-1.5 transition";
+                if (m === method) {
+                    btn.className = "py-2 px-2 rounded-xl text-xs font-extrabold border border-amber-400 bg-amber-500/20 text-amber-300 flex items-center justify-center gap-1.5 transition";
+                } else {
+                    btn.className = "py-2 px-2 rounded-xl text-xs font-bold border border-white/10 bg-slate-900/80 text-slate-400 flex items-center justify-center gap-1.5 transition";
+                }
             });
 
             const lbl = document.getElementById('withdraw-address-label');
@@ -2715,7 +1869,7 @@
 
             if (!address || address.length < 4) {
                 playSound('error');
-                return showToast("⚠️ Enter valid destination Wallet or UPI ID!", true);
+                return showToast("⚠️ Please enter your destination Wallet or UPI ID!", true);
             }
             if (amount < 100) {
                 playSound('error');
@@ -2738,13 +1892,14 @@
                 date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             };
 
+            if (!Array.isArray(state.withdrawHistory)) state.withdrawHistory = [];
             state.withdrawHistory.unshift(txRecord);
+
             amtInput.value = '';
             playSound('upgrade');
             closeWithdrawModal();
             showToast(`✅ Withdrawn ${amount.toFixed(2)} TAX! Check History.`);
             updateAllUI();
-            if (window.triggerCloudSave) window.triggerCloudSave();
         };
 
         function renderWithdrawHistory() {
@@ -2823,7 +1978,6 @@
             }
             playSound('upgrade');
             updateAllUI();
-            if (window.triggerCloudSave) window.triggerCloudSave();
         };
 
         window.useFreeRefill = function() {
@@ -2872,9 +2026,11 @@
             ['gold', 'cyber', 'royal'].forEach(s => {
                 const btn = document.getElementById(`skin-${s}`);
                 if (!btn) return;
-                btn.className = (s === skinName)
-                    ? "px-3 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 transition"
-                    : "px-3 py-0.5 rounded-full text-[10px] font-bold text-slate-400 hover:text-white transition";
+                if (s === skinName) {
+                    btn.className = "px-3 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 transition";
+                } else {
+                    btn.className = "px-3 py-0.5 rounded-full text-[10px] font-bold text-slate-400 hover:text-white transition";
+                }
             });
 
             const f1 = document.getElementById('stop-face-1');
@@ -2927,16 +2083,85 @@
             }, 3500);
         };
 
+        // Referral and Bot Link Configuration (Set to your actual bot: @TaxCoinArcadeBot)
+        let customBotUsername = localStorage.getItem('tax_bot_username') || "TaxCoinArcadeBot";
+
+        function getReferralLink() {
+            const botUser = (customBotUsername || "TaxCoinArcadeBot").replace(/^@/, '').trim();
+            return `https://t.me/${botUser}?start=ref_${state.numericUid}`;
+        }
+
+        window.updateCustomBotUsername = function(newVal) {
+            if (newVal) {
+                customBotUsername = newVal.replace(/^@/, '').trim();
+                localStorage.setItem('tax_bot_username', customBotUsername);
+                refreshReferralDisplay();
+                showToast(`✅ Bot username set to @${customBotUsername}!`);
+            }
+        };
+
+        window.promptBotUsername = function() {
+            const inputEl = document.getElementById('ref-bot-username-input');
+            if (inputEl) {
+                inputEl.focus();
+                inputEl.select();
+            }
+        };
+
+        function refreshReferralDisplay() {
+            const linkInput = document.getElementById('referral-link-display');
+            const botInput = document.getElementById('ref-bot-username-input');
+            if (botInput && customBotUsername) {
+                botInput.value = customBotUsername;
+            }
+            if (linkInput) {
+                linkInput.value = getReferralLink();
+            }
+        }
+
         window.copyRefLink = function() {
-            const link = `https://t.me/TaxCoinOfficialBot?start=${state.numericUid}`;
+            const link = getReferralLink();
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(link).then(() => {
+                    playSound('tap');
+                    showToast("📋 Referral Link Copied!");
+                }).catch(() => {
+                    fallbackCopy(link);
+                });
+            } else {
+                fallbackCopy(link);
+            }
+        };
+
+        function fallbackCopy(text) {
             const tempInput = document.createElement('textarea');
-            tempInput.value = link;
+            tempInput.value = text;
+            tempInput.setAttribute('readonly', '');
+            tempInput.style.position = 'absolute';
+            tempInput.style.left = '-9999px';
             document.body.appendChild(tempInput);
             tempInput.select();
             document.execCommand('copy');
             document.body.removeChild(tempInput);
             playSound('tap');
             showToast("📋 Referral Link Copied!");
+        }
+
+        window.shareInviteTelegram = function() {
+            const inviteLink = getReferralLink();
+            const shareText = "🚀 Join TAX COIN Mini App! Tap to earn TAX Coins, upgrade miners, and cash out rewards to your TON/USDT wallet! 💰";
+            const fullShareUrl = `https://t.me/share/url?url=${encodeURIComponent(inviteLink)}&text=${encodeURIComponent(shareText)}`;
+
+            playSound('tap');
+            if (tg && tg.openTelegramLink) {
+                try {
+                    tg.openTelegramLink(fullShareUrl);
+                } catch (e) {
+                    window.open(fullShareUrl, '_blank');
+                }
+            } else {
+                window.open(fullShareUrl, '_blank');
+            }
         };
 
         window.simulateFriendInvite = function() {
@@ -2961,14 +2186,14 @@
 
             const statsStrip = document.getElementById('top-stats-strip');
             if (statsStrip) {
-                if (tabName === 'profile' || tabName === 'games') {
+                if (tabName === 'profile') {
                     statsStrip.classList.add('hidden');
                 } else {
                     statsStrip.classList.remove('hidden');
                 }
             }
 
-            const tabs = ['mine', 'games', 'tasks', 'miners', 'friends', 'profile'];
+            const tabs = ['mine', 'tasks', 'miners', 'friends', 'profile'];
             tabs.forEach(t => {
                 const btn = document.getElementById(`nav-${t}`);
                 if (!btn) return;
@@ -2986,62 +2211,6 @@
             updateAllUI();
         };
 
-        function updateAllUI() {
-            recalculatePph();
-            updateTopStatsUI();
-
-            document.getElementById('turbo-left').textContent = state.turbosLeft;
-            document.getElementById('turbo-left-boost').textContent = state.turbosLeft;
-            document.getElementById('refill-left').textContent = state.refillsLeft;
-            document.getElementById('refill-left-Quick').textContent = state.refillsLeft;
-            document.getElementById('spins-left-modal').textContent = state.spinsLeft;
-
-            document.getElementById('multitap-lvl').textContent = `Lvl ${state.multitapLvl}`;
-            document.getElementById('multitap-cost-display').textContent = `🪙 ${state.multitapCost.toLocaleString()} TAX (+1/tap)`;
-            document.getElementById('energy-lvl').textContent = `Lvl ${state.energyLvl}`;
-            document.getElementById('energy-cost-display').textContent = `🪙 ${state.energyCost.toLocaleString()} TAX (+500 Max)`;
-            document.getElementById('regen-lvl').textContent = `Lvl ${state.regenLvl}`;
-            document.getElementById('regen-cost-display').textContent = `🪙 ${state.regenCost.toLocaleString()} TAX (+1/sec)`;
-
-            document.getElementById('invited-count').textContent = `${state.invitedCount} Friends`;
-            document.getElementById('profile-uid-text').textContent = state.numericUid;
-            document.getElementById('uid-display').textContent = `ID: ${state.numericUid}`;
-
-            const verifyStatus = document.getElementById('profile-verify-status');
-            const verifyBtn = document.getElementById('profile-verify-btn');
-            const miniBadge = document.getElementById('verified-mini-icon');
-            if (state.isVerified) {
-                verifyStatus.textContent = "Verified ✅";
-                verifyStatus.className = "text-xs text-emerald-400 font-bold mt-0.5";
-                verifyBtn.textContent = "Verified";
-                verifyBtn.className = "px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-extrabold text-xs";
-                if (miniBadge) miniBadge.classList.remove('hidden');
-            } else {
-                verifyStatus.textContent = "Unverified";
-                verifyStatus.className = "text-xs text-slate-400 mt-0.5";
-                verifyBtn.textContent = "Verify";
-                verifyBtn.className = "px-5 py-2 rounded-full gold-pill-btn text-xs transition";
-            }
-
-            const pSoundStatus = document.getElementById('profile-sound-status');
-            const pSoundIcon = document.getElementById('profile-sound-icon');
-            const hSoundIcon = document.getElementById('sound-icon');
-            if (pSoundStatus && pSoundIcon) {
-                pSoundStatus.textContent = state.soundEnabled ? "On — tap to mute" : "Off — tap to unmute";
-                pSoundIcon.className = state.soundEnabled ? "fa-solid fa-volume-high text-sky-300" : "fa-solid fa-volume-xmark text-slate-500";
-            }
-            if (hSoundIcon) {
-                hSoundIcon.className = state.soundEnabled ? "fa-solid fa-volume-high text-xs text-amber-400" : "fa-solid fa-volume-xmark text-xs text-slate-500";
-            }
-
-            renderEmpireCards();
-            renderTasks();
-            renderLeaderboard();
-            renderWithdrawHistory();
-            updateWithdrawPreview();
-        }
-
-        // Heartbeat Loop (Energy Recharge + Passive PPH)
         setInterval(() => {
             if (state.energy < state.maxEnergy) {
                 state.energy = Math.min(state.maxEnergy, state.energy + state.regenRate);
@@ -3062,6 +2231,7 @@
         }
 
         updateAllUI();
+        refreshReferralDisplay();
     </script>
 </body>
 </html>
