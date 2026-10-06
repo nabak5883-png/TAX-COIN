@@ -2958,110 +2958,367 @@
             document.querySelectorAll('.tab-page').forEach(p => p.classList.add('hidden'));
             const target = document.getElementById(`tab-${tabName}`);
             if (target) target.classList.remove('hidden');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TAX COIN - Official Telegram Mini App & Arcade Games</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
 
-            const statsStrip = document.getElementById('top-stats-strip');
-            if (statsStrip) {
-                if (tabName === 'profile' || tabName === 'games') {
-                    statsStrip.classList.add('hidden');
-                } else {
-                    statsStrip.classList.remove('hidden');
-                }
-            }
-
-            const tabs = ['mine', 'games', 'tasks', 'miners', 'friends', 'profile'];
-            tabs.forEach(t => {
-                const btn = document.getElementById(`nav-${t}`);
-                if (!btn) return;
-                if (t === 'miners') {
-                    btn.className = (t === tabName)
-                        ? "nav-btn flex flex-col items-center py-1 rounded-xl text-amber-400 transition"
-                        : "nav-btn flex flex-col items-center py-1 rounded-xl text-slate-300 transition";
-                } else {
-                    btn.className = (t === tabName)
-                        ? "nav-btn flex flex-col items-center py-1.5 rounded-xl text-amber-400 transition"
-                        : "nav-btn flex flex-col items-center py-1.5 rounded-xl text-slate-400 hover:text-white transition";
-                }
-            });
-
-            updateAllUI();
-        };
-
-        function updateAllUI() {
-            recalculatePph();
-            updateTopStatsUI();
-
-            document.getElementById('turbo-left').textContent = state.turbosLeft;
-            document.getElementById('turbo-left-boost').textContent = state.turbosLeft;
-            document.getElementById('refill-left').textContent = state.refillsLeft;
-            document.getElementById('refill-left-Quick').textContent = state.refillsLeft;
-            document.getElementById('spins-left-modal').textContent = state.spinsLeft;
-
-            document.getElementById('multitap-lvl').textContent = `Lvl ${state.multitapLvl}`;
-            document.getElementById('multitap-cost-display').textContent = `🪙 ${state.multitapCost.toLocaleString()} TAX (+1/tap)`;
-            document.getElementById('energy-lvl').textContent = `Lvl ${state.energyLvl}`;
-            document.getElementById('energy-cost-display').textContent = `🪙 ${state.energyCost.toLocaleString()} TAX (+500 Max)`;
-            document.getElementById('regen-lvl').textContent = `Lvl ${state.regenLvl}`;
-            document.getElementById('regen-cost-display').textContent = `🪙 ${state.regenCost.toLocaleString()} TAX (+1/sec)`;
-
-            document.getElementById('invited-count').textContent = `${state.invitedCount} Friends`;
-            document.getElementById('profile-uid-text').textContent = state.numericUid;
-            document.getElementById('uid-display').textContent = `ID: ${state.numericUid}`;
-
-            const verifyStatus = document.getElementById('profile-verify-status');
-            const verifyBtn = document.getElementById('profile-verify-btn');
-            const miniBadge = document.getElementById('verified-mini-icon');
-            if (state.isVerified) {
-                verifyStatus.textContent = "Verified ✅";
-                verifyStatus.className = "text-xs text-emerald-400 font-bold mt-0.5";
-                verifyBtn.textContent = "Verified";
-                verifyBtn.className = "px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-extrabold text-xs";
-                if (miniBadge) miniBadge.classList.remove('hidden');
-            } else {
-                verifyStatus.textContent = "Unverified";
-                verifyStatus.className = "text-xs text-slate-400 mt-0.5";
-                verifyBtn.textContent = "Verify";
-                verifyBtn.className = "px-5 py-2 rounded-full gold-pill-btn text-xs transition";
-            }
-
-            const pSoundStatus = document.getElementById('profile-sound-status');
-            const pSoundIcon = document.getElementById('profile-sound-icon');
-            const hSoundIcon = document.getElementById('sound-icon');
-            if (pSoundStatus && pSoundIcon) {
-                pSoundStatus.textContent = state.soundEnabled ? "On — tap to mute" : "Off — tap to unmute";
-                pSoundIcon.className = state.soundEnabled ? "fa-solid fa-volume-high text-sky-300" : "fa-solid fa-volume-xmark text-slate-500";
-            }
-            if (hSoundIcon) {
-                hSoundIcon.className = state.soundEnabled ? "fa-solid fa-volume-high text-xs text-amber-400" : "fa-solid fa-volume-xmark text-xs text-slate-500";
-            }
-
-            renderEmpireCards();
-            renderTasks();
-            renderLeaderboard();
-            renderWithdrawHistory();
-            updateWithdrawPreview();
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        // Heartbeat Loop (Energy Recharge + Passive PPH)
-        setInterval(() => {
-            if (state.energy < state.maxEnergy) {
-                state.energy = Math.min(state.maxEnergy, state.energy + state.regenRate);
-            }
-            if (state.pph > 0) {
-                state.balance += (state.pph / 3600);
-            }
-            updateTopStatsUI();
-        }, 1000);
-
-        if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-            if (tg.initDataUnsafe.user.first_name) {
-                document.getElementById('player-name').textContent = tg.initDataUnsafe.user.first_name;
-            }
-            if (tg.initDataUnsafe.user.id) {
-                state.numericUid = String(tg.initDataUnsafe.user.id);
-            }
+        body {
+            background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #090d16 55%, #05070b 100%);
+            color: #ffffff;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
         }
 
-        updateAllUI();
-    </script>
-</body>
-</html>
+        /* Golden grid ambient overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 50% 35%, rgba(245, 158, 11, 0.12) 0%, transparent 60%),
+                linear-gradient(rgba(251, 191, 36, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(251, 191, 36, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 28px 28px, 28px 28px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .font-cyber {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.3);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(245, 158, 11, 0.4);
+            border-radius: 10px;
+        }
+
+        .glass-card {
+            background: rgba(17, 24, 39, 0.82);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .gold-border-glow {
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            box-shadow: 0 4px 25px -5px rgba(245, 158, 11, 0.2);
+        }
+
+        .gold-pill-btn {
+            background: linear-gradient(180deg, #facc15 0%, #eab308 100%);
+            color: #090d16;
+            font-weight: 800;
+            box-shadow: 0 2px 12px rgba(234, 179, 8, 0.35);
+        }
+
+        .gold-pill-btn:active {
+            transform: scale(0.95);
+        }
+
+        .aviator-cashout-btn {
+            background: linear-gradient(180deg, #a3e635 0%, #65a30d 100%);
+            color: #090d16;
+            font-weight: 900;
+            box-shadow: 0 0 20px rgba(132, 204, 22, 0.45);
+        }
+
+        .aviator-grid-bg {
+            background-color: #060913;
+            background-image: 
+                radial-gradient(ellipse at 80% 90%, rgba(220, 38, 38, 0.15) 0%, transparent 60%),
+                linear-gradient(rgba(30, 41, 59, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 41, 59, 0.4) 1px, transparent 1px);
+            background-size: 100% 100%, 24px 24px, 24px 24px;
+        }
+
+        .mines-grid-bg {
+            background-color: #050b14;
+            background-image: 
+                radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.12) 0%, transparent 70%),
+                linear-gradient(rgba(30, 41, 59, 0.35) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 41, 59, 0.35) 1px, transparent 1px);
+            background-size: 100% 100%, 20px 20px, 20px 20px;
+        }
+
+        .mines-tile {
+            transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            touch-action: manipulation;
+        }
+
+        .mines-tile:active:not(:disabled) {
+            transform: scale(0.92);
+        }
+
+        .mines-tile.revealed-gem {
+            background: radial-gradient(circle at 35% 35%, #059669 0%, #064e3b 70%, #022c22 100%);
+            border-color: #34d399;
+            box-shadow: 0 0 15px rgba(52, 211, 153, 0.4);
+            animation: gemPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .mines-tile.revealed-bomb {
+            background: radial-gradient(circle at 35% 35%, #dc2626 0%, #991b1b 70%, #450a0a 100%);
+            border-color: #f87171;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+            animation: bombPop 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+        }
+
+        @keyframes gemPop {
+            0% { transform: scale(0.7) rotate(-8deg); opacity: 0.5; }
+            70% { transform: scale(1.1) rotate(4deg); }
+            100% { transform: scale(1) rotate(0); opacity: 1; }
+        }
+
+        @keyframes bombPop {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.18); }
+            100% { transform: scale(1); }
+        }
+
+        .coin-wrapper {
+            perspective: 1000px;
+        }
+
+        .coin-3d {
+            transition: transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.3s ease;
+            transform-style: preserve-3d;
+            filter: drop-shadow(0 0 35px rgba(245, 158, 11, 0.45));
+            touch-action: manipulation;
+        }
+
+        .coin-3d.turbo-glow {
+            filter: drop-shadow(0 0 55px rgba(239, 68, 68, 0.85)) drop-shadow(0 0 25px rgba(250, 204, 21, 0.9));
+            animation: pulseGlow 0.7s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.04); }
+        }
+
+        .floating-tap {
+            position: fixed;
+            pointer-events: none;
+            font-weight: 900;
+            font-size: 26px;
+            z-index: 100;
+            animation: floatUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.85);
+        }
+
+        @keyframes floatUpFade {
+            0% { opacity: 1; transform: translateY(0) scale(0.85); }
+            40% { opacity: 1; transform: translateY(-40px) scale(1.1); }
+            100% { opacity: 0; transform: translateY(-95px) scale(0.95); }
+        }
+
+        .wheel-spin {
+            transition: transform 3.5s cubic-bezier(0.15, 0.85, 0.25, 1);
+        }
+    </style>
+</head>
+<body class="select-none">
+
+    <header id="main-top-header" class="px-4 pt-3 pb-1 flex flex-col gap-2 z-20 shrink-0">
+        <div class="flex items-center justify-between">
+            <!-- Player Info & League -->
+            <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-700 p-0.5 shadow-lg shadow-amber-500/20">
+                    <div class="w-full h-full bg-slate-900 rounded-[10px] flex items-center justify-center text-amber-400 font-bold text-lg">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5">
+                        <span id="player-name" class="font-bold text-sm text-white tracking-tight">Tax Collector</span>
+                        <span id="verified-mini-icon" class="hidden text-emerald-400 text-xs" title="Verified"><i class="fa-solid fa-circle-check"></i></span>
+                    </div>
+                    <div class="flex items-center gap-1 text-[11px] text-amber-400 font-semibold">
+                        <span id="league-name">Bronze Auditor</span>
+                        <span class="text-slate-500">•</span>
+                        <span id="uid-display" class="text-slate-400 font-mono text-[10px]">ID: 8683090550</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Header Controls: Dedicated Games Button, Spin, Boost, Sound -->
+            <div class="flex items-center gap-1.5">
+                <!-- Highlighted Games Hub Header Button -->
+                <button type="button" onclick="switchTab('games')" class="px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 border border-amber-400/50 text-[11px] font-black flex items-center gap-1.5 shadow-md shadow-orange-500/25 active:scale-95 transition">
+                    <i class="fa-solid fa-gamepad text-white text-xs animate-pulse"></i>
+                    <span class="text-white tracking-wide">Games</span>
+                </button>
+                <button type="button" onclick="openSpinModal()" class="px-2 py-1.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 border border-purple-400/40 text-[11px] font-bold flex items-center gap-1 shadow-md shadow-purple-500/20 active:scale-95 transition">
+                    <i class="fa-solid fa-dharmachakra animate-spin text-amber-300"></i>
+                    <span>Spin</span>
+                </button>
+                <button type="button" onclick="openBoostModal()" class="px-2 py-1.5 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[11px] font-extrabold flex items-center gap-1 active:scale-95 transition">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Boost</span>
+                </button>
+                <button type="button" id="sound-btn" onclick="toggleSound()" class="w-7 h-7 rounded-xl glass-card flex items-center justify-center text-amber-400 active:scale-90 transition">
+                    <i class="fa-solid fa-volume-high text-[11px]" id="sound-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="top-stats-strip" class="grid grid-cols-3 gap-2 mt-0.5">
+            <div class="glass-card rounded-xl p-1.5 text-center border-t border-amber-500/25">
+                <div class="text-[10px] text-slate-400 font-medium">Earn per tap</div>
+                <div class="text-xs font-extrabold text-amber-400 flex items-center justify-center gap-1 mt-0.5">
+                    <i class="fa-solid fa-coins text-[10px]"></i>
+                    <span id="stat-tap">+1</span>
+                </div>
+            </div>
+            <div class="glass-card rounded-xl p-1.5 text-center border-t border-emerald-500/25">
+                <div class="text-[10px] text-slate-400 font-medium">Profit per hour</div>
+                <div class="text-xs font-extrabold text-emerald-400 flex items-center justify-center gap-1 mt-0.5">
+                    <i class="fa-solid fa-bolt text-[10px]"></i>
+                    <span id="stat-pph">+120</span>
+                </div>
+            </div>
+            <div class="glass-card rounded-xl p-1.5 text-center border-t border-sky-500/25">
+                <div class="text-[10px] text-slate-400 font-medium">Pool Balance</div>
+                <div class="text-xs font-extrabold text-sky-400 mt-0.5" id="stat-usd-val">≈ $0.567</div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 overflow-y-auto px-4 pb-24 pt-1 relative z-10">
+
+        <!-- ============================================== -->
+        <!-- TAB 1: MINE SCREEN (TAP & EARN) -->
+        <!-- ============================================== -->
+        <section id="tab-mine" class="tab-page h-full flex flex-col justify-between items-center py-1">
+            <div class="w-full text-center">
+                <div class="flex items-center justify-center gap-2">
+                    <svg class="w-8 h-8 drop-shadow-[0_0_10px_rgba(251,191,36,0.6)] shrink-0" viewBox="0 0 64 64">
+                        <defs>
+                            <radialGradient id="miniCoinGrad" cx="30%" cy="30%" r="70%">
+                                <stop offset="0%" stop-color="#fef08a"/>
+                                <stop offset="50%" stop-color="#f59e0b"/>
+                                <stop offset="100%" stop-color="#92400e"/>
+                            </radialGradient>
+                        </defs>
+                        <circle cx="32" cy="32" r="29" fill="url(#miniCoinGrad)" stroke="#fde047" stroke-width="3"/>
+                        <circle cx="32" cy="32" r="22" fill="none" stroke="#78350f" stroke-width="1.5" stroke-dasharray="4 2"/>
+                        <text x="32" y="39" text-anchor="middle" fill="#451a03" font-weight="900" font-size="20" font-family="Orbitron, sans-serif">T</text>
+                    </svg>
+                    <h1 id="balance-display" class="text-3xl sm:text-4xl font-black tracking-tight text-white font-cyber drop-shadow-[0_2px_15px_rgba(251,191,36,0.3)]">891.0487</h1>
+                </div>
+
+                <!-- League Progress Bar -->
+                <div class="max-w-xs mx-auto mt-1.5">
+                    <div class="flex justify-between text-[10px] text-slate-400 mb-1 px-1">
+                        <span id="league-progress-label">Bronze Auditor (1/6)</span>
+                        <span id="turbo-badge" class="hidden text-red-400 font-bold animate-bounce">🔥 5x TURBO ACTIVE!</span>
+                        <span id="league-percent">18%</span>
+                    </div>
+                    <div class="w-full h-2 bg-slate-800/90 rounded-full overflow-hidden p-0.5 border border-slate-700/60">
+                        <div id="league-bar" class="h-full bg-gradient-to-r from-amber-500 via-yellow-400 to-emerald-400 rounded-full transition-all duration-300" style="width: 18%"></div>
+                    </div>
+                </div>
+
+                <!-- Skins Switcher -->
+                <div class="inline-flex items-center gap-1 bg-slate-900/80 p-1 rounded-full border border-slate-800 mt-2">
+                    <button type="button" onclick="setSkin('gold')" id="skin-gold" class="px-3 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 transition">Classic Gold</button>
+                    <button type="button" onclick="setSkin('cyber')" id="skin-cyber" class="px-3 py-0.5 rounded-full text-[10px] font-bold text-slate-400 hover:text-white transition">Cyber Neon</button>
+                    <button type="button" onclick="setSkin('royal')" id="skin-royal" class="px-3 py-0.5 rounded-full text-[10px] font-bold text-slate-400 hover:text-white transition">Royal Emerald</button>
+                </div>
+            </div>
+
+            <div class="coin-wrapper my-auto flex items-center justify-center py-2">
+                <div id="coin-touch-area" class="coin-3d w-56 h-56 sm:w-64 sm:h-64 rounded-full cursor-pointer flex items-center justify-center relative select-none">
+                    <svg id="coin-svg" viewBox="0 0 260 260" class="w-full h-full pointer-events-none">
+                        <defs>
+                            <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" id="stop-rim-1" stop-color="#fef08a" />
+                                <stop offset="45%" id="stop-rim-2" stop-color="#f59e0b" />
+                                <stop offset="80%" id="stop-rim-3" stop-color="#b45309" />
+                                <stop offset="100%" id="stop-rim-4" stop-color="#78350f" />
+                            </linearGradient>
+                            <radialGradient id="faceGrad" cx="35%" cy="30%" r="70%">
+                                <stop offset="0%" id="stop-face-1" stop-color="#fde047" />
+                                <stop offset="55%" id="stop-face-2" stop-color="#d97706" />
+                                <stop offset="100%" id="stop-face-3" stop-color="#451a03" />
+                            </radialGradient>
+                            <linearGradient id="emblemGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+                                <stop offset="100%" stop-color="#fef08a" stop-opacity="0.4"/>
+                            </linearGradient>
+                        </defs>
+
+                        <circle cx="130" cy="134" r="120" fill="#451a03" opacity="0.7"/>
+                        <circle cx="130" cy="130" r="120" fill="url(#rimGrad)" stroke="#fef9c3" stroke-width="3"/>
+                        <circle cx="130" cy="130" r="110" fill="none" stroke="#78350f" stroke-width="5" stroke-dasharray="4 4" opacity="0.65"/>
+                        <circle cx="130" cy="130" r="102" fill="url(#faceGrad)" stroke="#fde047" stroke-width="2"/>
+                        <circle cx="130" cy="130" r="88" fill="none" stroke="#fef08a" stroke-width="1.5" stroke-dasharray="14 8" opacity="0.5"/>
+
+                        <g fill="#fef08a" opacity="0.85">
+                            <polygon points="130,28 133,35 140,35 134,39 136,46 130,42 124,46 126,39 120,35 127,35"/>
+                            <polygon points="130,214 133,221 140,221 134,225 136,232 130,228 124,232 126,225 120,221 127,221"/>
+                        </g>
+
+                        <path d="M105 90 L118 102 L130 84 L142 102 L155 90 L150 112 L110 112 Z" fill="url(#emblemGrad)" stroke="#78350f" stroke-width="1.5"/>
+
+                        <text x="130" y="152" text-anchor="middle" fill="#451a03" font-family="Orbitron, sans-serif" font-weight="900" font-size="44" letter-spacing="3" opacity="0.45">TAX</text>
+                        <text x="130" y="149" text-anchor="middle" fill="#fef9c3" stroke="#78350f" stroke-width="1.5" font-family="Orbitron, sans-serif" font-weight="900" font-size="44" letter-spacing="3">TAX</text>
+
+                        <rect x="82" y="164" width="96" height="22" rx="11" fill="#451a03" opacity="0.75" stroke="#fde047" stroke-width="1"/>
+                        <text x="130" y="179" text-anchor="middle" fill="#fde047" font-family="Inter, sans-serif" font-weight="800" font-size="11" letter-spacing="3.5">OFFICIAL</text>
+                        <path d="M 55 75 A 95 95 0 0 1 195 65 A 105 100 0 0 0 55 75 Z" fill="#ffffff" opacity="0.22"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Energy & Turbo Row -->
+            <div class="w-full max-w-md">
+                <div class="flex items-center justify-between mb-1.5">
+                    <div class="flex items-center gap-2">
+                        <div class="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400">
+                            <i class="fa-solid fa-bolt text-sm"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs font-extrabold text-white" id="energy-display">1000 / 1000</div>
+                            <div class="text-[10px] text-slate-400">+<span id="regen-rate-display">2</span>/sec recharge</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-1.5">
+                        <button type="button" onclick="useFreeRefill()" class="px-2.5 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-extrabold text-xs flex items-center gap-1 active:scale-95 transition">
+                            <i class="fa-solid fa-battery-full"></i>
+                            <span id="refill-left-Quick">3</span>
+                        </button>
+                        <button type="button" onclick="activateTurbo()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-slate-950 font-extrabold text-xs flex items-center gap-1.5 shadow-lg shadow-amber-500/25 active:scale-95 transition">
+                            <i class="fa-solid fa-fire-flame-curved"></i>
+                            <span>Turbo (<span id="turbo-left">3</span>)</span>
+                        </button>
+                    
