@@ -448,7 +448,6 @@
         </div>
     </div>
 
-    <!--   
  <!-- DISCONNECT MODAL -->
     <div id="disconnect-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4">
         <div class="glass-card gold-border-glow rounded-3xl max-w-sm w-full p-5 space-y-4 relative text-center">
@@ -463,23 +462,24 @@
                 <button type="button" onclick="disconnectWallet()" class="py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs">Disconnect</button>
             </div>
         </div>
-    </div>
- ============================================== -->
-    <!-- LOAD ALL SCRIPTS -->
+    </div>     
+
+<!-- ============================================== -->
+    <!-- LOAD ALL SCRIPTS (Cache Bypassed) -->
     <!-- ============================================== -->
-    <script defer src="js/core/state.js"></script>
-    <script defer src="js/core/ui.js"></script>
-    <script defer src="js/features/wallet.js"></script>
-    <script defer src="js/features/mining.js"></script>
-    <script defer src="js/features/boost.js"></script>
-    <script defer src="js/features/profile.js"></script>
+    <script defer src="js/core/state.js?v=2"></script>
+    <script defer src="js/core/ui.js?v=2"></script>
+    <script defer src="js/features/wallet.js?v=2"></script>
+    <script defer src="js/features/mining.js?v=2"></script>
+    <script defer src="js/features/boost.js?v=2"></script>
+    <script defer src="js/features/profile.js?v=2"></script>
     
-    <script defer src="js/games/aviator.js"></script>
-    <script defer src="js/games/mines.js"></script>
-    <script defer src="js/games/coinflip.js"></script>
-    <script defer src="js/games/spin.js"></script>
+    <script defer src="js/games/aviator.js?v=2"></script>
+    <script defer src="js/games/mines.js?v=2"></script>
+    <script defer src="js/games/coinflip.js?v=2"></script>
+    <script defer src="js/games/spin.js?v=2"></script>
     
-    <script type="module" defer src="js/core/firebase.js"></script>
+    <script type="module" defer src="js/core/firebase.js?v=2"></script>
 
 </body>
 </html>
