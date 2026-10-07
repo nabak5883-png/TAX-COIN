@@ -97,10 +97,32 @@ window.showToast = function(message, isError = false) {
     if (window.toastTimer) clearTimeout(window.toastTimer); window.toastTimer = setTimeout(() => { box.classList.add('opacity-0', '-translate-y-4'); box.classList.remove('opacity-100', 'translate-y-0'); }, 2500);
 }
 
-// Telegram User Initialization
+// js/core/state.js এর একদম শেষের দিকের অংশ
+
+// Telegram User Initialization and Profile Picture
 if (window.tg && window.tg.initDataUnsafe && window.tg.initDataUnsafe.user) {
-    if (window.tg.initDataUnsafe.user.first_name) {
-        window.safeSetText('player-name', window.tg.initDataUnsafe.user.first_name);
+    const user = window.tg.initDataUnsafe.user;
+    
+    // Set First Name
+    if (user.first_name) {
+        window.safeSetText('player-name', user.first_name);
+        
+        // Generate Dynamic Profile Picture based on Initials
+        const initials = user.first_name.charAt(0).toUpperCase();
+        const profilePicUrl = `https://ui-avatars.com/api/?name=${initials}&background=0f172a&color=fbbf24&size=128&bold=true`;
+        
+        const imgEl = document.getElementById('user-profile-pic');
+        const iconEl = document.getElementById('default-profile-icon');
+        
+        if (imgEl && iconEl) {
+            imgEl.src = profilePicUrl;
+            imgEl.classList.remove('hidden'); // Show the image
+            iconEl.classList.add('hidden');   // Hide the default crown icon
+        }
     }
-    if (window.tg.initDataUnsafe.user.id) window.state.numericUid = String(window.tg.initDataUnsafe.user.id);
+    
+    // Set Numeric ID
+    if (user.id) {
+        window.state.numericUid = String(user.id);
+    }
 }
