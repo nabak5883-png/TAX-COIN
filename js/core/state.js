@@ -42,9 +42,14 @@ window.state = {
 window.TAX_TO_USD_RATE = 0.00063633;
 window.requireWalletToMine = true; // Admin Control
 
-// AUTO-SAVE SYSTEM
+// AUTO-SAVE SYSTEM (Fixed Firebase Quota Overload)
 window.saveGameState = function() {
+    // 1. Save to local phone storage instantly
     localStorage.setItem('taxCoinSavedState', JSON.stringify(window.state));
+}
+
+// 2. Cloud Sync: Send to Firebase safely
+window.cloudSync = function() {
     if (window.saveToFirebase) window.saveToFirebase();
 }
 
@@ -59,9 +64,15 @@ window.loadGameState = function() {
 }
 window.loadGameState();
 
-window.triggerCloudSave = window.saveGameState;
-window.addEventListener('beforeunload', window.saveGameState);
-window.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') window.saveGameState(); });
+// Trigger saving before closing the app
+window.triggerCloudSave = () => { window.saveGameState(); window.cloudSync(); };
+window.addEventListener('beforeunload', window.triggerCloudSave);
+window.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') window.triggerCloudSave(); });
+
+// Background loop for safe Firebase sync every 15 seconds
+setInterval(() => {
+    window.cloudSync();
+}, 15000);
 
 // SOUND SYSTEM
 window.audioCtx = null;
