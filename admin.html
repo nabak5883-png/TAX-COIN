@@ -107,6 +107,18 @@
                         <div class="text-3xl font-black text-sky-400" id="stat-pending-wd">0</div>
                     </div>
                 </div>
+
+                <!-- Price Control Settings -->
+                <h2 class="text-2xl font-black text-white mt-8 mb-4">System Settings</h2>
+                <div class="glass-panel p-5 rounded-2xl border-t-2 border-t-purple-400 max-w-md">
+                    <div class="text-slate-400 text-sm font-semibold mb-2">Live Token Price (1 TAX to USD)</div>
+                    <div class="flex gap-2">
+                        <input type="number" id="input-token-price" step="any" placeholder="e.g., 0.00063633" class="w-full px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-purple-400 font-mono">
+                        <button onclick="setTokenPrice()" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl transition shadow-lg shadow-purple-500/30">Save</button>
+                    </div>
+                    <p class="text-[11px] text-emerald-400 mt-2 font-semibold">Current Rate: $<span id="display-token-price">0.00063633</span></p>
+                    <p class="text-[10px] text-slate-500 mt-1">Change this to increase/decrease the USD value shown to users.</p>
+                </div>
             </div>
 
             <!-- Users View -->
@@ -167,7 +179,7 @@
     <!-- Firebase SDK (Modular v10 via CDN) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getDatabase, ref, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+        import { getDatabase, ref, onValue, update, remove, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
         // Your provided Firebase Configuration
         const firebaseConfig = {
@@ -231,9 +243,31 @@
                 updateDashboardStats();
                 renderWithdrawalsTable();
             });
+
+            // Listen to Settings (Token Price)
+            const settingsRef = ref(db, 'settings');
+            onValue(settingsRef, (snapshot) => {
+                const settings = snapshot.val() || {};
+                const currentPrice = settings.tokenPrice || 0.00063633;
+                document.getElementById('input-token-price').value = currentPrice;
+                document.getElementById('display-token-price').innerText = currentPrice;
+            });
         }
 
-        // 4. Render Functions
+        // 4. Update Settings (Token Price)
+        window.setTokenPrice = function() {
+            const newPrice = parseFloat(document.getElementById('input-token-price').value);
+            if(newPrice > 0) {
+                // Update Firebase DB
+                update(ref(db, 'settings'), { tokenPrice: newPrice })
+                    .then(() => alert('Token Price updated successfully! This will reflect in the mini app instantly.'))
+                    .catch(err => alert('Error updating price: ' + err));
+            } else {
+                alert('Please enter a valid numeric price.');
+            }
+        }
+
+        // 5. Render Functions
         function updateDashboardStats() {
             const userKeys = Object.keys(allUsers);
             document.getElementById('stat-total-users').innerText = userKeys.length;
