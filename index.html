@@ -1311,6 +1311,35 @@
             }
         };
 
+        // ==========================================
+        // AUTO-SAVE SYSTEM (LOCAL STORAGE)
+        // ==========================================
+        function saveGameState() {
+            localStorage.setItem('taxCoinSavedState', JSON.stringify(state));
+        }
+
+        function loadGameState() {
+            const savedData = localStorage.getItem('taxCoinSavedState');
+            if (savedData) {
+                try {
+                    const parsedData = JSON.parse(savedData);
+                    Object.assign(state, parsedData); // Load saved data
+                } catch (e) {
+                    console.error("Save file error.");
+                }
+            }
+        }
+
+        // Load data when app starts
+        loadGameState();
+
+        window.triggerCloudSave = saveGameState;
+
+        window.addEventListener('beforeunload', saveGameState);
+        window.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') saveGameState();
+        });
+
         const TAX_TO_USD_RATE = 0.00063633;
 
         const empireCatalog = [
@@ -2866,6 +2895,7 @@
         window.setSkin = function(skinName) {
             state.skin = skinName;
             applySkinColors(skinName);
+            saveGameState();
         };
 
         function applySkinColors(skinName) {
@@ -2913,6 +2943,7 @@
             }
             state.spinsLeft -= 1;
             updateAllUI();
+            saveGameState();
 
             const rewards = [150, 300, 500, 1000];
             const won = rewards[Math.floor(Math.random() * rewards.length)];
@@ -2929,32 +2960,15 @@
 
         window.copyRefLink = function() {
             const link = `https://t.me/TaxCoinArcadeBot?start=ref_${state.numericUid}`;
-            
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(link).then(() => {
-                    playSound('tap');
-                    showToast("📋 Referral Link Copied!");
-                }).catch(() => fallbackCopyText(link));
-            } else {
-                fallbackCopyText(link);
-            }
-        };
-
-        function fallbackCopyText(text) {
             const tempInput = document.createElement('textarea');
-            tempInput.value = text;
-            tempInput.setAttribute('readonly', '');
-            tempInput.style.position = 'fixed';
-            tempInput.style.left = '-9999px';
+            tempInput.value = link;
             document.body.appendChild(tempInput);
             tempInput.select();
-            try {
-                document.execCommand('copy');
-            } catch (e) {}
+            document.execCommand('copy');
             document.body.removeChild(tempInput);
             playSound('tap');
             showToast("📋 Referral Link Copied!");
-        }
+        };
 
         window.simulateFriendInvite = function() {
             state.invitedCount += 1;
@@ -2968,6 +2982,7 @@
             state.soundEnabled = !state.soundEnabled;
             if (state.soundEnabled) playSound('tap');
             updateAllUI();
+            saveGameState();
             showToast(state.soundEnabled ? "🔊 Sound Effects ON" : "🔇 Sound Effects Muted");
         };
 
@@ -3051,6 +3066,9 @@
                 hSoundIcon.className = state.soundEnabled ? "fa-solid fa-volume-high text-xs text-amber-400" : "fa-solid fa-volume-xmark text-xs text-slate-500";
             }
 
+            // Restore saved skin automatically
+            if (typeof applySkinColors === 'function') applySkinColors(state.skin);
+
             renderEmpireCards();
             renderTasks();
             renderLeaderboard();
@@ -3067,6 +3085,7 @@
                 state.balance += (state.pph / 3600);
             }
             updateTopStatsUI();
+            saveGameState(); // Auto-save every 1 second
         }, 1000);
 
         if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
