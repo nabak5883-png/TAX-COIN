@@ -2928,16 +2928,33 @@
         };
 
         window.copyRefLink = function() {
-            const link = `https://t.me/TaxCoinOfficialBot?start=${state.numericUid}`;
+            const link = `https://t.me/TaxCoinArcadeBot?start=ref_${state.numericUid}`;
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(link).then(() => {
+                    playSound('tap');
+                    showToast("📋 Referral Link Copied!");
+                }).catch(() => fallbackCopyText(link));
+            } else {
+                fallbackCopyText(link);
+            }
+        };
+
+        function fallbackCopyText(text) {
             const tempInput = document.createElement('textarea');
-            tempInput.value = link;
+            tempInput.value = text;
+            tempInput.setAttribute('readonly', '');
+            tempInput.style.position = 'fixed';
+            tempInput.style.left = '-9999px';
             document.body.appendChild(tempInput);
             tempInput.select();
-            document.execCommand('copy');
+            try {
+                document.execCommand('copy');
+            } catch (e) {}
             document.body.removeChild(tempInput);
             playSound('tap');
             showToast("📋 Referral Link Copied!");
-        };
+        }
 
         window.simulateFriendInvite = function() {
             state.invitedCount += 1;
