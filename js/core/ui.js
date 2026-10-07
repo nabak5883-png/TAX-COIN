@@ -3,7 +3,7 @@
 // Global Number Formatter
 window.formatTax = function(num) { return Number(num || 0).toFixed(4); };
 
-// Leagues Data (Ei list ta missing chilo bolei UI crash korchilo)
+// Leagues Data
 window.leagues = [
     { name: "Bronze Auditor", min: 0, next: 5000 },
     { name: "Silver Inspector", min: 5000, next: 25000 },
@@ -14,7 +14,7 @@ window.leagues = [
 ];
 
 window.copyRefLink = function() { const link = `https://t.me/TaxCoinArcadeBot?start=ref_${window.state.numericUid}`; const tempInput = document.createElement('textarea'); tempInput.value = link; document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); window.playSound('tap'); window.showToast("📋 Referral Link Copied!"); };
-window.simulateFriendInvite = function() { window.state.invitedCount += 1; window.state.balance += 200; window.playSound('upgrade'); window.showToast("🎉 Friend Joined! +200.0000 TAX Added to Pool!"); window.updateAllUI(); window.saveGameState(); };
+window.simulateFriendInvite = function() { window.state.invitedCount += 1; window.state.balance += 200; window.playSound('upgrade'); window.showToast("🎉 Friend Joined! +200.0000 TAX Added to Pool!"); window.updateAllUI(); window.cloudSync(); };
 window.toggleSound = function() { window.state.soundEnabled = !window.state.soundEnabled; if (window.state.soundEnabled) window.playSound('tap'); window.updateAllUI(); window.saveGameState(); window.showToast(window.state.soundEnabled ? "🔊 Sound Effects ON" : "🔇 Sound Effects Muted"); };
 
 window.switchTab = function(tabName) {
@@ -113,7 +113,7 @@ window.updateTopStatsUI = function() {
         window.safeSetText('withdraw-avail-bal', `${window.formatTax(poolBal)} TAX`);
         window.safeSetText('withdraw-live-rate', `$${(1000 * (window.TAX_TO_USD_RATE || 0.00063633)).toFixed(3)}`);
 
-        // Wallet Display Button Change logic
+        // Wallet Display Logic
         const wBtnText = document.getElementById('wallet-btn-text');
         if (wBtnText && window.state.walletAddress && window.state.walletAddress.startsWith("UQ")) {
             wBtnText.textContent = window.state.walletAddress.substring(0, 4) + "..." + window.state.walletAddress.substring(window.state.walletAddress.length - 4);
@@ -160,13 +160,13 @@ window.updateAllUI = function() {
     if(window.updateWithdrawPreview) window.updateWithdrawPreview();
 };
 
-// Background Loop for Energy Regeneration
+// Background Loop for Local Saving and Energy Regen ONLY
 setInterval(() => {
     if (window.state.energy < window.state.maxEnergy) { 
         window.state.energy = Math.min(window.state.maxEnergy, window.state.energy + window.state.regenRate); 
     }
     if(window.updateTopStatsUI) window.updateTopStatsUI(); 
-    window.saveGameState(); 
+    window.saveGameState(); // Fast local save
 }, 1000);
 
 // Initialize UI when everything loads
