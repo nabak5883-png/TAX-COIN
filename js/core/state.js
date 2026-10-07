@@ -1,5 +1,3 @@
-// js/core/state.js
-
 window.safeSetText = function(id, text) {
     const el = document.getElementById(id);
     if (el) el.textContent = text;
@@ -34,7 +32,7 @@ window.state = {
     withdrawMethod: "TON",
     withdrawHistory: [],
     completedTasks: {},
-    lastUnlockTime: 0 // Daily 2% Unlock er jonno notun timer
+    lastUnlockTime: 0
 };
 
 window.TAX_TO_USD_RATE = 0.00063633;
@@ -51,10 +49,7 @@ window.cloudSync = function() {
 window.loadGameState = function() {
     const savedData = localStorage.getItem('taxCoinSavedState');
     if (savedData) { 
-        try { 
-            const parsedData = JSON.parse(savedData); 
-            Object.assign(window.state, parsedData); 
-        } catch (e) { console.error("Save file error."); } 
+        try { const parsedData = JSON.parse(savedData); Object.assign(window.state, parsedData); } catch (e) { } 
     }
 }
 window.loadGameState();
