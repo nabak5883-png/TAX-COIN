@@ -1,7 +1,7 @@
 window.openWalletModal = function() {
     if (window.state.walletAddress && window.state.walletAddress.startsWith("UQ")) { 
         window.safeSetText('connected-wallet-address', window.state.walletAddress);
-        document.getElementById('disconnect-modal').classList.remove('hidden'); document.getElementById('disconnect-modal').classList.add('flex');
+        document.getElementById('disconnect-modal').classList.remove('hidden'); document.getElementById('disconnect-modal').classList.add('flex')
         return; 
     }
     document.getElementById('wallet-connect-modal').style.display = 'flex'; 
