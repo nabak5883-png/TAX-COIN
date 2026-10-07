@@ -1,0 +1,104 @@
+// js/core/ui.js
+
+window.copyRefLink = function() { const link = `https://t.me/TaxCoinArcadeBot?start=ref_${window.state.numericUid}`; const tempInput = document.createElement('textarea'); tempInput.value = link; document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); window.playSound('tap'); window.showToast("📋 Referral Link Copied!"); };
+window.simulateFriendInvite = function() { window.state.invitedCount += 1; window.state.balance += 200; window.playSound('upgrade'); window.showToast("🎉 Friend Joined! +200.0000 TAX Added to Pool!"); window.updateAllUI(); window.saveGameState(); };
+window.toggleSound = function() { window.state.soundEnabled = !window.state.soundEnabled; if (window.state.soundEnabled) window.playSound('tap'); window.updateAllUI(); window.saveGameState(); window.showToast(window.state.soundEnabled ? "🔊 Sound Effects ON" : "🔇 Sound Effects Muted"); };
+
+window.switchTab = function(tabName) {
+    document.querySelectorAll('.tab-page').forEach(p => p.classList.add('hidden'));
+    const target = document.getElementById(`tab-${tabName}`); if (target) target.classList.remove('hidden');
+    const statsStrip = document.getElementById('top-stats-strip');
+    if (statsStrip) { if (tabName === 'profile' || tabName === 'games' || tabName === 'boost') { statsStrip.classList.add('hidden'); } else { statsStrip.classList.remove('hidden'); } }
+    ['mine', 'games', 'tasks', 'boost', 'friends', 'profile'].forEach(t => {
+        const btn = document.getElementById(`nav-${t}`); if (!btn) return;
+        if (t === 'boost') { btn.className = (t === tabName) ? "nav-btn flex flex-col items-center py-1 rounded-xl text-amber-400 transition" : "nav-btn flex flex-col items-center py-1 rounded-xl text-slate-300 transition"; } 
+        else { btn.className = (t === tabName) ? "nav-btn flex flex-col items-center py-1.5 rounded-xl text-amber-400 transition" : "nav-btn flex flex-col items-center py-1.5 rounded-xl text-slate-400 hover:text-white transition"; }
+    });
+    window.updateAllUI();
+};
+
+window.setSkin = function(skinName) { window.state.skin = skinName; window.applySkinColors(skinName); window.saveGameState(); };
+window.applySkinColors = function(skinName) { 
+    ['gold', 'cyber', 'royal'].forEach(s => { const btn = document.getElementById(`skin-${s}`); if (!btn) return; btn.className = (s === skinName) ? "px-3 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 transition" : "px-3 py-0.5 rounded-full text-[10px] font-bold text-slate-400 hover:text-white transition"; }); 
+    const f1 = document.getElementById('stop-face-1'); const f2 = document.getElementById('stop-face-2'); const f3 = document.getElementById('stop-face-3'); if (!f1 || !f2 || !f3) return; 
+    if (skinName === 'cyber') { f1.setAttribute('stop-color', '#67e8f9'); f2.setAttribute('stop-color', '#7c3aed'); f3.setAttribute('stop-color', '#1e1b4b'); } 
+    else if (skinName === 'royal') { f1.setAttribute('stop-color', '#6ee7b7'); f2.setAttribute('stop-color', '#059669'); f3.setAttribute('stop-color', '#064e3b'); } 
+    else { f1.setAttribute('stop-color', '#fde047'); f2.setAttribute('stop-color', '#d97706'); f3.setAttribute('stop-color', '#451a03'); } 
+}
+
+const tasksList = [
+    { id: "daily_checkin", title: "🎁 Claim Daily Tax Return", reward: 250, btnText: "Claim" },
+    { id: "join_tg", title: "📢 Join Official TAX COIN Channel", reward: 500, btnText: "Join & Claim" },
+    { id: "follow_x", title: "🐦 Follow TAX COIN on X (Twitter)", reward: 400, btnText: "Follow" },
+    { id: "verify_acc", title: "✅ Verify Your Account in Profile", reward: 300, btnText: "Claim", reqVerified: true }
+];
+
+window.renderTasks = function() {
+    const container = document.getElementById('tasks-container'); if (!container) return; container.innerHTML = '';
+    tasksList.forEach(task => {
+        const isDone = !!window.state.completedTasks[task.id];
+        const div = document.createElement('div'); div.className = "glass-card rounded-2xl p-3.5 flex items-center justify-between";
+        div.innerHTML = `<div><div class="text-xs font-extrabold text-white">${task.title}</div><div class="text-xs font-bold text-emerald-400 mt-0.5">+${task.reward.toFixed(4)} TAX</div></div><button type="button" onclick="claimTaskReward('${task.id}')" ${isDone ? 'disabled' : ''} class="px-4 py-2 rounded-full text-xs font-extrabold transition ${isDone ? 'bg-slate-800 text-emerald-400 cursor-not-allowed' : 'gold-pill-btn'}">${isDone ? 'Done ✅' : task.btnText}</button>`; 
+        container.appendChild(div);
+    });
+};
+
+window.claimTaskReward = function(taskId) {
+    const task = tasksList.find(t => t.id === taskId); if (!task || window.state.completedTasks[taskId]) return;
+    if (task.id === 'play_aviator') return window.openAviatorModal();
+    if (task.id === 'play_mines') return window.openMinesModal();
+    window.playSound('error');
+    window.showToast("⚠️ Task verification pending from Admin!", true);
+};
+
+window.renderLeaderboard = function() {
+    const list = document.getElementById('leaderboard-list'); if (!list) return;
+    const pName = document.getElementById('player-name')?.textContent || "Tax Collector";
+    const demoPlayers = [ { name: "Satoshi_Tax", balance: 14850.5 }, { name: "Bengal_Whale", balance: 8215.2 }, { name: "CryptoAuditor", balance: 4195.8 }, { name: pName + " (You)", balance: window.state.balance + (window.state.holdingBalance || 0) } ].sort((a, b) => (b.balance || 0) - (a.balance || 0));
+    list.innerHTML = demoPlayers.map((p, idx) => `<div class="glass-card px-3.5 py-2.5 rounded-2xl flex items-center justify-between"><div class="flex items-center gap-3"><span class="w-6 h-6 rounded-lg ${idx === 0 ? 'bg-amber-400 text-slate-950' : idx === 1 ? 'bg-slate-300 text-slate-950' : idx === 2 ? 'bg-amber-700 text-white' : 'bg-slate-800 text-slate-400'} font-black text-xs flex items-center justify-center">${idx + 1}</span><div><div class="text-xs font-bold text-white">${p.name}</div></div></div><div class="text-xs font-extrabold text-amber-400">${Number(p.balance || 0).toFixed(2)} TAX</div></div>`).join('');
+};
+
+window.updateAllUI = function() {
+    if(window.updateTopStatsUI) window.updateTopStatsUI();
+    window.safeSetText('turbo-left', window.state.turbosLeft); window.safeSetText('turbo-left-boost', window.state.turbosLeft); 
+    window.safeSetText('refill-left', window.state.refillsLeft); window.safeSetText('refill-left-Quick', window.state.refillsLeft);
+    window.safeSetText('multitap-lvl', `Lvl ${window.state.multitapLvl}`); window.safeSetText('multitap-cost-display', `🪙 ${window.state.multitapCost.toLocaleString()} TAX (+1/tap)`); 
+    window.safeSetText('energy-lvl', `Lvl ${window.state.energyLvl}`); window.safeSetText('energy-cost-display', `🪙 ${window.state.energyCost.toLocaleString()} TAX (+500 Max)`); 
+    window.safeSetText('regen-lvl', `Lvl ${window.state.regenLvl}`); window.safeSetText('regen-cost-display', `🪙 ${window.state.regenCost.toLocaleString()} TAX (+1/sec)`);
+    window.safeSetText('invited-count', `${window.state.invitedCount} Friends`); 
+    window.safeSetText('profile-uid-text', window.state.numericUid); 
+    window.safeSetText('uid-display', `ID: ${window.state.numericUid}`);
+
+    const verifyStatus = document.getElementById('profile-verify-status'); const verifyBtn = document.getElementById('profile-verify-btn'); const miniBadge = document.getElementById('verified-mini-icon');
+    if (window.state.isVerified) { 
+        if(verifyStatus) { verifyStatus.textContent = "Verified ✅"; verifyStatus.className = "text-xs text-emerald-400 font-bold mt-0.5"; }
+        if(verifyBtn) { verifyBtn.textContent = "Verified"; verifyBtn.className = "px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-extrabold text-xs"; }
+        if (miniBadge) miniBadge.classList.remove('hidden'); 
+    } else { 
+        if(verifyStatus) { verifyStatus.textContent = "Unverified"; verifyStatus.className = "text-xs text-slate-400 mt-0.5"; }
+        if(verifyBtn) { verifyBtn.textContent = "Verify"; verifyBtn.className = "px-5 py-2 rounded-full gold-pill-btn text-xs transition"; }
+    }
+
+    const pSoundStatus = document.getElementById('profile-sound-status'); const pSoundIcon = document.getElementById('profile-sound-icon'); const hSoundIcon = document.getElementById('sound-icon');
+    if (pSoundStatus && pSoundIcon) { pSoundStatus.textContent = window.state.soundEnabled ? "On — tap to mute" : "Off — tap to unmute"; pSoundIcon.className = window.state.soundEnabled ? "fa-solid fa-volume-high text-sky-300" : "fa-solid fa-volume-xmark text-slate-500"; }
+    if (hSoundIcon) { hSoundIcon.className = window.state.soundEnabled ? "fa-solid fa-volume-high text-[11px] text-amber-400" : "fa-solid fa-volume-xmark text-[11px] text-slate-500"; }
+
+    window.applySkinColors(window.state.skin);
+    window.renderTasks(); window.renderLeaderboard(); 
+    if(window.renderWithdrawHistory) window.renderWithdrawHistory(); 
+    if(window.updateWithdrawPreview) window.updateWithdrawPreview();
+};
+
+// Background Loop for Energy Regeneration
+setInterval(() => {
+    if (window.state.energy < window.state.maxEnergy) { 
+        window.state.energy = Math.min(window.state.maxEnergy, window.state.energy + window.state.regenRate); 
+    }
+    if(window.updateTopStatsUI) window.updateTopStatsUI(); 
+    window.saveGameState(); 
+}, 1000);
+
+// Initialize UI when everything loads
+document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => { window.updateAllUI(); }, 500);
+});
