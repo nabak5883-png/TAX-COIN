@@ -5,27 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TAX COIN - Official Telegram Mini App</title>
     
-    <!-- External Scripts & Styles -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Connect Main Design CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body class="select-none">
 
-        <!-- HEADER -->
+    <!-- HEADER -->
     <header id="main-top-header" class="px-4 pt-3 pb-1 flex flex-col gap-2 z-20 shrink-0">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-2.5">
-                <!-- User Profile Picture Container -->
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-700 p-0.5 shadow-lg shadow-amber-500/20">
                     <div class="w-full h-full bg-slate-900 rounded-[10px] overflow-hidden flex items-center justify-center text-amber-400 font-bold text-lg">
-                        <!-- Dynamic Profile Picture Image -->
                         <img id="user-profile-pic" src="" alt="Profile" class="w-full h-full object-cover hidden">
-                        <!-- Default Crown Icon if image fails or before load -->
                         <i id="default-profile-icon" class="fa-solid fa-crown"></i>
                     </div>
                 </div>
@@ -53,10 +48,9 @@
         </div>
     </header>
 
-
     <main class="flex-1 overflow-y-auto px-4 pb-24 pt-2 relative z-10">
 
-        <!-- TAB 1: MINE SCREEN -->
+        <!-- TAB 1: MINE -->
         <section id="tab-mine" class="tab-page h-full flex flex-col justify-between items-center py-1 block">
             <div class="w-full text-center">
                 <div class="flex items-center justify-center gap-2">
@@ -137,31 +131,23 @@
                     </div>
                     <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-rose-600 flex items-center justify-center text-slate-950 text-2xl shadow-xl shadow-orange-500/30"><i class="fa-solid fa-gamepad"></i></div>
                 </div>
-                <div class="mt-3 pt-2.5 border-t border-white/10 flex items-center gap-2 text-[11px] text-slate-300 overflow-hidden">
-                    <span class="text-amber-400 font-extrabold shrink-0 flex items-center gap-1"><i class="fa-solid fa-fire text-rose-500"></i> Recent Wins:</span>
-                    <marquee behavior="scroll" direction="left" scrollamount="4" class="text-slate-300">🏆 Collector #8683 won +1,450 TAX in Aviator (5.80x) • Satoshi_Tax won +890 TAX in Mines (4 Gems) • Bengal_Whale won +500 TAX on Lucky Wheel! • TonMaster won +195 TAX on Coin Flip!</marquee>
-                </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div class="glass-card rounded-2xl p-4 border border-rose-500/30 relative overflow-hidden flex flex-col justify-between hover:border-rose-400/60 transition group">
-                    <div class="flex items-start justify-between"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-600 to-red-600 flex items-center justify-center text-white text-xl shadow-lg shadow-red-500/30"><i class="fa-solid fa-plane-departure"></i></div><div><div class="flex items-center gap-1.5"><h3 class="font-cyber font-extrabold text-white text-sm">TAX Aviator</h3><span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-rose-500/20 text-rose-400 border border-rose-500/40">HOT 🔥</span></div><div class="text-[11px] text-slate-400 mt-0.5">Crash Jet • Up to 100x Multiplier</div></div></div></div>
-                    <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">Place your bet and watch the Tax Jet surge! Cash out before the jet flies away.</p>
-                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between"><span class="text-[10px] text-emerald-400 font-bold"><i class="fa-solid fa-chart-line mr-1"></i>RTP 96%</span><button type="button" onclick="openAviatorModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-black text-xs shadow-md shadow-red-500/30 active:scale-95 transition flex items-center gap-1.5"><i class="fa-solid fa-play text-[10px]"></i> Play Aviator</button></div>
+                    <div class="flex items-start justify-between"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-600 to-red-600 flex items-center justify-center text-white text-xl shadow-lg shadow-red-500/30"><i class="fa-solid fa-plane-departure"></i></div><div><div class="flex items-center gap-1.5"><h3 class="font-cyber font-extrabold text-white text-sm">TAX Aviator</h3></div><div class="text-[11px] text-slate-400 mt-0.5">Crash Jet • Up to 100x Multiplier</div></div></div></div>
+                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between"><span class="text-[10px] text-emerald-400 font-bold"><i class="fa-solid fa-chart-line mr-1"></i>RTP 96%</span><button type="button" onclick="openAviatorModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white font-black text-xs shadow-md shadow-red-500/30 active:scale-95 transition flex items-center gap-1.5"><i class="fa-solid fa-play text-[10px]"></i> Play Aviator</button></div>
                 </div>
                 <div class="glass-card rounded-2xl p-4 border border-emerald-500/30 relative overflow-hidden flex flex-col justify-between hover:border-emerald-400/60 transition group">
-                    <div class="flex items-start justify-between"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-600 flex items-center justify-center text-white text-xl shadow-lg shadow-emerald-500/30"><i class="fa-solid fa-bomb text-amber-300 animate-pulse"></i></div><div><div class="flex items-center gap-1.5"><h3 class="font-cyber font-extrabold text-white text-sm">TAX Mines</h3><span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">5x5 GRID</span></div><div class="text-[11px] text-slate-400 mt-0.5">Pick 1-24 Mines • Uncover TAX Gems</div></div></div></div>
-                    <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">Uncover gleaming TAX Gems on a 25-tile grid. Avoid bombs & cash out anytime!</p>
-                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between"><span class="text-[10px] text-cyan-400 font-bold"><i class="fa-solid fa-gem mr-1"></i>RTP 97%</span><button type="button" onclick="openMinesModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs shadow-md shadow-emerald-500/30 active:scale-95 transition flex items-center gap-1.5"><i class="fa-solid fa-gem text-[10px]"></i> Play Mines</button></div>
+                    <div class="flex items-start justify-between"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-600 flex items-center justify-center text-white text-xl shadow-lg shadow-emerald-500/30"><i class="fa-solid fa-bomb text-amber-300 animate-pulse"></i></div><div><div class="flex items-center gap-1.5"><h3 class="font-cyber font-extrabold text-white text-sm">TAX Mines</h3></div><div class="text-[11px] text-slate-400 mt-0.5">Pick 1-24 Mines • Uncover TAX Gems</div></div></div></div>
+                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between"><span class="text-[10px] text-cyan-400 font-bold"><i class="fa-solid fa-gem mr-1"></i>RTP 97%</span><button type="button" onclick="openMinesModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black text-xs shadow-md shadow-emerald-500/30 active:scale-95 transition flex items-center gap-1.5"><i class="fa-solid fa-gem text-[10px]"></i> Play Mines</button></div>
                 </div>
                 <div class="glass-card rounded-2xl p-4 border border-amber-500/30 relative overflow-hidden flex flex-col justify-between hover:border-amber-400/60 transition group">
-                    <div class="flex items-start justify-between"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-600 flex items-center justify-center text-slate-950 text-xl shadow-lg shadow-amber-500/30"><i class="fa-solid fa-coins"></i></div><div><div class="flex items-center gap-1.5"><h3 class="font-cyber font-extrabold text-white text-sm">TAX Coin Flip</h3><span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-amber-500/20 text-amber-300 border border-amber-400/40">2X WIN ⚡</span></div><div class="text-[11px] text-slate-400 mt-0.5">Heads or Tails • Double or Nothing</div></div></div></div>
-                    <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">Pick Heads or Tails, flip the golden TAX Coin, and instantly multiply your bet by 1.95x!</p>
+                    <div class="flex items-start justify-between"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-600 flex items-center justify-center text-slate-950 text-xl shadow-lg shadow-amber-500/30"><i class="fa-solid fa-coins"></i></div><div><div class="flex items-center gap-1.5"><h3 class="font-cyber font-extrabold text-white text-sm">TAX Coin Flip</h3></div><div class="text-[11px] text-slate-400 mt-0.5">Heads or Tails • Double or Nothing</div></div></div></div>
                     <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between"><span class="text-[10px] text-amber-300 font-bold"><i class="fa-solid fa-bolt mr-1"></i>Instant 1.95x</span><button type="button" onclick="openCoinFlipModal()" class="px-4 py-2 rounded-xl gold-pill-btn text-xs font-black shadow-md shadow-amber-500/20 active:scale-95 transition flex items-center gap-1.5"><i class="fa-solid fa-rotate text-[10px]"></i> Play Flip</button></div>
                 </div>
                 <div class="glass-card rounded-2xl p-4 border border-purple-500/30 relative overflow-hidden flex flex-col justify-between hover:border-purple-400/60 transition group">
-                    <div class="flex items-start justify-between"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-white text-xl shadow-lg shadow-purple-500/30"><i class="fa-solid fa-dharmachakra animate-spin text-amber-300"></i></div><div><div class="flex items-center gap-1.5"><h3 class="font-cyber font-extrabold text-white text-sm">Lucky Wheel</h3><span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-purple-500/20 text-purple-300 border border-purple-400/40">UP TO 10x 🎁</span></div><div class="text-[11px] text-slate-400 mt-0.5">Spin & Win Huge Multipliers</div></div></div></div>
-                    <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">Bet 25 TAX to spin the 9-slice wheel. Claim a guaranteed FREE 50-TAX spin every 12 hours!</p>
-                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between"><span class="text-[10px] text-purple-400 font-bold"><i class="fa-solid fa-gift mr-1"></i>Free 12h Spin</span><button type="button" onclick="openSpinModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-xs shadow-md shadow-purple-500/20 active:scale-95 transition flex items-center gap-1.5"><i class="fa-solid fa-dharmachakra text-[10px]"></i> Spin Wheel</button></div>
+                    <div class="flex items-start justify-between"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-white text-xl shadow-lg shadow-purple-500/30"><i class="fa-solid fa-dharmachakra animate-spin text-amber-300"></i></div><div><div class="flex items-center gap-1.5"><h3 class="font-cyber font-extrabold text-white text-sm">Lucky Wheel</h3></div><div class="text-[11px] text-slate-400 mt-0.5">Spin & Win Huge Multipliers</div></div></div></div>
+                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between"><span class="text-[10px] text-purple-400 font-bold"><i class="fa-solid fa-gift mr-1"></i>Free 12h Spin</span><button type="button" onclick="openSpinModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-black text-xs shadow-md shadow-purple-500/20 active:scale-95 transition flex items-center gap-1.5"><i class="fa-solid fa-dharmachakra text-[10px]"></i> Spin Wheel</button></div>
                 </div>
             </div>
         </section>
@@ -170,7 +156,7 @@
         <section id="tab-tasks" class="tab-page hidden space-y-3 pt-1">
             <div class="glass-card gold-border-glow rounded-2xl p-3.5 text-center">
                 <h2 class="text-base font-extrabold text-white font-cyber">TAX MISSIONS</h2>
-                <p class="text-xs text-slate-400 mt-0.5">Complete official tasks to earn instant Pool TAX rewards</p>
+                <p class="text-xs text-slate-400 mt-0.5">Complete official tasks to earn instant Holding TAX rewards</p>
             </div>
             <div id="tasks-container" class="space-y-2.5"></div>
         </section>
@@ -180,7 +166,6 @@
             <div class="glass-card gold-border-glow rounded-2xl p-4 text-center">
                 <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-white text-2xl mx-auto mb-2 shadow-lg shadow-orange-500/30"><i class="fa-solid fa-bolt"></i></div>
                 <h2 class="text-base font-extrabold text-white font-cyber">TAP & ENERGY BOOSTERS</h2>
-                <p class="text-xs text-slate-400 mt-0.5">Upgrade your tapping power and energy capacity</p>
             </div>
             <div class="grid grid-cols-2 gap-2">
                 <button type="button" onclick="useFreeRefill()" class="glass-card rounded-2xl p-3 flex items-center gap-2.5 border border-emerald-500/30 active:scale-95 transition text-left"><i class="fa-solid fa-battery-full text-emerald-400 text-xl"></i><div><div class="text-xs font-bold text-white">Full Tank</div><div class="text-[10px] text-emerald-400 font-bold"><span id="refill-left">3</span>/3 Free</div></div></button>
@@ -197,7 +182,7 @@
         <section id="tab-friends" class="tab-page hidden space-y-3 pt-1">
             <div class="glass-card gold-border-glow rounded-2xl p-4 text-center space-y-3">
                 <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-2xl mx-auto"><i class="fa-solid fa-user-group"></i></div>
-                <div><h2 class="text-base font-extrabold text-white font-cyber">Invite Friends</h2><p class="text-xs text-slate-300 mt-1">Earn <span class="text-amber-400 font-bold">+200.0000 TAX</span> in your Pool Wallet for every friend who joins!</p></div>
+                <div><h2 class="text-base font-extrabold text-white font-cyber">Invite Friends</h2><p class="text-xs text-slate-300 mt-1">Earn <span class="text-amber-400 font-bold">+200.0000 TAX</span> in your Holding Wallet for every friend who joins!</p></div>
                 <div class="bg-slate-900/90 rounded-xl p-2.5 border border-white/10 flex items-center justify-between text-xs"><span class="text-slate-400">Friends Invited:</span><strong id="invited-count" class="text-amber-400 font-black">0 Friends</strong></div>
                 <div class="grid grid-cols-2 gap-2">
                     <button type="button" onclick="copyRefLink()" class="py-2.5 rounded-xl gold-pill-btn text-xs flex items-center justify-center gap-1.5 transition"><i class="fa-solid fa-copy"></i> Copy Link</button>
@@ -288,6 +273,22 @@
                     <div class="wallet-grid-item" onclick="connectDummyWallet('OKX Wallet')"><div class="wallet-icon bg-white text-black"><i class="fa-solid fa-check-to-slot"></i></div><span>OKX Wallet</span></div>
                     <div class="wallet-grid-item" onclick="connectDummyWallet('Trust Wallet')"><div class="wallet-icon bg-blue-500"><i class="fa-solid fa-shield"></i></div><span>Trust Wallet</span></div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DISCONNECT MODAL -->
+    <div id="disconnect-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+        <div class="glass-card gold-border-glow rounded-3xl max-w-sm w-full p-5 space-y-4 relative text-center">
+            <button type="button" onclick="closeDisconnectModal()" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+            <div class="w-12 h-12 rounded-2xl bg-red-500/20 border border-red-400/40 flex items-center justify-center text-red-400 text-2xl mx-auto"><i class="fa-solid fa-wallet"></i></div>
+            <div>
+                <h3 class="text-base font-extrabold text-white">Wallet Connected</h3>
+                <p id="connected-wallet-address" class="text-xs text-amber-400 mt-1 font-mono break-all"></p>
+            </div>
+            <div class="grid grid-cols-2 gap-2 mt-2">
+                <button type="button" onclick="closeDisconnectModal()" class="py-2.5 rounded-xl bg-slate-800 text-white font-bold text-xs">Cancel</button>
+                <button type="button" onclick="disconnectWallet()" class="py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs">Disconnect</button>
             </div>
         </div>
     </div>
@@ -391,7 +392,7 @@
         <div class="glass-card gold-border-glow rounded-3xl max-w-sm w-full p-5 space-y-4 relative text-center">
             <button type="button" onclick="closeVerifyModal()" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
             <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-emerald-400 text-2xl mx-auto"><i class="fa-solid fa-square-check"></i></div>
-            <div><h3 class="text-base font-extrabold text-white">Account Verification</h3><p class="text-xs text-slate-300 mt-1">Connect your TON Wallet in Header to unlock withdrawals & <span class="text-amber-400 font-bold">+250.0000 TAX</span> bonus!</p></div>
+            <div><h3 class="text-base font-extrabold text-white">Account Verification</h3><p class="text-xs text-slate-300 mt-1">Connect your TON Wallet in Header to unlock withdrawals & get <span class="text-amber-400 font-bold">+250.0000 TAX</span> bonus to Holding!</p></div>
             <button type="button" onclick="openWalletModal(); closeVerifyModal();" class="w-full py-3 rounded-xl bg-[#3390ec] text-white font-bold text-sm">Connect Wallet to Verify</button>
         </div>
     </div>
@@ -448,38 +449,22 @@
         </div>
     </div>
 
- <!-- DISCONNECT MODAL -->
-    <div id="disconnect-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4">
-        <div class="glass-card gold-border-glow rounded-3xl max-w-sm w-full p-5 space-y-4 relative text-center">
-            <button type="button" onclick="closeDisconnectModal()" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
-            <div class="w-12 h-12 rounded-2xl bg-red-500/20 border border-red-400/40 flex items-center justify-center text-red-400 text-2xl mx-auto"><i class="fa-solid fa-wallet"></i></div>
-            <div>
-                <h3 class="text-base font-extrabold text-white">Wallet Connected</h3>
-                <p id="connected-wallet-address" class="text-xs text-amber-400 mt-1 font-mono break-all"></p>
-            </div>
-            <div class="grid grid-cols-2 gap-2 mt-2">
-                <button type="button" onclick="closeDisconnectModal()" class="py-2.5 rounded-xl bg-slate-800 text-white font-bold text-xs">Cancel</button>
-                <button type="button" onclick="disconnectWallet()" class="py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs">Disconnect</button>
-            </div>
-        </div>
-    </div>     
-
-<!-- ============================================== -->
-    <!-- LOAD ALL SCRIPTS (Cache Bypassed) -->
     <!-- ============================================== -->
-    <script defer src="js/core/state.js?v=2"></script>
-    <script defer src="js/core/ui.js?v=2"></script>
-    <script defer src="js/features/wallet.js?v=2"></script>
-    <script defer src="js/features/mining.js?v=2"></script>
-    <script defer src="js/features/boost.js?v=2"></script>
-    <script defer src="js/features/profile.js?v=2"></script>
+    <!-- LOAD ALL SCRIPTS (Cache Bypassed v5) -->
+    <!-- ============================================== -->
+    <script defer src="js/core/state.js?v=5"></script>
+    <script defer src="js/core/ui.js?v=5"></script>
+    <script defer src="js/features/wallet.js?v=5"></script>
+    <script defer src="js/features/mining.js?v=5"></script>
+    <script defer src="js/features/boost.js?v=5"></script>
+    <script defer src="js/features/profile.js?v=5"></script>
     
-    <script defer src="js/games/aviator.js?v=2"></script>
-    <script defer src="js/games/mines.js?v=2"></script>
-    <script defer src="js/games/coinflip.js?v=2"></script>
-    <script defer src="js/games/spin.js?v=2"></script>
+    <script defer src="js/games/aviator.js?v=5"></script>
+    <script defer src="js/games/mines.js?v=5"></script>
+    <script defer src="js/games/coinflip.js?v=5"></script>
+    <script defer src="js/games/spin.js?v=5"></script>
     
-    <script type="module" defer src="js/core/firebase.js?v=2"></script>
+    <script type="module" defer src="js/core/firebase.js?v=5"></script>
 
 </body>
 </html>
