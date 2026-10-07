@@ -1,7 +1,17 @@
 // js/core/ui.js
 
-// Global Number Formatter (This fixes the blank coin issue!)
+// Global Number Formatter
 window.formatTax = function(num) { return Number(num || 0).toFixed(4); };
+
+// Leagues Data (Ei list ta missing chilo bolei UI crash korchilo)
+window.leagues = [
+    { name: "Bronze Auditor", min: 0, next: 5000 },
+    { name: "Silver Inspector", min: 5000, next: 25000 },
+    { name: "Gold Commissioner", min: 25000, next: 100000 },
+    { name: "Platinum Minister", min: 100000, next: 500000 },
+    { name: "Diamond Chancellor", min: 500000, next: 2000000 },
+    { name: "Supreme Tax Boss", min: 2000000, next: 10000000 }
+];
 
 window.copyRefLink = function() { const link = `https://t.me/TaxCoinArcadeBot?start=ref_${window.state.numericUid}`; const tempInput = document.createElement('textarea'); tempInput.value = link; document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); window.playSound('tap'); window.showToast("📋 Referral Link Copied!"); };
 window.simulateFriendInvite = function() { window.state.invitedCount += 1; window.state.balance += 200; window.playSound('upgrade'); window.showToast("🎉 Friend Joined! +200.0000 TAX Added to Pool!"); window.updateAllUI(); window.saveGameState(); };
@@ -62,52 +72,104 @@ window.renderLeaderboard = function() {
 };
 
 window.updateTopStatsUI = function() {
-    const poolBal = window.state.balance; const holdingBal = window.state.holdingBalance || 0; const totalAssets = poolBal + holdingBal; const usdVal = totalAssets * window.TAX_TO_USD_RATE;
-    
-    window.safeSetText('balance-display', window.formatTax(poolBal));
-    const effectiveTap = window.state.turboActive ? window.state.tapPower * 5 : window.state.tapPower;
-    
-    window.safeSetText('stat-tap', `+${effectiveTap}`);
-    window.safeSetText('stat-usd-val', `≈ $${usdVal.toFixed(3)}`);
-    window.safeSetText('energy-display', `${Math.floor(window.state.energy)} / ${window.state.maxEnergy}`);
-    window.safeSetText('regen-rate-display', window.state.regenRate);
-    
-    const energyBar = document.getElementById('energy-bar'); if(energyBar) energyBar.style.width = `${Math.min(100, (window.state.energy / window.state.maxEnergy) * 100)}%`;
-    window.safeSetText('aviator-pool-bal', `${window.formatTax(poolBal)} TAX`);
-    window.safeSetText('mines-pool-bal', `${window.formatTax(poolBal)} TAX`);
-    
-    let currentLeagueIdx = 0; for (let i = 0; i < leagues.length; i++) { if (poolBal >= leagues[i].min) currentLeagueIdx = i; }
-    const lg = leagues[currentLeagueIdx]; 
-    window.safeSetText('league-name', lg.name); 
-    window.safeSetText('league-progress-label', `${lg.name} (${currentLeagueIdx + 1}/${leagues.length})`); 
-    const pct = Math.min(100, Math.floor((poolBal / lg.next) * 100));
-    window.safeSetText('league-percent', `${pct}%`); 
-    const lgBar = document.getElementById('league-bar'); if(lgBar) lgBar.style.width = `${Math.max(4, pct)}%`;
-    
-    window.safeSetText('profile-assets-tax', `${window.formatTax(totalAssets)} TAX`);
-    window.safeSetText('profile-assets-usd', `≈ ${usdVal.toFixed(3)}$`);
-    window.safeSetText('profile-holding-tax', holdingBal > 0 ? `${window.formatTax(holdingBal)} TAX` : `0 TAX`);
-    window.safeSetText('profile-pool-tax', `${window.formatTax(poolBal)} TAX`);
-    
-    window.safeSetText('vip-modal-pool', `${window.formatTax(poolBal)} TAX`);
-    window.safeSetText('vip-modal-holding', holdingBal > 0 ? `${window.formatTax(holdingBal)} TAX` : `0 TAX`);
-    window.safeSetText('withdraw-avail-bal', `${window.formatTax(poolBal)} TAX`);
-    window.safeSetText('withdraw-live-rate', `$${(1000 * window.TAX_TO_USD_RATE).toFixed(3)}`);
-
-    // Wallet Display in Header
-    const wBtnText = document.getElementById('wallet-btn-text');
-    if (wBtnText && window.state.walletAddress && window.state.walletAddress.startsWith("UQ")) {
-        wBtnText.textContent = window.state.walletAddress.substring(0, 4) + "..." + window.state.walletAddress.substring(window.state.walletAddress.length - 4);
-        const walletBtn = document.getElementById('btn-connect-wallet');
-        if(walletBtn) {
-            walletBtn.classList.replace('bg-blue-500', 'bg-slate-800');
-            walletBtn.classList.replace('shadow-blue-500/20', 'shadow-slate-500/20');
+    try {
+        const poolBal = window.state.balance || 0; 
+        const holdingBal = window.state.holdingBalance || 0; 
+        const totalAssets = poolBal + holdingBal; 
+        const usdVal = totalAssets * (window.TAX_TO_USD_RATE || 0.00063633);
+        
+        window.safeSetText('balance-display', window.formatTax(poolBal));
+        const effectiveTap = window.state.turboActive ? window.state.tapPower * 5 : window.state.tapPower;
+        
+        window.safeSetText('stat-tap', `+${effectiveTap}`);
+        window.safeSetText('stat-usd-val', `≈ $${usdVal.toFixed(3)}`);
+        window.safeSetText('energy-display', `${Math.floor(window.state.energy)} / ${window.state.maxEnergy}`);
+        window.safeSetText('regen-rate-display', window.state.regenRate);
+        
+        const energyBar = document.getElementById('energy-bar'); if(energyBar) energyBar.style.width = `${Math.min(100, (window.state.energy / window.state.maxEnergy) * 100)}%`;
+        window.safeSetText('aviator-pool-bal', `${window.formatTax(poolBal)} TAX`);
+        window.safeSetText('mines-pool-bal', `${window.formatTax(poolBal)} TAX`);
+        
+        let currentLeagueIdx = 0; 
+        for (let i = 0; i < window.leagues.length; i++) { 
+            if (poolBal >= window.leagues[i].min) currentLeagueIdx = i; 
         }
-        window.state.isVerified = true; 
+        const lg = window.leagues[currentLeagueIdx]; 
+        if(lg) {
+            window.safeSetText('league-name', lg.name); 
+            window.safeSetText('league-progress-label', `${lg.name} (${currentLeagueIdx + 1}/${window.leagues.length})`); 
+            const pct = Math.min(100, Math.floor((poolBal / lg.next) * 100));
+            window.safeSetText('league-percent', `${pct}%`); 
+            const lgBar = document.getElementById('league-bar'); if(lgBar) lgBar.style.width = `${Math.max(4, pct)}%`;
+        }
+        
+        window.safeSetText('profile-assets-tax', `${window.formatTax(totalAssets)} TAX`);
+        window.safeSetText('profile-assets-usd', `≈ ${usdVal.toFixed(3)}$`);
+        window.safeSetText('profile-holding-tax', holdingBal > 0 ? `${window.formatTax(holdingBal)} TAX` : `0 TAX`);
+        window.safeSetText('profile-pool-tax', `${window.formatTax(poolBal)} TAX`);
+        
+        window.safeSetText('vip-modal-pool', `${window.formatTax(poolBal)} TAX`);
+        window.safeSetText('vip-modal-holding', holdingBal > 0 ? `${window.formatTax(holdingBal)} TAX` : `0 TAX`);
+        window.safeSetText('withdraw-avail-bal', `${window.formatTax(poolBal)} TAX`);
+        window.safeSetText('withdraw-live-rate', `$${(1000 * (window.TAX_TO_USD_RATE || 0.00063633)).toFixed(3)}`);
+
+        // Wallet Display Button Change logic
+        const wBtnText = document.getElementById('wallet-btn-text');
+        if (wBtnText && window.state.walletAddress && window.state.walletAddress.startsWith("UQ")) {
+            wBtnText.textContent = window.state.walletAddress.substring(0, 4) + "..." + window.state.walletAddress.substring(window.state.walletAddress.length - 4);
+            const walletBtn = document.getElementById('btn-connect-wallet');
+            if(walletBtn) {
+                walletBtn.classList.remove('bg-blue-500', 'hover:bg-blue-400', 'shadow-blue-500/20');
+                walletBtn.classList.add('bg-slate-800', 'shadow-slate-500/20');
+            }
+            window.state.isVerified = true; 
+        }
+    } catch(e) {
+        console.error("UI Update Error Ignored: ", e);
     }
 };
 
 window.updateAllUI = function() {
     if(window.updateTopStatsUI) window.updateTopStatsUI();
     window.safeSetText('turbo-left', window.state.turbosLeft); window.safeSetText('turbo-left-boost', window.state.turbosLeft); 
-    window.safeSetText('refill-left', window.state.refills
+    window.safeSetText('refill-left', window.state.refillsLeft); window.safeSetText('refill-left-Quick', window.state.refillsLeft);
+    window.safeSetText('multitap-lvl', `Lvl ${window.state.multitapLvl}`); window.safeSetText('multitap-cost-display', `🪙 ${window.state.multitapCost.toLocaleString()} TAX (+1/tap)`); 
+    window.safeSetText('energy-lvl', `Lvl ${window.state.energyLvl}`); window.safeSetText('energy-cost-display', `🪙 ${window.state.energyCost.toLocaleString()} TAX (+500 Max)`); 
+    window.safeSetText('regen-lvl', `Lvl ${window.state.regenLvl}`); window.safeSetText('regen-cost-display', `🪙 ${window.state.regenCost.toLocaleString()} TAX (+1/sec)`);
+    window.safeSetText('invited-count', `${window.state.invitedCount} Friends`); 
+    window.safeSetText('profile-uid-text', window.state.numericUid); 
+    window.safeSetText('uid-display', `ID: ${window.state.numericUid}`);
+
+    const verifyStatus = document.getElementById('profile-verify-status'); const verifyBtn = document.getElementById('profile-verify-btn'); const miniBadge = document.getElementById('verified-mini-icon');
+    if (window.state.isVerified) { 
+        if(verifyStatus) { verifyStatus.textContent = "Verified ✅"; verifyStatus.className = "text-xs text-emerald-400 font-bold mt-0.5"; }
+        if(verifyBtn) { verifyBtn.textContent = "Verified"; verifyBtn.className = "px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-extrabold text-xs"; }
+        if (miniBadge) miniBadge.classList.remove('hidden'); 
+    } else { 
+        if(verifyStatus) { verifyStatus.textContent = "Unverified"; verifyStatus.className = "text-xs text-slate-400 mt-0.5"; }
+        if(verifyBtn) { verifyBtn.textContent = "Verify"; verifyBtn.className = "px-5 py-2 rounded-full gold-pill-btn text-xs transition"; }
+    }
+
+    const pSoundStatus = document.getElementById('profile-sound-status'); const pSoundIcon = document.getElementById('profile-sound-icon'); const hSoundIcon = document.getElementById('sound-icon');
+    if (pSoundStatus && pSoundIcon) { pSoundStatus.textContent = window.state.soundEnabled ? "On — tap to mute" : "Off — tap to unmute"; pSoundIcon.className = window.state.soundEnabled ? "fa-solid fa-volume-high text-sky-300" : "fa-solid fa-volume-xmark text-slate-500"; }
+    if (hSoundIcon) { hSoundIcon.className = window.state.soundEnabled ? "fa-solid fa-volume-high text-[11px] text-amber-400" : "fa-solid fa-volume-xmark text-[11px] text-slate-500"; }
+
+    if (window.applySkinColors) window.applySkinColors(window.state.skin);
+    window.renderTasks(); window.renderLeaderboard(); 
+    if(window.renderWithdrawHistory) window.renderWithdrawHistory(); 
+    if(window.updateWithdrawPreview) window.updateWithdrawPreview();
+};
+
+// Background Loop for Energy Regeneration
+setInterval(() => {
+    if (window.state.energy < window.state.maxEnergy) { 
+        window.state.energy = Math.min(window.state.maxEnergy, window.state.energy + window.state.regenRate); 
+    }
+    if(window.updateTopStatsUI) window.updateTopStatsUI(); 
+    window.saveGameState(); 
+}, 1000);
+
+// Initialize UI when everything loads
+document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => { window.updateAllUI(); }, 500);
+});
