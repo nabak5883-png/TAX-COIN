@@ -42,5 +42,6 @@ if (coinArea) {
         
         window.spawnFloatingTap(e.clientX, e.clientY, `+${effectivePower}`); 
         if(window.updateTopStatsUI) window.updateTopStatsUI();
+        window.cloudSync(); // Trigger soft sync
     });
 }
