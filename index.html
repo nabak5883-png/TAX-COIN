@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Link to our new CSS file -->
+    <!-- Connect Main Design CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="select-none">
@@ -28,7 +28,6 @@
                     <div class="flex items-center gap-1 text-[11px] text-amber-400 font-semibold"><span id="league-name">Bronze Auditor</span><span class="text-slate-500">•</span><span id="uid-display" class="text-slate-400 font-mono text-[10px]">ID: 8683090550</span></div>
                 </div>
             </div>
-
             <div class="flex items-center gap-2">
                 <button type="button" id="sound-btn" onclick="toggleSound()" class="w-8 h-8 rounded-full glass-card flex items-center justify-center text-amber-400 active:scale-90 transition"><i class="fa-solid fa-volume-high text-[11px]" id="sound-icon"></i></button>
                 <button type="button" id="btn-connect-wallet" onclick="openWalletModal()" class="px-3.5 py-1.5 rounded-full bg-blue-500 hover:bg-blue-400 text-white text-[11px] font-bold flex items-center gap-1.5 shadow-lg shadow-blue-500/20 active:scale-95 transition">
@@ -36,7 +35,6 @@
                 </button>
             </div>
         </div>
-
         <div id="top-stats-strip" class="grid grid-cols-2 gap-3 mt-1 border-t border-white/5 pt-2">
             <div class="glass-card rounded-xl p-2 text-center border-t border-amber-500/30">
                 <div class="text-[10px] text-slate-400 font-medium">Earn per tap</div>
@@ -51,21 +49,18 @@
 
     <main class="flex-1 overflow-y-auto px-4 pb-24 pt-2 relative z-10">
 
-        <!-- TAB 1: MINE -->
+        <!-- TAB 1: MINE SCREEN -->
         <section id="tab-mine" class="tab-page h-full flex flex-col justify-between items-center py-1 block">
             <div class="w-full text-center">
                 <div class="flex items-center justify-center gap-2">
                     <svg class="w-8 h-8 drop-shadow-[0_0_10px_rgba(251,191,36,0.6)] shrink-0" viewBox="0 0 64 64">
-                        <defs>
-                            <radialGradient id="miniCoinGrad" cx="30%" cy="30%" r="70%"><stop offset="0%" stop-color="#fef08a"/><stop offset="50%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#92400e"/></radialGradient>
-                        </defs>
+                        <defs><radialGradient id="miniCoinGrad" cx="30%" cy="30%" r="70%"><stop offset="0%" stop-color="#fef08a"/><stop offset="50%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#92400e"/></radialGradient></defs>
                         <circle cx="32" cy="32" r="29" fill="url(#miniCoinGrad)" stroke="#fde047" stroke-width="3"/>
                         <circle cx="32" cy="32" r="22" fill="none" stroke="#78350f" stroke-width="1.5" stroke-dasharray="4 2"/>
                         <text x="32" y="39" text-anchor="middle" fill="#451a03" font-weight="900" font-size="20" font-family="Orbitron, sans-serif">T</text>
                     </svg>
                     <h1 id="balance-display" class="text-4xl sm:text-5xl font-black tracking-tight text-white font-cyber drop-shadow-[0_2px_15px_rgba(251,191,36,0.3)]">0.0000</h1>
                 </div>
-
                 <div class="max-w-xs mx-auto mt-2">
                     <div class="flex justify-between text-[10px] text-slate-400 mb-1 px-1">
                         <span id="league-progress-label">Bronze Auditor (1/6)</span>
@@ -76,7 +71,6 @@
                         <div id="league-bar" class="h-full bg-gradient-to-r from-amber-500 via-yellow-400 to-emerald-400 rounded-full transition-all duration-300" style="width: 4%"></div>
                     </div>
                 </div>
-
                 <div class="inline-flex items-center gap-1 bg-slate-900/80 p-1 rounded-full border border-slate-800 mt-2.5">
                     <button type="button" onclick="setSkin('gold')" id="skin-gold" class="px-3 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 transition">Classic Gold</button>
                     <button type="button" onclick="setSkin('cyber')" id="skin-cyber" class="px-3 py-0.5 rounded-full text-[10px] font-bold text-slate-400 hover:text-white transition">Cyber Neon</button>
@@ -141,7 +135,6 @@
                     <marquee behavior="scroll" direction="left" scrollamount="4" class="text-slate-300">🏆 Collector #8683 won +1,450 TAX in Aviator (5.80x) • Satoshi_Tax won +890 TAX in Mines (4 Gems) • Bengal_Whale won +500 TAX on Lucky Wheel! • TonMaster won +195 TAX on Coin Flip!</marquee>
                 </div>
             </div>
-
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div class="glass-card rounded-2xl p-4 border border-rose-500/30 relative overflow-hidden flex flex-col justify-between hover:border-rose-400/60 transition group">
                     <div class="flex items-start justify-between"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-600 to-red-600 flex items-center justify-center text-white text-xl shadow-lg shadow-red-500/30"><i class="fa-solid fa-plane-departure"></i></div><div><div class="flex items-center gap-1.5"><h3 class="font-cyber font-extrabold text-white text-sm">TAX Aviator</h3><span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-rose-500/20 text-rose-400 border border-rose-500/40">HOT 🔥</span></div><div class="text-[11px] text-slate-400 mt-0.5">Crash Jet • Up to 100x Multiplier</div></div></div></div>
@@ -156,7 +149,7 @@
                 <div class="glass-card rounded-2xl p-4 border border-amber-500/30 relative overflow-hidden flex flex-col justify-between hover:border-amber-400/60 transition group">
                     <div class="flex items-start justify-between"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-600 flex items-center justify-center text-slate-950 text-xl shadow-lg shadow-amber-500/30"><i class="fa-solid fa-coins"></i></div><div><div class="flex items-center gap-1.5"><h3 class="font-cyber font-extrabold text-white text-sm">TAX Coin Flip</h3><span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-amber-500/20 text-amber-300 border border-amber-400/40">2X WIN ⚡</span></div><div class="text-[11px] text-slate-400 mt-0.5">Heads or Tails • Double or Nothing</div></div></div></div>
                     <p class="text-xs text-slate-300 mt-2.5 leading-relaxed">Pick Heads or Tails, flip the golden TAX Coin, and instantly multiply your bet by 1.95x!</p>
-                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between"><span class="text-[10px] text-amber-300 font-bold"><i class="fa-solid fa-bolt mr-1"></i>Instant 1.95x</span><button type="button" onclick="openCoinFlipModal()" class="px-4 py-2 rounded-xl gold-pill-btn text-xs font-black shadow-md shadow-amber-500/20 active:scale-scale-95 transition flex items-center gap-1.5"><i class="fa-solid fa-rotate text-[10px]"></i> Play Flip</button></div>
+                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between"><span class="text-[10px] text-amber-300 font-bold"><i class="fa-solid fa-bolt mr-1"></i>Instant 1.95x</span><button type="button" onclick="openCoinFlipModal()" class="px-4 py-2 rounded-xl gold-pill-btn text-xs font-black shadow-md shadow-amber-500/20 active:scale-95 transition flex items-center gap-1.5"><i class="fa-solid fa-rotate text-[10px]"></i> Play Flip</button></div>
                 </div>
                 <div class="glass-card rounded-2xl p-4 border border-purple-500/30 relative overflow-hidden flex flex-col justify-between hover:border-purple-400/60 transition group">
                     <div class="flex items-start justify-between"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-white text-xl shadow-lg shadow-purple-500/30"><i class="fa-solid fa-dharmachakra animate-spin text-amber-300"></i></div><div><div class="flex items-center gap-1.5"><h3 class="font-cyber font-extrabold text-white text-sm">Lucky Wheel</h3><span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-purple-500/20 text-purple-300 border border-purple-400/40">UP TO 10x 🎁</span></div><div class="text-[11px] text-slate-400 mt-0.5">Spin & Win Huge Multipliers</div></div></div></div>
@@ -258,8 +251,6 @@
     </nav>
 
     <!-- MODALS SECTION -->
-
-    <!-- WALLET MODAL 1 -->
     <div id="wallet-connect-modal" class="bottom-sheet-overlay">
         <div class="bottom-sheet" id="wallet-sheet-1" onclick="event.stopPropagation()">
             <div class="flex justify-between items-center mb-6"><div class="w-8 h-8"></div><div class="w-12 h-1.5 bg-slate-700 rounded-full mx-auto"></div><button onclick="closeWalletModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button></div>
@@ -276,7 +267,6 @@
         </div>
     </div>
 
-    <!-- WALLET MODAL 2 -->
     <div id="all-wallets-modal" class="bottom-sheet-overlay">
         <div class="bottom-sheet h-[85vh] flex flex-col" id="wallet-sheet-2" onclick="event.stopPropagation()">
             <div class="flex justify-between items-center mb-6 shrink-0"><button onclick="closeAllWallets()" class="flex items-center gap-1 text-slate-300 font-bold text-sm"><i class="fa-solid fa-chevron-left text-xs"></i> Close</button><h3 class="text-lg font-bold text-white">Wallets</h3><div class="flex gap-2"><button class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center"><i class="fa-solid fa-magnifying-glass text-xs"></i></button></div></div>
@@ -316,9 +306,7 @@
                     <div class="flex items-center bg-slate-900/90 rounded-xl border border-slate-700/80 px-2 py-1"><input id="aviator-bet-input" type="number" step="any" value="25" min="1" class="w-full bg-transparent text-amber-400 font-cyber font-bold text-sm focus:outline-none"><div class="flex items-center gap-1 text-[11px] font-bold text-slate-400 ml-1"><button type="button" onclick="halveAviatorBet()" class="px-1.5 py-0.5 rounded hover:bg-slate-800 text-slate-300 active:scale-90 transition">½</button><button type="button" onclick="doubleAviatorBet()" class="px-1.5 py-0.5 rounded hover:bg-slate-800 text-slate-300 active:scale-90 transition">2x</button></div></div>
                     <div class="flex items-center bg-slate-900/90 rounded-xl border border-slate-700/80 px-2.5 py-1"><input id="aviator-auto-val" type="number" step="0.1" value="2.00" min="1.01" class="w-full bg-transparent text-emerald-400 font-cyber font-bold text-sm focus:outline-none text-right"><span class="text-xs text-slate-400 font-bold ml-1">x</span></div>
                 </div>
-                <div class="grid grid-cols-4 gap-1.5">
-                    <button type="button" onclick="setAviatorBet(25)" class="py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">25</button><button type="button" onclick="setAviatorBet(50)" class="py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">50</button><button type="button" onclick="setAviatorBet(100)" class="py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">100</button><button type="button" onclick="setAviatorBetMax()" class="py-1.5 rounded-xl bg-amber-500/20 text-amber-300 font-extrabold text-xs border border-amber-400/40 active:scale-95 transition">MAX</button>
-                </div>
+                <div class="grid grid-cols-4 gap-1.5"><button type="button" onclick="setAviatorBet(25)" class="py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">25</button><button type="button" onclick="setAviatorBet(50)" class="py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">50</button><button type="button" onclick="setAviatorBet(100)" class="py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">100</button><button type="button" onclick="setAviatorBetMax()" class="py-1.5 rounded-xl bg-amber-500/20 text-amber-300 font-extrabold text-xs border border-amber-400/40 active:scale-95 transition">MAX</button></div>
                 <button type="button" id="aviator-action-btn" onclick="handleAviatorAction()" class="w-full py-3.5 rounded-xl aviator-cashout-btn text-sm font-black tracking-wide flex items-center justify-center gap-2 transition"><i class="fa-solid fa-rocket"></i><span id="aviator-btn-label">BET 25 TAX</span></button>
             </div>
         </div>
@@ -453,514 +441,22 @@
         </div>
     </div>
 
-    <script>
-        // SAFE TEXT SETTER (Prevents null errors)
-        window.safeSetText = function(id, text) {
-            const el = document.getElementById(id);
-            if (el) el.textContent = text;
-        }
+    <!-- ============================================== -->
+    <!-- LOAD ALL SCRIPTS -->
+    <!-- ============================================== -->
+    <script defer src="js/core/state.js"></script>
+    <script defer src="js/core/ui.js"></script>
+    <script defer src="js/features/wallet.js"></script>
+    <script defer src="js/features/mining.js"></script>
+    <script defer src="js/features/boost.js"></script>
+    <script defer src="js/features/profile.js"></script>
+    
+    <script defer src="js/games/aviator.js"></script>
+    <script defer src="js/games/mines.js"></script>
+    <script defer src="js/games/coinflip.js"></script>
+    <script defer src="js/games/spin.js"></script>
+    
+    <script type="module" defer src="js/core/firebase.js"></script>
 
-        // TELEGRAM WEB APP
-        const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
-        if (tg) { try { tg.expand(); tg.ready(); } catch (e) {} }
-
-        // MAIN STATE
-        const state = {
-            balance: 0,
-            holdingBalance: 0,
-            tapPower: 1,
-            multitapLvl: 1,
-            multitapCost: 100,
-            maxEnergy: 1000,
-            energy: 1000,
-            energyLvl: 1,
-            energyCost: 150,
-            regenRate: 2,
-            regenLvl: 1,
-            regenCost: 200,
-            refillsLeft: 3,
-            turbosLeft: 3,
-            turboActive: false,
-            lastFreeSpin: 0,
-            invitedCount: 0,
-            walletAddress: "",
-            isVerified: false,
-            numericUid: "8683090550",
-            skin: "gold",
-            soundEnabled: true,
-            withdrawMethod: "TON",
-            withdrawHistory: [],
-            completedTasks: {}
-        };
-
-        window.state = state;
-        window.TAX_TO_USD_RATE = 0.00063633;
-        window.requireWalletToMine = true;
-
-        // AUTO-SAVE SYSTEM
-        function saveGameState() {
-            localStorage.setItem('taxCoinSavedState', JSON.stringify(state));
-            if (window.saveToFirebase) window.saveToFirebase();
-        }
-        function loadGameState() {
-            const savedData = localStorage.getItem('taxCoinSavedState');
-            if (savedData) { try { const parsedData = JSON.parse(savedData); Object.assign(state, parsedData); } catch (e) { console.error("Save file error."); } }
-        }
-        loadGameState();
-
-        window.triggerCloudSave = saveGameState;
-        window.addEventListener('beforeunload', saveGameState);
-        window.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') saveGameState(); });
-
-        const tasksCatalog = [
-            { id: "daily_checkin", title: "🎁 Claim Daily Tax Return", reward: 250, btnText: "Claim" },
-            { id: "join_tg", title: "📢 Join Official TAX COIN Channel", reward: 500, btnText: "Join & Claim" },
-            { id: "follow_x", title: "🐦 Follow TAX COIN on X (Twitter)", reward: 400, btnText: "Follow" },
-            { id: "verify_acc", title: "✅ Verify Your Account in Profile", reward: 300, btnText: "Claim", reqVerified: true }
-        ];
-
-        const leagues = [
-            { name: "Bronze Auditor", min: 0, next: 5000 }, { name: "Silver Inspector", min: 5000, next: 25000 },
-            { name: "Gold Commissioner", min: 25000, next: 100000 }, { name: "Platinum Minister", min: 100000, next: 500000 },
-            { name: "Diamond Chancellor", min: 500000, next: 2000000 }, { name: "Supreme Tax Boss", min: 2000000, next: 10000000 }
-        ];
-
-        // SOUND MANAGER
-        let audioCtx = null;
-        function playSound(type) {
-            if (!state.soundEnabled) return;
-            try {
-                if (!audioCtx) { const AudioContextClass = window.AudioContext || window.webkitAudioContext; if (AudioContextClass) audioCtx = new AudioContextClass(); }
-                if (!audioCtx) return; if (audioCtx.state === 'suspended') audioCtx.resume();
-                const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain(); osc.connect(gain); gain.connect(audioCtx.destination); const now = audioCtx.currentTime;
-                if (type === 'tap') { osc.type = 'sine'; osc.frequency.setValueAtTime(540, now); osc.frequency.exponentialRampToValueAtTime(880, now + 0.055); gain.gain.setValueAtTime(0.1, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06); osc.start(now); osc.stop(now + 0.065); }
-                else if (type === 'upgrade') { osc.type = 'triangle'; osc.frequency.setValueAtTime(440, now); osc.frequency.setValueAtTime(880, now + 0.16); gain.gain.setValueAtTime(0.15, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28); osc.start(now); osc.stop(now + 0.29); }
-                else if (type === 'error') { osc.type = 'sawtooth'; osc.frequency.setValueAtTime(190, now); osc.frequency.setValueAtTime(130, now + 0.1); gain.gain.setValueAtTime(0.12, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18); osc.start(now); osc.stop(now + 0.19); }
-            } catch (e) {}
-        }
-
-        let toastTimer = null;
-        window.showToast = function(message, isError = false) {
-            const box = document.getElementById('toast-box'); const msgEl = document.getElementById('toast-msg'); const iconEl = document.getElementById('toast-icon');
-            if (!box || !msgEl || !iconEl) return; msgEl.textContent = message; iconEl.className = isError ? "fa-solid fa-circle-exclamation text-red-400" : "fa-solid fa-circle-check text-amber-400";
-            box.classList.remove('opacity-0', '-translate-y-4'); box.classList.add('opacity-100', 'translate-y-0');
-            if (toastTimer) clearTimeout(toastTimer); toastTimer = setTimeout(() => { box.classList.add('opacity-0', '-translate-y-4'); box.classList.remove('opacity-100', 'translate-y-0'); }, 2500);
-        }
-
-        // ==========================================
-        // TON CONNECT WALLET UI
-        // ==========================================
-        window.openWalletModal = function() {
-            if (state.walletAddress && state.walletAddress.startsWith("UQ")) { showToast("Wallet already connected!"); return; }
-            document.getElementById('wallet-connect-modal').style.display = 'flex'; setTimeout(() => document.getElementById('wallet-sheet-1').classList.add('open'), 10);
-        }
-        window.closeWalletModal = function() { document.getElementById('wallet-sheet-1').classList.remove('open'); setTimeout(() => document.getElementById('wallet-connect-modal').style.display = 'none', 300); }
-        window.openAllWallets = function() { closeWalletModal(); setTimeout(() => { document.getElementById('all-wallets-modal').style.display = 'flex'; setTimeout(() => document.getElementById('wallet-sheet-2').classList.add('open'), 10); }, 350); }
-        window.closeAllWallets = function() { document.getElementById('wallet-sheet-2').classList.remove('open'); setTimeout(() => { document.getElementById('all-wallets-modal').style.display = 'none'; openWalletModal(); }, 300); }
-
-        window.connectDummyWallet = function(walletName) {
-            showToast(`Connecting to ${walletName}...`);
-            setTimeout(() => {
-                const dummyAddr = "UQ" + Math.random().toString(36).substring(2, 10).toUpperCase() + "..." + Math.random().toString(36).substring(2, 6).toUpperCase();
-                state.walletAddress = dummyAddr;
-                state.isVerified = true; 
-                state.balance += 250; 
-                playSound('upgrade');
-                showToast(`✅ Connected! +250 TAX Verification Bonus added!`);
-                
-                document.getElementById('wallet-sheet-1').classList.remove('open'); document.getElementById('wallet-sheet-2').classList.remove('open');
-                setTimeout(() => { document.getElementById('wallet-connect-modal').style.display = 'none'; document.getElementById('all-wallets-modal').style.display = 'none'; window.updateAllUI(); saveGameState(); }, 300);
-            }, 1200);
-        }
-
-        // ==========================================
-        // MINING / TAP SYSTEM
-        // ==========================================
-        const coinArea = document.getElementById('coin-touch-area');
-        if (coinArea) {
-            coinArea.addEventListener('pointerdown', (e) => {
-                if (window.requireWalletToMine && (!state.walletAddress || !state.walletAddress.startsWith("UQ"))) {
-                    playSound('error'); showToast("⚠️ Connect Wallet first to start mining!", true); return;
-                }
-                const effectivePower = state.turboActive ? state.tapPower * 5 : state.tapPower;
-                if (state.energy < state.tapPower && !state.turboActive) { playSound('error'); showToast("⚡ Low Energy! Tap Free Refill or wait.", true); return; }
-
-                const rect = coinArea.getBoundingClientRect(); const deltaX = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2); const deltaY = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
-                coinArea.style.transform = `rotateX(${-deltaY * 18}deg) rotateY(${deltaX * 18}deg) scale(0.95)`; setTimeout(() => { coinArea.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`; }, 100);
-
-                state.balance += effectivePower; if (!state.turboActive) state.energy = Math.max(0, state.energy - state.tapPower);
-                playSound('tap'); if (tg && tg.HapticFeedback) { try { tg.HapticFeedback.impactOccurred('light'); } catch (err) {} }
-                spawnFloatingTap(e.clientX, e.clientY, `+${effectivePower}`); window.updateTopStatsUI();
-            });
-        }
-        function spawnFloatingTap(x, y, text) { const el = document.createElement('div'); el.className = `floating-tap ${state.turboActive ? 'text-red-400' : 'text-amber-300'}`; el.textContent = text; el.style.left = `${x - 20}px`; el.style.top = `${y - 30}px`; document.body.appendChild(el); setTimeout(() => el.remove(), 800); }
-        function formatTax(num) { return Number(num || 0).toFixed(4); }
-
-        // ==========================================
-        // TAX AVIATOR CRASH GAME
-        // ==========================================
-        const aviator = { state: "WAITING", multiplier: 1.00, crashPoint: 2.00, flightStartTime: 0, hasBet: false, betAmount: 25, hasCashedOut: false, cashedOutAt: 0, animFrameId: null, recentMultipliers: [1.85, 1.14, 3.42, 1.08, 6.20, 2.15], particles: [] };
-        const aviatorCanvas = document.getElementById('aviator-canvas'); const aviatorCtx = aviatorCanvas ? aviatorCanvas.getContext('2d') : null;
-        function resizeAviatorCanvas() { if (!aviatorCanvas || !aviatorCanvas.parentElement) return; const rect = aviatorCanvas.parentElement.getBoundingClientRect(); if (rect.width > 0 && rect.height > 0) { aviatorCanvas.width = rect.width; aviatorCanvas.height = rect.height; } } window.addEventListener('resize', resizeAviatorCanvas);
-        function generateAviatorCrashPoint() { const rand = Math.random(); if (rand < 0.04) return 1.00; let point = 0.96 / (1 - rand); return Math.max(1.01, Math.min(100.00, Math.floor(point * 100) / 100)); }
-        function getSafeJetPosition(multiplier, width, height) { const safeW = (isFinite(width) && width > 0) ? width : 320; const safeH = (isFinite(height) && height > 0) ? height : 260; const m = (typeof multiplier === 'number' && isFinite(multiplier)) ? Math.max(1.00, multiplier) : 1.00; const progress = Math.min(1.0, Math.max(0.0, isFinite(Math.log(m) / Math.log(10.0)) ? Math.log(m) / Math.log(10.0) : 0)); const startX = 25; const endX = safeW - 45; const startY = safeH - 30; const endY = 40; const x = startX + (endX - startX) * progress; const y = startY - (startY - endY) * Math.sin((progress * Math.PI) / 2); return { x: isFinite(x) ? Math.max(10, Math.min(safeW, x)) : startX, y: isFinite(y) ? Math.max(10, Math.min(safeH, y)) : startY, startX, startY }; }
-        function drawJet(ctx, x, y, angle) { ctx.save(); ctx.translate(x, y); ctx.rotate(angle); ctx.shadowColor = '#f59e0b'; ctx.shadowBlur = 15; ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.moveTo(14, 0); ctx.lineTo(-12, -7); ctx.lineTo(-6, 0); ctx.lineTo(-12, 7); ctx.closePath(); ctx.fill(); ctx.fillStyle = '#f59e0b'; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-6, -15); ctx.lineTo(-1, -15); ctx.lineTo(5, 0); ctx.lineTo(-1, 15); ctx.lineTo(-6, 15); ctx.closePath(); ctx.fill(); ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(4, 0, 2.5, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
-        function renderAviatorFrame() {
-            if (!aviatorCanvas || !aviatorCtx) return; const w = aviatorCanvas.width; const h = aviatorCanvas.height; aviatorCtx.clearRect(0, 0, w, h);
-            const pos = getSafeJetPosition(Math.max(1.00, Number(aviator.multiplier) || 1.00), w, h);
-            if (aviator.state === "FLYING" || aviator.state === "CRASHED") {
-                if (isFinite(pos.startX) && isFinite(pos.startY) && isFinite(pos.x) && isFinite(pos.y)) { try { const grad = aviatorCtx.createLinearGradient(pos.startX, pos.startY, pos.x, pos.y); grad.addColorStop(0, 'rgba(239, 68, 68, 0.05)'); grad.addColorStop(0.6, 'rgba(245, 158, 11, 0.22)'); grad.addColorStop(1, 'rgba(250, 204, 21, 0.45)'); aviatorCtx.beginPath(); aviatorCtx.moveTo(pos.startX, pos.startY); aviatorCtx.quadraticCurveTo(pos.startX + (pos.x - pos.startX) * 0.4, pos.startY, pos.x, pos.y); aviatorCtx.lineTo(pos.x, pos.startY); aviatorCtx.closePath(); aviatorCtx.fillStyle = grad; aviatorCtx.fill(); } catch (e) { aviatorCtx.fillStyle = 'rgba(245, 158, 11, 0.2)'; } aviatorCtx.beginPath(); aviatorCtx.moveTo(pos.startX, pos.startY); aviatorCtx.quadraticCurveTo(pos.startX + (pos.x - pos.startX) * 0.4, pos.startY, pos.x, pos.y); aviatorCtx.strokeStyle = (aviator.state === "CRASHED") ? '#ef4444' : '#f59e0b'; aviatorCtx.lineWidth = 3.5; aviatorCtx.shadowColor = (aviator.state === "CRASHED") ? '#ef4444' : '#f59e0b'; aviatorCtx.shadowBlur = 10; aviatorCtx.stroke(); aviatorCtx.shadowBlur = 0; }
-                if (aviator.state === "FLYING") { drawJet(aviatorCtx, pos.x, pos.y, -0.32); if (Math.random() > 0.3) aviator.particles.push({ x: pos.x - 12, y: pos.y + 4, vx: -1.5 - Math.random(), vy: 0.5 - Math.random(), life: 0.7, size: 2.5 + Math.random() * 3, color: 'rgba(250, 204, 21, 0.6)' }); }
-            }
-            for (let i = aviator.particles.length - 1; i >= 0; i--) { const p = aviator.particles[i]; p.x += p.vx; p.y += p.vy; p.life -= 0.03; if (p.life <= 0) { aviator.particles.splice(i, 1); continue; } aviatorCtx.save(); aviatorCtx.globalAlpha = Math.max(0, p.life); aviatorCtx.fillStyle = p.color; aviatorCtx.beginPath(); aviatorCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2); aviatorCtx.fill(); aviatorCtx.restore(); }
-            if (aviator.state === "FLYING") { const elapsedSec = (performance.now() - aviator.flightStartTime) / 1000; aviator.multiplier = Math.max(1.00, Math.floor((1.00 + Math.pow(elapsedSec * 0.42, 1.45)) * 100) / 100); const autoToggle = document.getElementById('aviator-auto-toggle'); const autoVal = parseFloat(document.getElementById('aviator-auto-val')?.value) || 2.0; if (autoToggle && autoToggle.checked && aviator.hasBet && !aviator.hasCashedOut && aviator.multiplier >= autoVal) cashOutAviator(autoVal); if (aviator.multiplier >= aviator.crashPoint) { triggerAviatorCrash(); } else { updateAviatorUI(); } }
-            aviator.animFrameId = requestAnimationFrame(renderAviatorFrame);
-        }
-        function triggerAviatorCrash() { aviator.state = "CRASHED"; aviator.multiplier = aviator.crashPoint; playSound('error'); const pos = getSafeJetPosition(aviator.crashPoint, aviatorCanvas.width, aviatorCanvas.height); for (let i = 0; i < 24; i++) aviator.particles.push({ x: pos.x, y: pos.y, vx: Math.cos(Math.random() * Math.PI * 2) * (1 + Math.random() * 5), vy: Math.sin(Math.random() * Math.PI * 2) * (1 + Math.random() * 5), life: 1.0, size: 3 + Math.random() * 4, color: Math.random() > 0.5 ? '#ef4444' : '#f59e0b' }); aviator.recentMultipliers.unshift(aviator.crashPoint); if (aviator.recentMultipliers.length > 7) aviator.recentMultipliers.pop(); renderAviatorHistoryPills(); document.getElementById('aviator-status-badge').className = "text-xs font-black uppercase tracking-widest text-red-500 mb-1 flex items-center gap-1.5"; window.safeSetText('aviator-status-text', "💥 FLEW AWAY!"); document.getElementById('aviator-multiplier-display').className = "font-cyber font-black text-5xl sm:text-6xl text-red-500 tracking-tight drop-shadow-[0_4px_25px_rgba(239,68,68,0.7)]"; const btn = document.getElementById('aviator-action-btn'); const btnLabel = document.getElementById('aviator-btn-label'); if (aviator.hasBet && !aviator.hasCashedOut) { window.safeSetText('aviator-btn-label', `LOST -${aviator.betAmount} TAX`); btn.className = "w-full py-3.5 rounded-xl bg-red-950/80 border border-red-500/50 text-red-300 text-sm font-black"; } else if (aviator.hasCashedOut) { window.safeSetText('aviator-btn-label', `WON +${(aviator.betAmount * aviator.cashedOutAt).toFixed(2)} TAX!`); btn.className = "w-full py-3.5 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-sm font-black"; } else { window.safeSetText('aviator-btn-label', `NEXT ROUND IN 3s...`); btn.className = "w-full py-3.5 rounded-xl bg-slate-800 text-slate-400 text-sm font-bold"; } setTimeout(startAviatorWaitingRound, 3500); }
-        function startAviatorWaitingRound() { aviator.state = "WAITING"; aviator.multiplier = 1.00; aviator.hasBet = false; aviator.hasCashedOut = false; aviator.particles = []; document.getElementById('aviator-status-badge').className = "text-xs font-bold uppercase tracking-widest text-amber-400 mb-1 flex items-center gap-1.5 drop-shadow"; window.safeSetText('aviator-status-text', "⏳ PREPARING FLIGHT..."); document.getElementById('aviator-multiplier-display').className = "font-cyber font-black text-5xl sm:text-6xl text-white tracking-tight drop-shadow-[0_4px_25px_rgba(245,158,11,0.5)]"; window.safeSetText('aviator-multiplier-display', "1.00x"); window.safeSetText('aviator-potential-win', "Win: +0.0000 TAX"); updateAviatorActionButton(); setTimeout(() => { if (aviator.state === "WAITING") startAviatorFlight(); }, 4000); }
-        function startAviatorFlight() { aviator.state = "FLYING"; aviator.multiplier = 1.00; aviator.crashPoint = generateAviatorCrashPoint(); aviator.flightStartTime = performance.now(); document.getElementById('aviator-status-badge').className = "text-xs font-bold uppercase tracking-widest text-amber-400 mb-1 flex items-center gap-1.5 drop-shadow"; window.safeSetText('aviator-status-text', "FLIGHT IN PROGRESS"); updateAviatorActionButton(); }
-        function updateAviatorUI() { window.safeSetText('aviator-multiplier-display', `${aviator.multiplier.toFixed(2)}x`); if (aviator.hasBet && !aviator.hasCashedOut) { window.safeSetText('aviator-potential-win', `Win: +${(aviator.betAmount * aviator.multiplier).toFixed(4)} TAX`); window.safeSetText('aviator-btn-label', `CASH OUT ${(aviator.betAmount * aviator.multiplier).toFixed(2)} TAX`); } else { window.safeSetText('aviator-potential-win', `Win: +0.0000 TAX`); } }
-        function updateAviatorActionButton() { const btn = document.getElementById('aviator-action-btn'); const btnLabel = document.getElementById('aviator-btn-label'); const betVal = parseFloat(document.getElementById('aviator-bet-input')?.value) || 25; if (aviator.state === "WAITING") { if (aviator.hasBet) { btn.className = "w-full py-3.5 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-300 text-sm font-black"; window.safeSetText('aviator-btn-label', `BET PLACED (${aviator.betAmount} TAX)`); } else { btn.className = "w-full py-3.5 rounded-xl gold-pill-btn text-sm font-black"; window.safeSetText('aviator-btn-label', `BET ${betVal} TAX`); } } else if (aviator.state === "FLYING") { if (aviator.hasBet && !aviator.hasCashedOut) { btn.className = "w-full py-3.5 rounded-xl aviator-cashout-btn text-sm font-black"; window.safeSetText('aviator-btn-label', `CASH OUT ${(aviator.betAmount * aviator.multiplier).toFixed(2)} TAX`); } else if (aviator.hasCashedOut) { btn.className = "w-full py-3.5 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-sm font-black"; window.safeSetText('aviator-btn-label', `CASHED OUT (${(aviator.betAmount * aviator.cashedOutAt).toFixed(2)} TAX)`); } else { btn.className = "w-full py-3.5 rounded-xl bg-slate-800 text-slate-400 text-sm font-bold cursor-not-allowed"; window.safeSetText('aviator-btn-label', "WAITING FOR NEXT FLIGHT..."); } } }
-        window.handleAviatorAction = function() { if (aviator.state === "WAITING") { if (aviator.hasBet) { state.balance += aviator.betAmount; aviator.hasBet = false; showToast("↩️ Bet Cancelled & refunded to Pool."); updateAviatorActionButton(); window.updateTopStatsUI(); } else { const betVal = parseFloat(document.getElementById('aviator-bet-input')?.value) || 25; if (betVal <= 0) return showToast("Enter a valid bet amount!", true); if (betVal > state.balance) { playSound('error'); return showToast("Insufficient Pool Wallet balance!", true); } state.balance -= betVal; aviator.hasBet = true; aviator.betAmount = betVal; playSound('tap'); showToast(`✈️ Bet ${betVal} TAX placed for next flight!`); updateAviatorActionButton(); window.updateTopStatsUI(); saveGameState(); } } else if (aviator.state === "FLYING") { if (aviator.hasBet && !aviator.hasCashedOut) cashOutAviator(aviator.multiplier); } };
-        function cashOutAviator(multiplierLocked) { if (!aviator.hasBet || aviator.hasCashedOut) return; aviator.hasCashedOut = true; aviator.cashedOutAt = multiplierLocked; const winTotal = aviator.betAmount * multiplierLocked; state.balance += winTotal; playSound('upgrade'); showToast(`🎉 CASHOUT! Won +${winTotal.toFixed(4)} TAX (${multiplierLocked.toFixed(2)}x)!`); updateAviatorActionButton(); window.updateTopStatsUI(); saveGameState(); }
-        window.halveAviatorBet = function() { const inp = document.getElementById('aviator-bet-input'); const cur = parseFloat(inp.value) || 25; inp.value = Math.max(1, Math.floor(cur / 2)); updateAviatorActionButton(); };
-        window.doubleAviatorBet = function() { const inp = document.getElementById('aviator-bet-input'); const cur = parseFloat(inp.value) || 25; inp.value = Math.min(Math.floor(state.balance), Math.max(1, cur * 2)); updateAviatorActionButton(); };
-        window.setAviatorBet = function(amt) { document.getElementById('aviator-bet-input').value = amt; updateAviatorActionButton(); };
-        window.setAviatorBetMax = function() { document.getElementById('aviator-bet-input').value = Math.max(1, Math.floor(state.balance)); updateAviatorActionButton(); };
-        function renderAviatorHistoryPills() { document.getElementById('aviator-history-bar').innerHTML = aviator.recentMultipliers.map(m => { const val = Number(m).toFixed(2); let colorClass = m >= 3.0 ? "bg-purple-950/80 border-purple-400/40 text-purple-400" : (m >= 2.0 ? "bg-emerald-950/80 border-emerald-400/40 text-emerald-400" : "bg-sky-950/80 border-sky-400/40 text-sky-400"); return `<span class="px-2.5 py-1 rounded-lg text-xs font-black border ${colorClass}">${val}x</span>`; }).join(''); }
-        window.openAviatorModal = function() { document.getElementById('aviator-modal').classList.remove('hidden'); document.getElementById('aviator-modal').classList.add('flex'); window.safeSetText('aviator-pool-bal', `${formatTax(state.balance)} TAX`); renderAviatorHistoryPills(); setTimeout(() => { resizeAviatorCanvas(); if (!aviator.animFrameId) { startAviatorWaitingRound(); renderAviatorFrame(); } }, 50); };
-        window.closeAviatorModal = function() { document.getElementById('aviator-modal').classList.add('hidden'); document.getElementById('aviator-modal').classList.remove('flex'); window.updateTopStatsUI(); };
-
-        // ==========================================
-        // TAX MINES 5x5 GRID GAME
-        // ==========================================
-        const mines = { active: false, betAmount: 25, mineCount: 3, grid: Array(25).fill(false), revealed: Array(25).fill(false), gemsFound: 0, currentMultiplier: 1.00, nextMultiplier: 1.10 };
-        function calculateMinesMultiplier(mineCount, gemsFound) { if (gemsFound <= 0) return 1.00; const totalTiles = 25; const safeTiles = totalTiles - mineCount; if (gemsFound > safeTiles) return 1.00; let prob = 1.0; for (let i = 0; i < gemsFound; i++) prob *= (safeTiles - i) / (totalTiles - i); return prob <= 0 ? 1.00 : Math.max(1.01, Math.floor((0.97 / prob) * 100) / 100); }
-        function initMinesGrid() { const container = document.getElementById('mines-grid'); container.innerHTML = ''; for (let i = 0; i < 25; i++) { const btn = document.createElement('button'); btn.type = 'button'; btn.id = `mines-tile-${i}`; btn.onclick = () => onMinesTileClicked(i); btn.className = "mines-tile w-full aspect-square rounded-xl bg-slate-800/90 border border-white/10 hover:border-emerald-400/50 flex items-center justify-center text-lg font-black text-slate-300 shadow-md"; btn.innerHTML = `<span class="tile-icon text-slate-600 text-xs"><i class="fa-solid fa-cube"></i></span>`; container.appendChild(btn); } }
-        window.openMinesModal = function() { document.getElementById('mines-modal').classList.remove('hidden'); document.getElementById('mines-modal').classList.add('flex'); window.safeSetText('mines-pool-bal', `${formatTax(state.balance)} TAX`); initMinesGrid(); updateMinesUI(); };
-        window.closeMinesModal = function() { document.getElementById('mines-modal').classList.add('hidden'); document.getElementById('mines-modal').classList.remove('flex'); window.updateTopStatsUI(); };
-        window.changeMinesCount = function() { if (!mines.active) { mines.mineCount = parseInt(document.getElementById('mines-count-select').value) || 3; updateMinesUI(); } };
-        window.setMinesBet = function(val) { if (!mines.active) { document.getElementById('mines-bet-input').value = val; updateMinesUI(); } };
-        window.setMinesBetMax = function() { if (!mines.active) { document.getElementById('mines-bet-input').value = Math.max(1, Math.floor(state.balance)); updateMinesUI(); } };
-        window.halveMinesBet = function() { if (!mines.active) { const cur = parseFloat(document.getElementById('mines-bet-input').value) || 25; document.getElementById('mines-bet-input').value = Math.max(1, Math.floor(cur / 2)); updateMinesUI(); } };
-        window.doubleMinesBet = function() { if (!mines.active) { const cur = parseFloat(document.getElementById('mines-bet-input').value) || 25; document.getElementById('mines-bet-input').value = Math.min(Math.floor(state.balance), Math.max(1, cur * 2)); updateMinesUI(); } };
-
-        window.handleMinesAction = function() {
-            if (!mines.active) {
-                const betVal = parseFloat(document.getElementById('mines-bet-input')?.value) || 25;
-                if (betVal <= 0) return showToast("Enter a valid bet amount!", true); if (betVal > state.balance) { playSound('error'); return showToast("Insufficient Pool Wallet balance!", true); }
-                state.balance -= betVal; mines.active = true; mines.betAmount = betVal; mines.gemsFound = 0; mines.revealed = Array(25).fill(false); mines.grid = Array(25).fill(false);
-                let placed = 0; while (placed < mines.mineCount) { const randIdx = Math.floor(Math.random() * 25); if (!mines.grid[randIdx]) { mines.grid[randIdx] = true; placed++; } }
-                playSound('tap'); showToast(`💣 Game Started with ${mines.mineCount} Mines! Find the gems!`); document.getElementById('mines-bet-input').disabled = true; document.getElementById('mines-count-select').disabled = true;
-                initMinesGrid(); updateMinesUI(); window.updateTopStatsUI(); saveGameState();
-            } else { cashOutMines(); }
-        };
-        function onMinesTileClicked(idx) {
-            if (!mines.active || mines.revealed[idx]) return;
-            mines.revealed[idx] = true; const tileBtn = document.getElementById(`mines-tile-${idx}`);
-            if (mines.grid[idx]) { tileBtn.className = "mines-tile revealed-bomb w-full aspect-square rounded-xl border flex items-center justify-center text-xl text-white"; tileBtn.innerHTML = `<i class="fa-solid fa-bomb text-red-100"></i>`; playSound('error'); triggerMinesGameOver(idx); } else {
-                mines.gemsFound++; tileBtn.className = "mines-tile revealed-gem w-full aspect-square rounded-xl border flex items-center justify-center text-xl text-emerald-200"; tileBtn.innerHTML = `<i class="fa-solid fa-gem text-emerald-300"></i>`; playSound('tap');
-                if (mines.gemsFound >= (25 - mines.mineCount)) cashOutMines(true); else updateMinesUI();
-            }
-        }
-        function cashOutMines(allCleared = false) { if (!mines.active || mines.gemsFound === 0) return; const winTotal = mines.betAmount * mines.currentMultiplier; state.balance += winTotal; playSound('upgrade'); showToast(allCleared ? `🏆 ALL GEMS CLEARED! Jackpot +${winTotal.toFixed(4)} TAX!` : `🎉 CASHOUT! Won +${winTotal.toFixed(4)} TAX (${mines.currentMultiplier.toFixed(2)}x)!`); for (let i = 0; i < 25; i++) { const btn = document.getElementById(`mines-tile-${i}`); if (btn) { btn.disabled = true; if (!mines.revealed[i]) { if (mines.grid[i]) { btn.className = "mines-tile w-full aspect-square rounded-xl bg-red-950/40 border border-red-500/40 flex items-center justify-center text-base text-red-400 opacity-80"; btn.innerHTML = `<i class="fa-solid fa-bomb text-red-400"></i>`; } else { btn.className = "mines-tile w-full aspect-square rounded-xl bg-emerald-950/30 border border-emerald-500/20 flex items-center justify-center text-sm text-emerald-500 opacity-60"; btn.innerHTML = `<i class="fa-solid fa-gem text-emerald-600"></i>`; } } } } mines.active = false; document.getElementById('mines-bet-input').disabled = false; document.getElementById('mines-count-select').disabled = false; updateMinesUI(); window.updateTopStatsUI(); saveGameState(); }
-        function triggerMinesGameOver(hitIndex) { mines.active = false; showToast(`💥 BOOM! Hit a mine. Lost ${mines.betAmount} TAX`, true); for (let i = 0; i < 25; i++) { const btn = document.getElementById(`mines-tile-${i}`); if (btn) { btn.disabled = true; if (!mines.revealed[i]) { if (mines.grid[i]) { btn.className = "mines-tile w-full aspect-square rounded-xl bg-red-950/40 border border-red-500/40 flex items-center justify-center text-base text-red-400 opacity-80"; btn.innerHTML = `<i class="fa-solid fa-bomb text-red-400"></i>`; } else { btn.className = "mines-tile w-full aspect-square rounded-xl bg-emerald-950/30 border border-emerald-500/20 flex items-center justify-center text-sm text-emerald-500 opacity-60"; btn.innerHTML = `<i class="fa-solid fa-gem text-emerald-600"></i>`; } } } } document.getElementById('mines-bet-input').disabled = false; document.getElementById('mines-count-select').disabled = false; updateMinesUI(); window.updateTopStatsUI(); saveGameState(); }
-        function updateMinesUI() { mines.currentMultiplier = calculateMinesMultiplier(mines.mineCount, mines.gemsFound); mines.nextMultiplier = calculateMinesMultiplier(mines.mineCount, mines.gemsFound + 1); window.safeSetText('mines-gems-count', `${mines.gemsFound} / ${25 - mines.mineCount}`); window.safeSetText('mines-current-mult', `${mines.currentMultiplier.toFixed(2)}x`); window.safeSetText('mines-next-mult', `${mines.nextMultiplier.toFixed(2)}x`); window.safeSetText('mines-pool-bal', `${formatTax(state.balance)} TAX`); const btn = document.getElementById('mines-action-btn'); const label = document.getElementById('mines-btn-label'); if (mines.active) { if (mines.gemsFound > 0) { btn.className = "w-full py-3.5 rounded-xl aviator-cashout-btn text-sm font-black tracking-wide flex items-center justify-center gap-2 transition"; label.innerHTML = `CASH OUT <span class="text-slate-900">${(mines.betAmount * mines.currentMultiplier).toFixed(2)} TAX</span> (${mines.currentMultiplier.toFixed(2)}x)`; } else { btn.className = "w-full py-3.5 rounded-xl bg-slate-800 text-slate-400 text-sm font-bold flex items-center justify-center gap-2 cursor-not-allowed"; window.safeSetText('mines-btn-label', `PICK A TILE (0 / ${25 - mines.mineCount})`); } } else { btn.className = "w-full py-3.5 rounded-xl gold-pill-btn text-sm font-black tracking-wide flex items-center justify-center gap-2 transition"; window.safeSetText('mines-btn-label', `START GAME (${parseFloat(document.getElementById('mines-bet-input')?.value) || 25} TAX)`); } }
-
-        // ==========================================
-        // TAX COIN FLIP
-        // ==========================================
-        const coinFlipState = { choice: 'heads', isFlipping: false };
-        window.openCoinFlipModal = function() { document.getElementById('coinflip-modal').classList.remove('hidden'); document.getElementById('coinflip-modal').classList.add('flex'); window.updateFlipWinPreview(); };
-        window.closeCoinFlipModal = function() { document.getElementById('coinflip-modal').classList.add('hidden'); document.getElementById('coinflip-modal').classList.remove('flex'); window.updateTopStatsUI(); };
-        window.setCoinFlipChoice = function(choice) { if (coinFlipState.isFlipping) return; coinFlipState.choice = choice; playSound('tap'); document.getElementById('flip-choice-heads').className = choice === 'heads' ? "py-2.5 rounded-xl border border-amber-400 bg-amber-500/20 text-amber-300 font-black text-xs flex items-center justify-center gap-1.5 transition" : "py-2.5 rounded-xl border border-white/10 bg-slate-900 text-slate-400 font-bold text-xs flex items-center justify-center gap-1.5 transition"; document.getElementById('flip-choice-tails').className = choice === 'tails' ? "py-2.5 rounded-xl border border-cyan-400 bg-cyan-500/20 text-cyan-300 font-black text-xs flex items-center justify-center gap-1.5 transition" : "py-2.5 rounded-xl border border-white/10 bg-slate-900 text-slate-400 font-bold text-xs flex items-center justify-center gap-1.5 transition"; };
-        window.setFlipBet = function(amt) { document.getElementById('flip-bet-input').value = amt; window.updateFlipWinPreview(); };
-        window.setFlipBetMax = function() { document.getElementById('flip-bet-input').value = Math.max(1, Math.floor(state.balance)); window.updateFlipWinPreview(); };
-        window.updateFlipWinPreview = function() { const betVal = parseFloat(document.getElementById('flip-bet-input')?.value) || 25; window.safeSetText('flip-win-preview', `${(betVal * 1.95).toFixed(2)} TAX`); if (!coinFlipState.isFlipping) window.safeSetText('flip-btn-label', `FLIP COIN (${betVal} TAX)`); };
-        window.flipCoinNow = function() { if (coinFlipState.isFlipping) return; const betVal = parseFloat(document.getElementById('flip-bet-input')?.value) || 25; if (betVal <= 0) return showToast("Enter a valid bet amount!", true); if (betVal > state.balance) { playSound('error'); return showToast("Insufficient Pool Wallet balance!", true); } state.balance -= betVal; coinFlipState.isFlipping = true; window.updateTopStatsUI(); saveGameState(); const actionBtn = document.getElementById('flip-action-btn'); actionBtn.disabled = true; window.safeSetText('flip-btn-label', "FLIPPING..."); playSound('tap'); const visual = document.getElementById('flip-coin-visual'); visual.style.transform = "rotateY(1800deg) scale(1.15)"; setTimeout(() => { const outcome = Math.random() < 0.5 ? 'heads' : 'tails'; visual.style.transform = "rotateY(0deg) scale(1)"; if (outcome === 'heads') { window.safeSetText('flip-coin-symbol', "TAX"); window.safeSetText('flip-coin-sub', "HEADS"); } else { window.safeSetText('flip-coin-symbol', "🛡️"); window.safeSetText('flip-coin-sub', "TAILS"); } if (outcome === coinFlipState.choice) { const winTotal = betVal * 1.95; state.balance += winTotal; playSound('upgrade'); showToast(`🎉 WON! ${outcome.toUpperCase()}! +${winTotal.toFixed(4)} TAX!`); } else { playSound('error'); showToast(`❌ Lost ${betVal} TAX! Result was ${outcome.toUpperCase()}`, true); } coinFlipState.isFlipping = false; actionBtn.disabled = false; window.updateFlipWinPreview(); window.updateTopStatsUI(); saveGameState(); }, 1200); };
-
-        // ==========================================
-        // 9-SLICE SPIN WHEEL LOGIC
-        // ==========================================
-        let wheelDeg = 0;
-        window.openSpinModal = function() {
-            document.getElementById('spin-modal').classList.remove('hidden'); document.getElementById('spin-modal').classList.add('flex');
-            const now = Date.now();
-            const desc = document.getElementById('spin-desc');
-            if (now - state.lastFreeSpin >= (12 * 60 * 60 * 1000)) {
-                desc.innerHTML = `<span class="text-emerald-400 font-black">🎁 FREE SPIN AVAILABLE (Worth 50 TAX Bet)</span>`;
-                window.safeSetText('btn-spin-action', `SPIN FREE!`);
-                document.getElementById('btn-spin-action').className = "w-full py-3.5 rounded-xl bg-emerald-500 text-slate-900 font-black tracking-wide shadow-lg shadow-emerald-500/40";
-            } else {
-                desc.innerHTML = `Cost: <strong class="text-amber-400">25 TAX</strong> | <span class="text-emerald-400 font-bold">1 Free Spin Every 12 Hours!</span>`;
-                window.safeSetText('btn-spin-action', `SPIN (25 TAX)`);
-                document.getElementById('btn-spin-action').className = "w-full py-3.5 rounded-xl gold-pill-btn text-sm font-black tracking-wide";
-            }
-        };
-        window.closeSpinModal = function() { document.getElementById('spin-modal').classList.add('hidden'); document.getElementById('spin-modal').classList.remove('flex'); };
-        window.spinWheelNow = function() {
-            const btn = document.getElementById('btn-spin-action');
-            if(btn.disabled) return;
-
-            const now = Date.now();
-            const isFree = (now - state.lastFreeSpin >= (12 * 60 * 60 * 1000));
-            let bet = 25;
-
-            if (isFree) {
-                state.lastFreeSpin = now;
-                bet = 50; 
-                showToast("🎁 Using Free Spin (Worth 50 TAX)!");
-            } else {
-                if (state.balance < 25) { playSound('error'); return showToast("⚠️ Not enough TAX in Pool Wallet!", true); }
-                state.balance -= 25;
-            }
-
-            btn.disabled = true; window.safeSetText('btn-spin-action', "SPINNING...");
-            window.updateAllUI(); saveGameState();
-
-            const multipliers = [0, 0.5, 1, 1.5, 2, 3, 5, 7.5, 10];
-            const randomIndex = Math.floor(Math.random() * 9);
-            const winMult = multipliers[randomIndex];
-            
-            const sliceAngle = 360 / 9; 
-            const targetRotation = 360 - (randomIndex * sliceAngle + (sliceAngle / 2));
-            wheelDeg += 1800; 
-            const finalDeg = wheelDeg + targetRotation;
-
-            document.getElementById('wheel-el').style.transform = `rotate(${finalDeg}deg)`;
-            playSound('tap');
-
-            setTimeout(() => {
-                btn.disabled = false;
-                const winAmount = bet * winMult;
-                if (winAmount > 0) { state.balance += winAmount; playSound('upgrade'); showToast(`🎰 WON! ${winMult}x Multiplier! +${winAmount.toFixed(4)} TAX!`); } else { playSound('error'); showToast(`❌ Bad Luck! Landed on 0x.`, true); }
-                window.updateAllUI(); saveGameState(); window.openSpinModal(); 
-            }, 4200);
-        };
-
-        // ==========================================
-        // UI UPDATES, TABS & GLOBAL FUNCTIONS
-        // ==========================================
-        window.copyRefLink = function() { const link = `https://t.me/TaxCoinArcadeBot?start=ref_${state.numericUid}`; const tempInput = document.createElement('textarea'); tempInput.value = link; document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); playSound('tap'); showToast("📋 Referral Link Copied!"); };
-        window.simulateFriendInvite = function() { state.invitedCount += 1; state.balance += 200; playSound('upgrade'); showToast("🎉 Friend Joined! +200.0000 TAX Added to Pool!"); window.updateAllUI(); saveGameState(); };
-        window.toggleSound = function() { state.soundEnabled = !state.soundEnabled; if (state.soundEnabled) playSound('tap'); window.updateAllUI(); saveGameState(); showToast(state.soundEnabled ? "🔊 Sound Effects ON" : "🔇 Sound Effects Muted"); };
-
-        window.switchTab = function(tabName) {
-            document.querySelectorAll('.tab-page').forEach(p => p.classList.add('hidden'));
-            const target = document.getElementById(`tab-${tabName}`); if (target) target.classList.remove('hidden');
-            const statsStrip = document.getElementById('top-stats-strip');
-            if (statsStrip) { if (tabName === 'profile' || tabName === 'games' || tabName === 'boost') { statsStrip.classList.add('hidden'); } else { statsStrip.classList.remove('hidden'); } }
-            ['mine', 'games', 'tasks', 'boost', 'friends', 'profile'].forEach(t => {
-                const btn = document.getElementById(`nav-${t}`); if (!btn) return;
-                if (t === 'boost') { btn.className = (t === tabName) ? "nav-btn flex flex-col items-center py-1 rounded-xl text-amber-400 transition" : "nav-btn flex flex-col items-center py-1 rounded-xl text-slate-300 transition"; } else { btn.className = (t === tabName) ? "nav-btn flex flex-col items-center py-1.5 rounded-xl text-amber-400 transition" : "nav-btn flex flex-col items-center py-1.5 rounded-xl text-slate-400 hover:text-white transition"; }
-            });
-            window.updateAllUI();
-        };
-
-        window.updateTopStatsUI = function() {
-            const poolBal = state.balance; const holdingBal = state.holdingBalance || 0; const totalAssets = poolBal + holdingBal; const usdVal = totalAssets * window.TAX_TO_USD_RATE;
-            
-            window.safeSetText('balance-display', formatTax(poolBal));
-            const effectiveTap = state.turboActive ? state.tapPower * 5 : state.tapPower;
-            
-            window.safeSetText('stat-tap', `+${effectiveTap}`);
-            window.safeSetText('stat-usd-val', `≈ $${usdVal.toFixed(3)}`);
-            window.safeSetText('energy-display', `${Math.floor(state.energy)} / ${state.maxEnergy}`);
-            window.safeSetText('regen-rate-display', state.regenRate);
-            
-            const energyBar = document.getElementById('energy-bar'); if(energyBar) energyBar.style.width = `${Math.min(100, (state.energy / state.maxEnergy) * 100)}%`;
-            window.safeSetText('aviator-pool-bal', `${formatTax(poolBal)} TAX`);
-            
-            let currentLeagueIdx = 0; for (let i = 0; i < leagues.length; i++) { if (poolBal >= leagues[i].min) currentLeagueIdx = i; }
-            const lg = leagues[currentLeagueIdx]; 
-            window.safeSetText('league-name', lg.name); 
-            window.safeSetText('league-progress-label', `${lg.name} (${currentLeagueIdx + 1}/${leagues.length})`); 
-            const pct = Math.min(100, Math.floor((poolBal / lg.next) * 100));
-            window.safeSetText('league-percent', `${pct}%`); 
-            const lgBar = document.getElementById('league-bar'); if(lgBar) lgBar.style.width = `${Math.max(4, pct)}%`;
-            
-            window.safeSetText('profile-assets-tax', `${formatTax(totalAssets)} TAX`);
-            window.safeSetText('profile-assets-usd', `≈ ${usdVal.toFixed(3)}$`);
-            window.safeSetText('profile-holding-tax', holdingBal > 0 ? `${formatTax(holdingBal)} TAX` : `0 TAX`);
-            window.safeSetText('profile-pool-tax', `${formatTax(poolBal)} TAX`);
-            
-            window.safeSetText('vip-modal-pool', `${formatTax(poolBal)} TAX`);
-            window.safeSetText('vip-modal-holding', holdingBal > 0 ? `${formatTax(holdingBal)} TAX` : `0 TAX`);
-            window.safeSetText('withdraw-avail-bal', `${formatTax(poolBal)} TAX`);
-            window.safeSetText('withdraw-live-rate', `$${(1000 * window.TAX_TO_USD_RATE).toFixed(3)}`);
-
-            // Wallet Display in Header
-            const wBtnText = document.getElementById('wallet-btn-text');
-            if (wBtnText && state.walletAddress && state.walletAddress.startsWith("UQ")) {
-                wBtnText.textContent = state.walletAddress.substring(0, 4) + "..." + state.walletAddress.substring(state.walletAddress.length - 4);
-                const walletBtn = document.getElementById('btn-connect-wallet');
-                if(walletBtn) {
-                    walletBtn.classList.replace('bg-blue-500', 'bg-slate-800');
-                    walletBtn.classList.replace('shadow-blue-500/20', 'shadow-slate-500/20');
-                }
-                state.isVerified = true; 
-            }
-        };
-
-        // Render Tasks Function (Fully restored globally)
-        window.renderTasks = function() {
-            const container = document.getElementById('tasks-container'); if (!container) return; container.innerHTML = '';
-            tasksCatalog.forEach(task => {
-                const isDone = !!state.completedTasks[task.id];
-                const div = document.createElement('div'); div.className = "glass-card rounded-2xl p-3.5 flex items-center justify-between";
-                div.innerHTML = `<div><div class="text-xs font-extrabold text-white">${task.title}</div><div class="text-xs font-bold text-emerald-400 mt-0.5">+${task.reward.toFixed(4)} TAX</div></div><button type="button" onclick="claimTaskReward('${task.id}')" ${isDone ? 'disabled' : ''} class="px-4 py-2 rounded-full text-xs font-extrabold transition ${isDone ? 'bg-slate-800 text-emerald-400 cursor-not-allowed' : 'gold-pill-btn'}">${isDone ? 'Done ✅' : task.btnText}</button>`; container.appendChild(div);
-            });
-        };
-
-        window.claimTaskReward = function(taskId) {
-            const task = tasksCatalog.find(t => t.id === taskId); if (!task || state.completedTasks[taskId]) return;
-            if (task.id === 'play_aviator') return window.openAviatorModal();
-            if (task.id === 'play_mines') return window.openMinesModal();
-            playSound('error');
-            showToast("⚠️ Task verification pending from Admin!", true);
-        };
-
-        window.renderLeaderboard = function() {
-            const list = document.getElementById('leaderboard-list'); if (!list) return;
-            const pName = document.getElementById('player-name')?.textContent || "Tax Collector";
-            const demoPlayers = [ { name: "Satoshi_Tax", balance: 14850.5 }, { name: "Bengal_Whale", balance: 8215.2 }, { name: "CryptoAuditor", balance: 4195.8 }, { name: pName + " (You)", balance: state.balance + (state.holdingBalance || 0) } ].sort((a, b) => (b.balance || 0) - (a.balance || 0));
-            list.innerHTML = demoPlayers.map((p, idx) => `<div class="glass-card px-3.5 py-2.5 rounded-2xl flex items-center justify-between"><div class="flex items-center gap-3"><span class="w-6 h-6 rounded-lg ${idx === 0 ? 'bg-amber-400 text-slate-950' : idx === 1 ? 'bg-slate-300 text-slate-950' : idx === 2 ? 'bg-amber-700 text-white' : 'bg-slate-800 text-slate-400'} font-black text-xs flex items-center justify-center">${idx + 1}</span><div><div class="text-xs font-bold text-white">${p.name}</div></div></div><div class="text-xs font-extrabold text-amber-400">${Number(p.balance || 0).toFixed(2)} TAX</div></div>`).join('');
-        };
-
-        window.copyUserId = function() { const temp = document.createElement('textarea'); temp.value = state.numericUid; document.body.appendChild(temp); temp.select(); document.execCommand('copy'); document.body.removeChild(temp); playSound('tap'); showToast(`📋 User ID (${state.numericUid}) Copied!`); };
-        window.openVerifyModal = function() { if (state.isVerified) return showToast("✅ Your account is already verified!"); document.getElementById('verify-modal').classList.remove('hidden'); document.getElementById('verify-modal').classList.add('flex'); };
-        window.closeVerifyModal = function() { document.getElementById('verify-modal').classList.add('hidden'); document.getElementById('verify-modal').classList.remove('flex'); };
-        window.quickFillVerify = function() { document.getElementById('verify-wallet-input').value = "UQA7xTaxCoinOfficialVault" + state.numericUid.slice(-4); };
-        window.completeAccountVerification = function() { let val = document.getElementById('verify-wallet-input').value.trim(); if (!val) val = "UQA7xTaxCoinVerified" + state.numericUid.slice(-4); state.isVerified = true; state.walletAddress = val; state.balance += 250; playSound('upgrade'); window.closeVerifyModal(); showToast("✅ Account Verified! +250.0000 TAX Bonus Added!"); window.updateAllUI(); saveGameState(); };
-        window.openVipModal = function() { window.updateTopStatsUI(); document.getElementById('vip-modal').classList.remove('hidden'); document.getElementById('vip-modal').classList.add('flex'); };
-        window.closeVipModal = function() { document.getElementById('vip-modal').classList.add('hidden'); document.getElementById('vip-modal').classList.remove('flex'); };
-        window.lockCoinsInVipVault = function(amount) { const lockAmt = amount || 200; if (state.balance < lockAmt) { playSound('error'); return showToast(`⚠️ Need at least ${lockAmt} TAX in Pool Wallet!`, true); } state.balance -= lockAmt; const bonusAmt = lockAmt * 1.25; state.holdingBalance = (state.holdingBalance || 0) + bonusAmt; playSound('upgrade'); showToast(`💎 Locked ${lockAmt} TAX! Holding Wallet +${bonusAmt.toFixed(2)} TAX!`); window.updateAllUI(); saveGameState(); };
-        window.unlockVipVault = function() { if (!state.holdingBalance || state.holdingBalance <= 0) { playSound('error'); return showToast("⚠️ Holding Wallet is currently empty!", true); } const unlocked = state.holdingBalance; state.balance += unlocked; state.holdingBalance = 0; playSound('upgrade'); showToast(`🔓 Transferred ${unlocked.toFixed(4)} TAX to Pool Wallet!`); window.updateAllUI(); saveGameState(); };
-        window.openWithdrawModal = function() { window.updateAllUI(); document.getElementById('withdraw-modal').classList.remove('hidden'); document.getElementById('withdraw-modal').classList.add('flex'); };
-        window.closeWithdrawModal = function() { document.getElementById('withdraw-modal').classList.add('hidden'); document.getElementById('withdraw-modal').classList.remove('flex'); };
-        window.openHistoryModal = function() { window.renderWithdrawHistory(); document.getElementById('history-modal').classList.remove('hidden'); document.getElementById('history-modal').classList.add('flex'); };
-        window.closeHistoryModal = function() { document.getElementById('history-modal').classList.add('hidden'); document.getElementById('history-modal').classList.remove('flex'); };
-        window.selectWithdrawMethod = function(method) { state.withdrawMethod = method; ['TON', 'USDT', 'UPI'].forEach(m => { const btn = document.getElementById(`method-${m}`); if (!btn) return; btn.className = (m === method) ? "py-2 px-2 rounded-xl text-xs font-extrabold border border-amber-400 bg-amber-500/20 text-amber-300 flex items-center justify-center gap-1.5 transition" : "py-2 px-2 rounded-xl text-xs font-bold border border-white/10 bg-slate-900/80 text-slate-400 flex items-center justify-center gap-1.5 transition"; }); const lbl = document.getElementById('withdraw-address-label'); const inp = document.getElementById('withdraw-address-input'); if (method === 'TON') { lbl.textContent = "2. Destination TON Wallet Address"; inp.placeholder = "Enter UQ... / EQ... TON Address"; if (state.walletAddress && !inp.value) inp.value = state.walletAddress; } else if (method === 'USDT') { lbl.textContent = "2. USDT Address (BEP-20 / TRC-20)"; inp.placeholder = "Enter 0x... or T... USDT Address"; } else { lbl.textContent = "2. UPI ID / Bank Account"; inp.placeholder = "Enter yourname@upi"; } window.updateWithdrawPreview(); };
-        window.setWithdrawPercent = function(pct) { const amt = (state.balance * pct).toFixed(4); const inp = document.getElementById('withdraw-amount-input'); if (inp) { inp.value = parseFloat(amt) > 0 ? amt : ''; window.updateWithdrawPreview(); } };
-        window.updateWithdrawPreview = function() { const inp = document.getElementById('withdraw-amount-input'); const out = document.getElementById('withdraw-estimate-display'); if (!inp || !out) return; const taxAmt = parseFloat(inp.value) || 0; const usdVal = taxAmt * window.TAX_TO_USD_RATE; if (state.withdrawMethod === 'TON') { const tonVal = usdVal / 5.0; out.textContent = `${tonVal.toFixed(3)} TON (≈ $${usdVal.toFixed(3)})`; } else if (state.withdrawMethod === 'USDT') { out.textContent = `${usdVal.toFixed(3)} USDT`; } else { const inrVal = usdVal * 86; out.textContent = `₹${inrVal.toFixed(2)} INR (≈ $${usdVal.toFixed(3)})`; } };
-        
-        window.submitWithdrawal = function() {
-            const addrInput = document.getElementById('withdraw-address-input'); const amtInput = document.getElementById('withdraw-amount-input'); const address = addrInput.value.trim(); const amount = parseFloat(amtInput.value) || 0;
-            if (!address || address.length < 4) { playSound('error'); return showToast("⚠️ Enter valid destination Wallet or UPI ID!", true); }
-            if (amount < 100) { playSound('error'); return showToast("⚠️ Minimum withdrawal is 100 TAX!", true); }
-            if (amount > state.balance) { playSound('error'); return showToast("⚠️ Insufficient Pool Wallet balance!", true); }
-            state.balance = Math.max(0, state.balance - amount);
-            const txRecord = { id: "TX-" + Math.floor(100000 + Math.random() * 900000), method: state.withdrawMethod, address: address, amountTax: amount.toFixed(4), payout: document.getElementById('withdraw-estimate-display').textContent, status: "Processing ⏳", date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) };
-            state.withdrawHistory.unshift(txRecord);
-            if (window.sendWithdrawalToAdmin) window.sendWithdrawalToAdmin(txRecord);
-            amtInput.value = ''; playSound('upgrade'); window.closeWithdrawModal(); showToast(`✅ Withdrawn ${amount.toFixed(2)} TAX! Check History.`); window.updateAllUI(); saveGameState();
-        };
-
-        window.renderWithdrawHistory = function() {
-            const list = document.getElementById('withdraw-history-list'); const badge = document.getElementById('withdraw-count-badge'); if (!list || !badge) return; const history = state.withdrawHistory || []; badge.textContent = `${history.length} Requests`;
-            if (history.length === 0) { list.innerHTML = `<div class="text-center py-5 text-xs text-slate-400">No withdrawals yet. Click Withdraw in Controls to transfer Pool to Wallet!</div>`; return; }
-            list.innerHTML = history.map(item => `<div class="bg-slate-900/90 border border-white/10 rounded-xl p-3 flex items-center justify-between"><div><div class="flex items-center gap-1.5"><span class="text-xs font-black text-amber-400">-${item.amountTax} TAX</span><span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-sky-400 font-bold">${item.method}</span></div><div class="text-[10px] text-slate-400 font-mono mt-0.5">${item.id} • ${item.address.slice(0, 12)}...</div></div><div class="text-right"><div class="text-xs font-extrabold text-emerald-400">${item.payout}</div><div class="text-[10px] text-amber-300 font-semibold">${item.status} • ${item.date}</div></div></div>`).join('');
-        };
-
-        window.buyUpgrade = function(type) {
-            if (type === 'multitap') { if (state.balance < state.multitapCost) { playSound('error'); return showToast("Not enough TAX in Pool Wallet!", true); } state.balance -= state.multitapCost; state.tapPower += 1; state.multitapLvl += 1; state.multitapCost = Math.floor(state.multitapCost * 1.7); showToast("👆 Multitap Upgraded!"); }
-            else if (type === 'energy') { if (state.balance < state.energyCost) { playSound('error'); return showToast("Not enough TAX in Pool Wallet!", true); } state.balance -= state.energyCost; state.maxEnergy += 500; state.energy += 500; state.energyLvl += 1; state.energyCost = Math.floor(state.energyCost * 1.7); showToast("🔋 Max Energy Upgraded!"); }
-            else if (type === 'regen') { if (state.balance < state.regenCost) { playSound('error'); return showToast("Not enough TAX in Pool Wallet!", true); } state.balance -= state.regenCost; state.regenRate += 1; state.regenLvl += 1; state.regenCost = Math.floor(state.regenCost * 1.8); showToast("⚡ Recharge Speed Upgraded!"); }
-            playSound('upgrade'); window.updateAllUI(); saveGameState();
-        };
-
-        window.useFreeRefill = function() { if (state.refillsLeft <= 0) { playSound('error'); return showToast("No free refills left today!", true); } state.refillsLeft -= 1; state.energy = state.maxEnergy; playSound('upgrade'); showToast("🔋 Energy 100% Refilled!"); window.updateAllUI(); };
-        window.activateTurbo = function() { if (state.turboActive) return showToast("🔥 5x Turbo is already active!"); if (state.turbosLeft <= 0) { playSound('error'); return showToast("No free Turbo boosts left today!", true); } state.turbosLeft -= 1; state.turboActive = true; document.getElementById('turbo-badge').classList.remove('hidden'); coinArea.classList.add('turbo-glow'); playSound('upgrade'); showToast("🔥 5x TURBO MODE ACTIVE FOR 15 SECONDS!"); window.updateAllUI(); setTimeout(() => { state.turboActive = false; document.getElementById('turbo-badge').classList.add('hidden'); coinArea.classList.remove('turbo-glow'); window.updateTopStatsUI(); showToast("Turbo Mode ended."); }, 15000); };
-        window.setSkin = function(skinName) { state.skin = skinName; applySkinColors(skinName); saveGameState(); };
-        function applySkinColors(skinName) { ['gold', 'cyber', 'royal'].forEach(s => { const btn = document.getElementById(`skin-${s}`); if (!btn) return; btn.className = (s === skinName) ? "px-3 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 transition" : "px-3 py-0.5 rounded-full text-[10px] font-bold text-slate-400 hover:text-white transition"; }); const f1 = document.getElementById('stop-face-1'); const f2 = document.getElementById('stop-face-2'); const f3 = document.getElementById('stop-face-3'); if (!f1 || !f2 || !f3) return; if (skinName === 'cyber') { f1.setAttribute('stop-color', '#67e8f9'); f2.setAttribute('stop-color', '#7c3aed'); f3.setAttribute('stop-color', '#1e1b4b'); } else if (skinName === 'royal') { f1.setAttribute('stop-color', '#6ee7b7'); f2.setAttribute('stop-color', '#059669'); f3.setAttribute('stop-color', '#064e3b'); } else { f1.setAttribute('stop-color', '#fde047'); f2.setAttribute('stop-color', '#d97706'); f3.setAttribute('stop-color', '#451a03'); } }
-
-        window.updateAllUI = function() {
-            window.updateTopStatsUI();
-            window.safeSetText('turbo-left', state.turbosLeft); window.safeSetText('turbo-left-boost', state.turbosLeft); 
-            window.safeSetText('refill-left', state.refillsLeft); window.safeSetText('refill-left-Quick', state.refillsLeft);
-
-            window.safeSetText('multitap-lvl', `Lvl ${state.multitapLvl}`); window.safeSetText('multitap-cost-display', `🪙 ${state.multitapCost.toLocaleString()} TAX (+1/tap)`); 
-            window.safeSetText('energy-lvl', `Lvl ${state.energyLvl}`); window.safeSetText('energy-cost-display', `🪙 ${state.energyCost.toLocaleString()} TAX (+500 Max)`); 
-            window.safeSetText('regen-lvl', `Lvl ${state.regenLvl}`); window.safeSetText('regen-cost-display', `🪙 ${state.regenCost.toLocaleString()} TAX (+1/sec)`);
-
-            window.safeSetText('invited-count', `${state.invitedCount} Friends`); 
-            window.safeSetText('profile-uid-text', state.numericUid); 
-            window.safeSetText('uid-display', `ID: ${state.numericUid}`);
-
-            const verifyStatus = document.getElementById('profile-verify-status'); const verifyBtn = document.getElementById('profile-verify-btn'); const miniBadge = document.getElementById('verified-mini-icon');
-            if (state.isVerified) { 
-                if(verifyStatus) { verifyStatus.textContent = "Verified ✅"; verifyStatus.className = "text-xs text-emerald-400 font-bold mt-0.5"; }
-                if(verifyBtn) { verifyBtn.textContent = "Verified"; verifyBtn.className = "px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-extrabold text-xs"; }
-                if (miniBadge) miniBadge.classList.remove('hidden'); 
-            } else { 
-                if(verifyStatus) { verifyStatus.textContent = "Unverified"; verifyStatus.className = "text-xs text-slate-400 mt-0.5"; }
-                if(verifyBtn) { verifyBtn.textContent = "Verify"; verifyBtn.className = "px-5 py-2 rounded-full gold-pill-btn text-xs transition"; }
-            }
-
-            const pSoundStatus = document.getElementById('profile-sound-status'); const pSoundIcon = document.getElementById('profile-sound-icon'); const hSoundIcon = document.getElementById('sound-icon');
-            if (pSoundStatus && pSoundIcon) { pSoundStatus.textContent = state.soundEnabled ? "On — tap to mute" : "Off — tap to unmute"; pSoundIcon.className = state.soundEnabled ? "fa-solid fa-volume-high text-sky-300" : "fa-solid fa-volume-xmark text-slate-500"; }
-            if (hSoundIcon) { hSoundIcon.className = state.soundEnabled ? "fa-solid fa-volume-high text-[11px] text-amber-400" : "fa-solid fa-volume-xmark text-[11px] text-slate-500"; }
-
-            if (typeof applySkinColors === 'function') applySkinColors(state.skin);
-            window.renderTasks(); window.renderLeaderboard(); window.renderWithdrawHistory(); window.updateWithdrawPreview();
-        };
-
-        setInterval(() => {
-            if (state.energy < state.maxEnergy) { state.energy = Math.min(state.maxEnergy, state.energy + state.regenRate); }
-            window.updateTopStatsUI(); saveGameState(); 
-        }, 1000);
-
-        if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-            if (tg.initDataUnsafe.user.first_name) {
-                const pName = document.getElementById('player-name');
-                if(pName) pName.textContent = tg.initDataUnsafe.user.first_name;
-            }
-            if (tg.initDataUnsafe.user.id) state.numericUid = String(tg.initDataUnsafe.user.id);
-        }
-
-        window.updateAllUI();
-    </script>
-
-    <!-- FIREBASE CONNECTION FOR ADMIN PANEL -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getDatabase, ref, onValue, set, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDi53ScdpGIF1u2rRuGavDwlQoTvbaxRNc",
-            authDomain: "tax-coin-ce652.firebaseapp.com",
-            databaseURL: "https://tax-coin-ce652-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "tax-coin-ce652",
-            storageBucket: "tax-coin-ce652.firebasestorage.app",
-            messagingSenderId: "488249450837",
-            appId: "1:488249450837:web:b763e7d392288fcf6d0fdc"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
-        onValue(ref(db, 'settings'), (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                if (data.tokenPrice) window.TAX_TO_USD_RATE = data.tokenPrice;
-                if (data.requireWalletToMine !== undefined) window.requireWalletToMine = data.requireWalletToMine;
-                
-                if(typeof window.updateTopStatsUI === 'function') window.updateTopStatsUI();
-                if(typeof window.updateWithdrawPreview === 'function') window.updateWithdrawPreview();
-            }
-        });
-
-        window.saveToFirebase = function() {
-            if(window.state && window.state.numericUid) {
-                update(ref(db, 'users/' + window.state.numericUid), { balance: window.state.balance, holdingBalance: window.state.holdingBalance || 0, isVerified: window.state.isVerified || false });
-            }
-        };
-
-        window.sendWithdrawalToAdmin = function(txRecord) {
-            set(ref(db, 'withdrawals/' + txRecord.id), { ...txRecord, userId: window.state.numericUid, timestamp: Date.now() });
-        };
-
-        setTimeout(() => { if (window.saveToFirebase) window.saveToFirebase(); }, 3000);
-    </script>
 </body>
 </html>
