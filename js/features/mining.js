@@ -1,7 +1,5 @@
 // js/features/mining.js
 
-window.formatTax = function(num) { return Number(num || 0).toFixed(4); }
-
 window.spawnFloatingTap = function(x, y, text) { 
     const el = document.createElement('div'); 
     el.className = `floating-tap ${window.state.turboActive ? 'text-red-400' : 'text-amber-300'}`; 
