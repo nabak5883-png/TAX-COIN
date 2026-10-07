@@ -1,7 +1,6 @@
 // js/features/wallet.js
 
 window.openWalletModal = function() {
-    // যদি আগে থেকেই ওয়ালেট কানেক্ট থাকে, তাহলে Disconnect পপআপ আসবে
     if (window.state.walletAddress && window.state.walletAddress.startsWith("UQ")) { 
         window.safeSetText('connected-wallet-address', window.state.walletAddress);
         document.getElementById('disconnect-modal').classList.remove('hidden');
@@ -55,11 +54,11 @@ window.connectDummyWallet = function(walletName) {
         window.state.walletAddress = dummyAddr;
         window.state.isVerified = true; 
         
-        // বারবার কানেক্ট করে যেন কেউ ২৫০ কয়েন হ্যাক করতে না পারে তার সুরক্ষা
         if (!window.state.completedTasks['wallet_bonus']) {
-            window.state.balance += 250; 
+            window.state.holdingBalance += 250; // Updated to Holding Wallet
+            if (!window.state.lastUnlockTime) window.state.lastUnlockTime = Date.now();
             window.state.completedTasks['wallet_bonus'] = true;
-            window.showToast(`✅ Connected! +250 TAX Verification Bonus added!`);
+            window.showToast(`✅ Connected! +250 TAX Bonus added to Holding Wallet!`);
         } else {
             window.showToast(`✅ Wallet Connected Successfully!`);
         }
