@@ -12,11 +12,18 @@ window.openVerifyModal = function() {
 };
 window.closeVerifyModal = function() { document.getElementById('verify-modal').classList.add('hidden'); document.getElementById('verify-modal').classList.remove('flex'); };
 window.quickFillVerify = function() { document.getElementById('verify-wallet-input').value = "UQA7xTaxCoinOfficialVault" + window.state.numericUid.slice(-4); };
+
+// Profile Verification Bonus now goes to Holding Wallet
 window.completeAccountVerification = function() { 
     let val = document.getElementById('verify-wallet-input').value.trim(); 
     if (!val) val = "UQA7xTaxCoinVerified" + window.state.numericUid.slice(-4); 
-    window.state.isVerified = true; window.state.walletAddress = val; window.state.balance += 250; 
-    window.playSound('upgrade'); window.closeVerifyModal(); window.showToast("✅ Account Verified! +250.0000 TAX Bonus Added!"); 
+    window.state.isVerified = true; window.state.walletAddress = val; 
+    
+    window.state.holdingBalance += 250; // Updated to Holding
+    if (!window.state.lastUnlockTime) window.state.lastUnlockTime = Date.now();
+    
+    window.playSound('upgrade'); window.closeVerifyModal(); 
+    window.showToast("✅ Account Verified! +250.0000 TAX to Holding Wallet!"); 
     if(window.updateAllUI) window.updateAllUI(); window.saveGameState(); 
 };
 
