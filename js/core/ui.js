@@ -1,9 +1,7 @@
 // js/core/ui.js
 
-// Global Number Formatter
 window.formatTax = function(num) { return Number(num || 0).toFixed(4); };
 
-// Leagues Data
 window.leagues = [
     { name: "Bronze Auditor", min: 0, next: 5000 },
     { name: "Silver Inspector", min: 5000, next: 25000 },
@@ -113,16 +111,20 @@ window.updateTopStatsUI = function() {
         window.safeSetText('withdraw-avail-bal', `${window.formatTax(poolBal)} TAX`);
         window.safeSetText('withdraw-live-rate', `$${(1000 * (window.TAX_TO_USD_RATE || 0.00063633)).toFixed(3)}`);
 
-        // Wallet Display Logic
+        // Wallet Display Button Change logic
         const wBtnText = document.getElementById('wallet-btn-text');
-        if (wBtnText && window.state.walletAddress && window.state.walletAddress.startsWith("UQ")) {
-            wBtnText.textContent = window.state.walletAddress.substring(0, 4) + "..." + window.state.walletAddress.substring(window.state.walletAddress.length - 4);
-            const walletBtn = document.getElementById('btn-connect-wallet');
-            if(walletBtn) {
+        const walletBtn = document.getElementById('btn-connect-wallet');
+        if (wBtnText && walletBtn) {
+            if (window.state.walletAddress && window.state.walletAddress.startsWith("UQ")) {
+                wBtnText.textContent = window.state.walletAddress.substring(0, 4) + "..." + window.state.walletAddress.substring(window.state.walletAddress.length - 4);
                 walletBtn.classList.remove('bg-blue-500', 'hover:bg-blue-400', 'shadow-blue-500/20');
                 walletBtn.classList.add('bg-slate-800', 'shadow-slate-500/20');
+                window.state.isVerified = true; 
+            } else {
+                wBtnText.textContent = "Connect Wallet";
+                walletBtn.classList.add('bg-blue-500', 'hover:bg-blue-400', 'shadow-blue-500/20');
+                walletBtn.classList.remove('bg-slate-800', 'shadow-slate-500/20');
             }
-            window.state.isVerified = true; 
         }
     } catch(e) {
         console.error("UI Update Error Ignored: ", e);
@@ -148,6 +150,7 @@ window.updateAllUI = function() {
     } else { 
         if(verifyStatus) { verifyStatus.textContent = "Unverified"; verifyStatus.className = "text-xs text-slate-400 mt-0.5"; }
         if(verifyBtn) { verifyBtn.textContent = "Verify"; verifyBtn.className = "px-5 py-2 rounded-full gold-pill-btn text-xs transition"; }
+        if (miniBadge) miniBadge.classList.add('hidden');
     }
 
     const pSoundStatus = document.getElementById('profile-sound-status'); const pSoundIcon = document.getElementById('profile-sound-icon'); const hSoundIcon = document.getElementById('sound-icon');
@@ -166,7 +169,7 @@ setInterval(() => {
         window.state.energy = Math.min(window.state.maxEnergy, window.state.energy + window.state.regenRate); 
     }
     if(window.updateTopStatsUI) window.updateTopStatsUI(); 
-    window.saveGameState(); // Fast local save
+    window.saveGameState(); 
 }, 1000);
 
 // Initialize UI when everything loads
