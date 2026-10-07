@@ -1,16 +1,13 @@
 // js/core/state.js
 
-// Safe text setter
 window.safeSetText = function(id, text) {
     const el = document.getElementById(id);
     if (el) el.textContent = text;
 }
 
-// Telegram WebApp Setup
 window.tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
 if (window.tg) { try { window.tg.expand(); window.tg.ready(); } catch (e) {} }
 
-// Primary Game State (Data Storage)
 window.state = {
     balance: 0,
     holdingBalance: 0,
@@ -36,19 +33,17 @@ window.state = {
     soundEnabled: true,
     withdrawMethod: "TON",
     withdrawHistory: [],
-    completedTasks: {}
+    completedTasks: {},
+    lastUnlockTime: 0 // Daily 2% Unlock er jonno notun timer
 };
 
 window.TAX_TO_USD_RATE = 0.00063633;
-window.requireWalletToMine = true; // Admin Control
+window.requireWalletToMine = true; 
 
-// AUTO-SAVE SYSTEM (Fixed Firebase Quota Overload)
 window.saveGameState = function() {
-    // 1. Save to local phone storage instantly
     localStorage.setItem('taxCoinSavedState', JSON.stringify(window.state));
 }
 
-// 2. Cloud Sync: Send to Firebase safely
 window.cloudSync = function() {
     if (window.saveToFirebase) window.saveToFirebase();
 }
@@ -64,17 +59,12 @@ window.loadGameState = function() {
 }
 window.loadGameState();
 
-// Trigger saving before closing the app
 window.triggerCloudSave = () => { window.saveGameState(); window.cloudSync(); };
 window.addEventListener('beforeunload', window.triggerCloudSave);
 window.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') window.triggerCloudSave(); });
 
-// Background loop for safe Firebase sync every 15 seconds
-setInterval(() => {
-    window.cloudSync();
-}, 15000);
+setInterval(() => { window.cloudSync(); }, 15000);
 
-// SOUND SYSTEM
 window.audioCtx = null;
 window.playSound = function(type) {
     if (!window.state.soundEnabled) return;
@@ -88,7 +78,6 @@ window.playSound = function(type) {
     } catch (e) {}
 }
 
-// TOAST NOTIFICATIONS
 window.toastTimer = null;
 window.showToast = function(message, isError = false) {
     const box = document.getElementById('toast-box'); const msgEl = document.getElementById('toast-msg'); const iconEl = document.getElementById('toast-icon');
@@ -97,32 +86,15 @@ window.showToast = function(message, isError = false) {
     if (window.toastTimer) clearTimeout(window.toastTimer); window.toastTimer = setTimeout(() => { box.classList.add('opacity-0', '-translate-y-4'); box.classList.remove('opacity-100', 'translate-y-0'); }, 2500);
 }
 
-// js/core/state.js এর একদম শেষের দিকের অংশ
-
-// Telegram User Initialization and Profile Picture
 if (window.tg && window.tg.initDataUnsafe && window.tg.initDataUnsafe.user) {
     const user = window.tg.initDataUnsafe.user;
-    
-    // Set First Name
     if (user.first_name) {
         window.safeSetText('player-name', user.first_name);
-        
-        // Generate Dynamic Profile Picture based on Initials
         const initials = user.first_name.charAt(0).toUpperCase();
         const profilePicUrl = `https://ui-avatars.com/api/?name=${initials}&background=0f172a&color=fbbf24&size=128&bold=true`;
-        
         const imgEl = document.getElementById('user-profile-pic');
         const iconEl = document.getElementById('default-profile-icon');
-        
-        if (imgEl && iconEl) {
-            imgEl.src = profilePicUrl;
-            imgEl.classList.remove('hidden'); // Show the image
-            iconEl.classList.add('hidden');   // Hide the default crown icon
-        }
+        if (imgEl && iconEl) { imgEl.src = profilePicUrl; imgEl.classList.remove('hidden'); iconEl.classList.add('hidden'); }
     }
-    
-    // Set Numeric ID
-    if (user.id) {
-        window.state.numericUid = String(user.id);
-    }
+    if (user.id) window.state.numericUid = String(user.id);
 }
