@@ -448,7 +448,23 @@
         </div>
     </div>
 
-    <!-- ============================================== -->
+    <!--   
+ <!-- DISCONNECT MODAL -->
+    <div id="disconnect-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+        <div class="glass-card gold-border-glow rounded-3xl max-w-sm w-full p-5 space-y-4 relative text-center">
+            <button type="button" onclick="closeDisconnectModal()" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+            <div class="w-12 h-12 rounded-2xl bg-red-500/20 border border-red-400/40 flex items-center justify-center text-red-400 text-2xl mx-auto"><i class="fa-solid fa-wallet"></i></div>
+            <div>
+                <h3 class="text-base font-extrabold text-white">Wallet Connected</h3>
+                <p id="connected-wallet-address" class="text-xs text-amber-400 mt-1 font-mono break-all"></p>
+            </div>
+            <div class="grid grid-cols-2 gap-2 mt-2">
+                <button type="button" onclick="closeDisconnectModal()" class="py-2.5 rounded-xl bg-slate-800 text-white font-bold text-xs">Cancel</button>
+                <button type="button" onclick="disconnectWallet()" class="py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs">Disconnect</button>
+            </div>
+        </div>
+    </div>
+ ============================================== -->
     <!-- LOAD ALL SCRIPTS -->
     <!-- ============================================== -->
     <script defer src="js/core/state.js"></script>
