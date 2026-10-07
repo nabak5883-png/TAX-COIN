@@ -1,178 +1,100 @@
-// js/core/ui.js
+// js/core/state.js
 
-window.formatTax = function(num) { return Number(num || 0).toFixed(4); };
-
-window.leagues = [
-    { name: "Bronze Auditor", min: 0, next: 5000 },
-    { name: "Silver Inspector", min: 5000, next: 25000 },
-    { name: "Gold Commissioner", min: 25000, next: 100000 },
-    { name: "Platinum Minister", min: 100000, next: 500000 },
-    { name: "Diamond Chancellor", min: 500000, next: 2000000 },
-    { name: "Supreme Tax Boss", min: 2000000, next: 10000000 }
-];
-
-window.copyRefLink = function() { const link = `https://t.me/TaxCoinArcadeBot?start=ref_${window.state.numericUid}`; const tempInput = document.createElement('textarea'); tempInput.value = link; document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); window.playSound('tap'); window.showToast("📋 Referral Link Copied!"); };
-window.simulateFriendInvite = function() { window.state.invitedCount += 1; window.state.balance += 200; window.playSound('upgrade'); window.showToast("🎉 Friend Joined! +200.0000 TAX Added to Pool!"); window.updateAllUI(); window.cloudSync(); };
-window.toggleSound = function() { window.state.soundEnabled = !window.state.soundEnabled; if (window.state.soundEnabled) window.playSound('tap'); window.updateAllUI(); window.saveGameState(); window.showToast(window.state.soundEnabled ? "🔊 Sound Effects ON" : "🔇 Sound Effects Muted"); };
-
-window.switchTab = function(tabName) {
-    document.querySelectorAll('.tab-page').forEach(p => p.classList.add('hidden'));
-    const target = document.getElementById(`tab-${tabName}`); if (target) target.classList.remove('hidden');
-    const statsStrip = document.getElementById('top-stats-strip');
-    if (statsStrip) { if (tabName === 'profile' || tabName === 'games' || tabName === 'boost') { statsStrip.classList.add('hidden'); } else { statsStrip.classList.remove('hidden'); } }
-    ['mine', 'games', 'tasks', 'boost', 'friends', 'profile'].forEach(t => {
-        const btn = document.getElementById(`nav-${t}`); if (!btn) return;
-        if (t === 'boost') { btn.className = (t === tabName) ? "nav-btn flex flex-col items-center py-1 rounded-xl text-amber-400 transition" : "nav-btn flex flex-col items-center py-1 rounded-xl text-slate-300 transition"; } 
-        else { btn.className = (t === tabName) ? "nav-btn flex flex-col items-center py-1.5 rounded-xl text-amber-400 transition" : "nav-btn flex flex-col items-center py-1.5 rounded-xl text-slate-400 hover:text-white transition"; }
-    });
-    window.updateAllUI();
-};
-
-window.setSkin = function(skinName) { window.state.skin = skinName; window.applySkinColors(skinName); window.saveGameState(); };
-window.applySkinColors = function(skinName) { 
-    ['gold', 'cyber', 'royal'].forEach(s => { const btn = document.getElementById(`skin-${s}`); if (!btn) return; btn.className = (s === skinName) ? "px-3 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 transition" : "px-3 py-0.5 rounded-full text-[10px] font-bold text-slate-400 hover:text-white transition"; }); 
-    const f1 = document.getElementById('stop-face-1'); const f2 = document.getElementById('stop-face-2'); const f3 = document.getElementById('stop-face-3'); if (!f1 || !f2 || !f3) return; 
-    if (skinName === 'cyber') { f1.setAttribute('stop-color', '#67e8f9'); f2.setAttribute('stop-color', '#7c3aed'); f3.setAttribute('stop-color', '#1e1b4b'); } 
-    else if (skinName === 'royal') { f1.setAttribute('stop-color', '#6ee7b7'); f2.setAttribute('stop-color', '#059669'); f3.setAttribute('stop-color', '#064e3b'); } 
-    else { f1.setAttribute('stop-color', '#fde047'); f2.setAttribute('stop-color', '#d97706'); f3.setAttribute('stop-color', '#451a03'); } 
+window.safeSetText = function(id, text) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
 }
 
-const tasksList = [
-    { id: "daily_checkin", title: "🎁 Claim Daily Tax Return", reward: 250, btnText: "Claim" },
-    { id: "join_tg", title: "📢 Join Official TAX COIN Channel", reward: 500, btnText: "Join & Claim" },
-    { id: "follow_x", title: "🐦 Follow TAX COIN on X (Twitter)", reward: 400, btnText: "Follow" },
-    { id: "verify_acc", title: "✅ Verify Your Account in Profile", reward: 300, btnText: "Claim", reqVerified: true }
-];
+window.tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+if (window.tg) { try { window.tg.expand(); window.tg.ready(); } catch (e) {} }
 
-window.renderTasks = function() {
-    const container = document.getElementById('tasks-container'); if (!container) return; container.innerHTML = '';
-    tasksList.forEach(task => {
-        const isDone = !!window.state.completedTasks[task.id];
-        const div = document.createElement('div'); div.className = "glass-card rounded-2xl p-3.5 flex items-center justify-between";
-        div.innerHTML = `<div><div class="text-xs font-extrabold text-white">${task.title}</div><div class="text-xs font-bold text-emerald-400 mt-0.5">+${task.reward.toFixed(4)} TAX</div></div><button type="button" onclick="claimTaskReward('${task.id}')" ${isDone ? 'disabled' : ''} class="px-4 py-2 rounded-full text-xs font-extrabold transition ${isDone ? 'bg-slate-800 text-emerald-400 cursor-not-allowed' : 'gold-pill-btn'}">${isDone ? 'Done ✅' : task.btnText}</button>`; 
-        container.appendChild(div);
-    });
+window.state = {
+    balance: 0,
+    holdingBalance: 0,
+    tapPower: 1,
+    multitapLvl: 1,
+    multitapCost: 100,
+    maxEnergy: 1000,
+    energy: 1000,
+    energyLvl: 1,
+    energyCost: 150,
+    regenRate: 2,
+    regenLvl: 1,
+    regenCost: 200,
+    refillsLeft: 3,
+    turbosLeft: 3,
+    turboActive: false,
+    lastFreeSpin: 0,
+    invitedCount: 0,
+    walletAddress: "",
+    isVerified: false,
+    numericUid: "8683090550",
+    skin: "gold",
+    soundEnabled: true,
+    withdrawMethod: "TON",
+    withdrawHistory: [],
+    completedTasks: {},
+    lastUnlockTime: 0 // Daily 2% Unlock er jonno notun timer
 };
 
-window.claimTaskReward = function(taskId) {
-    const task = tasksList.find(t => t.id === taskId); if (!task || window.state.completedTasks[taskId]) return;
-    if (task.id === 'play_aviator') return window.openAviatorModal();
-    if (task.id === 'play_mines') return window.openMinesModal();
-    window.playSound('error');
-    window.showToast("⚠️ Task verification pending from Admin!", true);
-};
+window.TAX_TO_USD_RATE = 0.00063633;
+window.requireWalletToMine = true; 
 
-window.renderLeaderboard = function() {
-    const list = document.getElementById('leaderboard-list'); if (!list) return;
-    const pName = document.getElementById('player-name')?.textContent || "Tax Collector";
-    const demoPlayers = [ { name: "Satoshi_Tax", balance: 14850.5 }, { name: "Bengal_Whale", balance: 8215.2 }, { name: "CryptoAuditor", balance: 4195.8 }, { name: pName + " (You)", balance: window.state.balance + (window.state.holdingBalance || 0) } ].sort((a, b) => (b.balance || 0) - (a.balance || 0));
-    list.innerHTML = demoPlayers.map((p, idx) => `<div class="glass-card px-3.5 py-2.5 rounded-2xl flex items-center justify-between"><div class="flex items-center gap-3"><span class="w-6 h-6 rounded-lg ${idx === 0 ? 'bg-amber-400 text-slate-950' : idx === 1 ? 'bg-slate-300 text-slate-950' : idx === 2 ? 'bg-amber-700 text-white' : 'bg-slate-800 text-slate-400'} font-black text-xs flex items-center justify-center">${idx + 1}</span><div><div class="text-xs font-bold text-white">${p.name}</div></div></div><div class="text-xs font-extrabold text-amber-400">${Number(p.balance || 0).toFixed(2)} TAX</div></div>`).join('');
-};
+window.saveGameState = function() {
+    localStorage.setItem('taxCoinSavedState', JSON.stringify(window.state));
+}
 
-window.updateTopStatsUI = function() {
+window.cloudSync = function() {
+    if (window.saveToFirebase) window.saveToFirebase();
+}
+
+window.loadGameState = function() {
+    const savedData = localStorage.getItem('taxCoinSavedState');
+    if (savedData) { 
+        try { 
+            const parsedData = JSON.parse(savedData); 
+            Object.assign(window.state, parsedData); 
+        } catch (e) { console.error("Save file error."); } 
+    }
+}
+window.loadGameState();
+
+window.triggerCloudSave = () => { window.saveGameState(); window.cloudSync(); };
+window.addEventListener('beforeunload', window.triggerCloudSave);
+window.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') window.triggerCloudSave(); });
+
+setInterval(() => { window.cloudSync(); }, 15000);
+
+window.audioCtx = null;
+window.playSound = function(type) {
+    if (!window.state.soundEnabled) return;
     try {
-        const poolBal = window.state.balance || 0; 
-        const holdingBal = window.state.holdingBalance || 0; 
-        const totalAssets = poolBal + holdingBal; 
-        const usdVal = totalAssets * (window.TAX_TO_USD_RATE || 0.00063633);
-        
-        window.safeSetText('balance-display', window.formatTax(poolBal));
-        const effectiveTap = window.state.turboActive ? window.state.tapPower * 5 : window.state.tapPower;
-        
-        window.safeSetText('stat-tap', `+${effectiveTap}`);
-        window.safeSetText('stat-usd-val', `≈ $${usdVal.toFixed(3)}`);
-        window.safeSetText('energy-display', `${Math.floor(window.state.energy)} / ${window.state.maxEnergy}`);
-        window.safeSetText('regen-rate-display', window.state.regenRate);
-        
-        const energyBar = document.getElementById('energy-bar'); if(energyBar) energyBar.style.width = `${Math.min(100, (window.state.energy / window.state.maxEnergy) * 100)}%`;
-        window.safeSetText('aviator-pool-bal', `${window.formatTax(poolBal)} TAX`);
-        window.safeSetText('mines-pool-bal', `${window.formatTax(poolBal)} TAX`);
-        
-        let currentLeagueIdx = 0; 
-        for (let i = 0; i < window.leagues.length; i++) { 
-            if (poolBal >= window.leagues[i].min) currentLeagueIdx = i; 
-        }
-        const lg = window.leagues[currentLeagueIdx]; 
-        if(lg) {
-            window.safeSetText('league-name', lg.name); 
-            window.safeSetText('league-progress-label', `${lg.name} (${currentLeagueIdx + 1}/${window.leagues.length})`); 
-            const pct = Math.min(100, Math.floor((poolBal / lg.next) * 100));
-            window.safeSetText('league-percent', `${pct}%`); 
-            const lgBar = document.getElementById('league-bar'); if(lgBar) lgBar.style.width = `${Math.max(4, pct)}%`;
-        }
-        
-        window.safeSetText('profile-assets-tax', `${window.formatTax(totalAssets)} TAX`);
-        window.safeSetText('profile-assets-usd', `≈ ${usdVal.toFixed(3)}$`);
-        window.safeSetText('profile-holding-tax', holdingBal > 0 ? `${window.formatTax(holdingBal)} TAX` : `0 TAX`);
-        window.safeSetText('profile-pool-tax', `${window.formatTax(poolBal)} TAX`);
-        
-        window.safeSetText('vip-modal-pool', `${window.formatTax(poolBal)} TAX`);
-        window.safeSetText('vip-modal-holding', holdingBal > 0 ? `${window.formatTax(holdingBal)} TAX` : `0 TAX`);
-        window.safeSetText('withdraw-avail-bal', `${window.formatTax(poolBal)} TAX`);
-        window.safeSetText('withdraw-live-rate', `$${(1000 * (window.TAX_TO_USD_RATE || 0.00063633)).toFixed(3)}`);
+        if (!window.audioCtx) { const AudioContextClass = window.AudioContext || window.webkitAudioContext; if (AudioContextClass) window.audioCtx = new AudioContextClass(); }
+        if (!window.audioCtx) return; if (window.audioCtx.state === 'suspended') window.audioCtx.resume();
+        const osc = window.audioCtx.createOscillator(); const gain = window.audioCtx.createGain(); osc.connect(gain); gain.connect(window.audioCtx.destination); const now = window.audioCtx.currentTime;
+        if (type === 'tap') { osc.type = 'sine'; osc.frequency.setValueAtTime(540, now); osc.frequency.exponentialRampToValueAtTime(880, now + 0.055); gain.gain.setValueAtTime(0.1, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06); osc.start(now); osc.stop(now + 0.065); }
+        else if (type === 'upgrade') { osc.type = 'triangle'; osc.frequency.setValueAtTime(440, now); osc.frequency.setValueAtTime(880, now + 0.16); gain.gain.setValueAtTime(0.15, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28); osc.start(now); osc.stop(now + 0.29); }
+        else if (type === 'error') { osc.type = 'sawtooth'; osc.frequency.setValueAtTime(190, now); osc.frequency.setValueAtTime(130, now + 0.1); gain.gain.setValueAtTime(0.12, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18); osc.start(now); osc.stop(now + 0.19); }
+    } catch (e) {}
+}
 
-        // Wallet Display Button Change logic
-        const wBtnText = document.getElementById('wallet-btn-text');
-        const walletBtn = document.getElementById('btn-connect-wallet');
-        if (wBtnText && walletBtn) {
-            if (window.state.walletAddress && window.state.walletAddress.startsWith("UQ")) {
-                wBtnText.textContent = window.state.walletAddress.substring(0, 4) + "..." + window.state.walletAddress.substring(window.state.walletAddress.length - 4);
-                walletBtn.classList.remove('bg-blue-500', 'hover:bg-blue-400', 'shadow-blue-500/20');
-                walletBtn.classList.add('bg-slate-800', 'shadow-slate-500/20');
-                window.state.isVerified = true; 
-            } else {
-                wBtnText.textContent = "Connect Wallet";
-                walletBtn.classList.add('bg-blue-500', 'hover:bg-blue-400', 'shadow-blue-500/20');
-                walletBtn.classList.remove('bg-slate-800', 'shadow-slate-500/20');
-            }
-        }
-    } catch(e) {
-        console.error("UI Update Error Ignored: ", e);
+window.toastTimer = null;
+window.showToast = function(message, isError = false) {
+    const box = document.getElementById('toast-box'); const msgEl = document.getElementById('toast-msg'); const iconEl = document.getElementById('toast-icon');
+    if (!box || !msgEl || !iconEl) return; msgEl.textContent = message; iconEl.className = isError ? "fa-solid fa-circle-exclamation text-red-400" : "fa-solid fa-circle-check text-amber-400";
+    box.classList.remove('opacity-0', '-translate-y-4'); box.classList.add('opacity-100', 'translate-y-0');
+    if (window.toastTimer) clearTimeout(window.toastTimer); window.toastTimer = setTimeout(() => { box.classList.add('opacity-0', '-translate-y-4'); box.classList.remove('opacity-100', 'translate-y-0'); }, 2500);
+}
+
+if (window.tg && window.tg.initDataUnsafe && window.tg.initDataUnsafe.user) {
+    const user = window.tg.initDataUnsafe.user;
+    if (user.first_name) {
+        window.safeSetText('player-name', user.first_name);
+        const initials = user.first_name.charAt(0).toUpperCase();
+        const profilePicUrl = `https://ui-avatars.com/api/?name=${initials}&background=0f172a&color=fbbf24&size=128&bold=true`;
+        const imgEl = document.getElementById('user-profile-pic');
+        const iconEl = document.getElementById('default-profile-icon');
+        if (imgEl && iconEl) { imgEl.src = profilePicUrl; imgEl.classList.remove('hidden'); iconEl.classList.add('hidden'); }
     }
-};
-
-window.updateAllUI = function() {
-    if(window.updateTopStatsUI) window.updateTopStatsUI();
-    window.safeSetText('turbo-left', window.state.turbosLeft); window.safeSetText('turbo-left-boost', window.state.turbosLeft); 
-    window.safeSetText('refill-left', window.state.refillsLeft); window.safeSetText('refill-left-Quick', window.state.refillsLeft);
-    window.safeSetText('multitap-lvl', `Lvl ${window.state.multitapLvl}`); window.safeSetText('multitap-cost-display', `🪙 ${window.state.multitapCost.toLocaleString()} TAX (+1/tap)`); 
-    window.safeSetText('energy-lvl', `Lvl ${window.state.energyLvl}`); window.safeSetText('energy-cost-display', `🪙 ${window.state.energyCost.toLocaleString()} TAX (+500 Max)`); 
-    window.safeSetText('regen-lvl', `Lvl ${window.state.regenLvl}`); window.safeSetText('regen-cost-display', `🪙 ${window.state.regenCost.toLocaleString()} TAX (+1/sec)`);
-    window.safeSetText('invited-count', `${window.state.invitedCount} Friends`); 
-    window.safeSetText('profile-uid-text', window.state.numericUid); 
-    window.safeSetText('uid-display', `ID: ${window.state.numericUid}`);
-
-    const verifyStatus = document.getElementById('profile-verify-status'); const verifyBtn = document.getElementById('profile-verify-btn'); const miniBadge = document.getElementById('verified-mini-icon');
-    if (window.state.isVerified) { 
-        if(verifyStatus) { verifyStatus.textContent = "Verified ✅"; verifyStatus.className = "text-xs text-emerald-400 font-bold mt-0.5"; }
-        if(verifyBtn) { verifyBtn.textContent = "Verified"; verifyBtn.className = "px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-extrabold text-xs"; }
-        if (miniBadge) miniBadge.classList.remove('hidden'); 
-    } else { 
-        if(verifyStatus) { verifyStatus.textContent = "Unverified"; verifyStatus.className = "text-xs text-slate-400 mt-0.5"; }
-        if(verifyBtn) { verifyBtn.textContent = "Verify"; verifyBtn.className = "px-5 py-2 rounded-full gold-pill-btn text-xs transition"; }
-        if (miniBadge) miniBadge.classList.add('hidden');
-    }
-
-    const pSoundStatus = document.getElementById('profile-sound-status'); const pSoundIcon = document.getElementById('profile-sound-icon'); const hSoundIcon = document.getElementById('sound-icon');
-    if (pSoundStatus && pSoundIcon) { pSoundStatus.textContent = window.state.soundEnabled ? "On — tap to mute" : "Off — tap to unmute"; pSoundIcon.className = window.state.soundEnabled ? "fa-solid fa-volume-high text-sky-300" : "fa-solid fa-volume-xmark text-slate-500"; }
-    if (hSoundIcon) { hSoundIcon.className = window.state.soundEnabled ? "fa-solid fa-volume-high text-[11px] text-amber-400" : "fa-solid fa-volume-xmark text-[11px] text-slate-500"; }
-
-    if (window.applySkinColors) window.applySkinColors(window.state.skin);
-    window.renderTasks(); window.renderLeaderboard(); 
-    if(window.renderWithdrawHistory) window.renderWithdrawHistory(); 
-    if(window.updateWithdrawPreview) window.updateWithdrawPreview();
-};
-
-// Background Loop for Local Saving and Energy Regen ONLY
-setInterval(() => {
-    if (window.state.energy < window.state.maxEnergy) { 
-        window.state.energy = Math.min(window.state.maxEnergy, window.state.energy + window.state.regenRate); 
-    }
-    if(window.updateTopStatsUI) window.updateTopStatsUI(); 
-    window.saveGameState(); 
-}, 1000);
-
-// Initialize UI when everything loads
-document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => { window.updateAllUI(); }, 500);
-});
+    if (user.id) window.state.numericUid = String(user.id);
+}
