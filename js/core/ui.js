@@ -158,4 +158,4 @@ setInterval(() => {
     if(window.updateTopStatsUI) window.updateTopStatsUI(); window.saveGameState(); 
 }, 1000);
 
-document.addEventListener("DOMContentLoaded", () => { setTimeout(() => { window.updateAllUI(); }, 500); }
+document.addEventListener("DOMContentLoaded", () => { setTimeout(() => { window.updateAllUI(); }, 500); });
