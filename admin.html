@@ -124,9 +124,16 @@
                             <label class="text-[11px] text-slate-400 font-bold">TASK LINK (URL to visit - Optional)</label>
                             <input type="text" id="t-link" placeholder="e.g., https://t.me/taxcoin" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1">
                         </div>
-                        <div class="sm:col-span-2 flex items-center gap-2 mt-1">
-                            <input type="checkbox" id="t-req-verify" class="w-4 h-4 accent-amber-500 cursor-pointer">
-                            <label class="text-sm text-slate-300 font-bold cursor-pointer" for="t-req-verify">User must be VERIFIED to complete this task</label>
+                        <!-- Checkboxes for Verify and Pin -->
+                        <div class="sm:col-span-2 flex flex-col gap-3 mt-1">
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" id="t-req-verify" class="w-4 h-4 accent-amber-500 cursor-pointer">
+                                <label class="text-sm text-slate-300 font-bold cursor-pointer" for="t-req-verify">User must be VERIFIED to complete</label>
+                            </div>
+                            <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 p-2 rounded-lg w-max">
+                                <input type="checkbox" id="t-is-pinned" class="w-4 h-4 accent-amber-500 cursor-pointer">
+                                <label class="text-sm text-amber-400 font-bold cursor-pointer" for="t-is-pinned">📌 Pin this task to top</label>
+                            </div>
                         </div>
                     </div>
                     <div class="flex gap-2 mt-5">
@@ -218,12 +225,8 @@
         window.switchTab = function(tab) {
             ['dashboard', 'users', 'tasks', 'withdrawals'].forEach(t => {
                 document.getElementById(`view-${t}`).classList.add('hidden');
-                
-                // Desktop buttons
                 const btn = document.getElementById(`btn-${t}`);
                 if(btn) { btn.className = (t === tab) ? "w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-500/20 text-amber-400 font-bold transition" : "w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800/50 text-slate-400 hover:text-white font-bold transition"; }
-                
-                // Mobile buttons
                 const mobBtn = document.getElementById(`mob-btn-${t}`);
                 if(mobBtn) { mobBtn.className = (t === tab) ? "flex flex-col items-center p-2 text-amber-400 transition" : "flex flex-col items-center p-2 text-slate-400 transition"; }
             });
@@ -251,11 +254,12 @@
             const btnText = document.getElementById('t-btn').value.trim();
             const link = document.getElementById('t-link').value.trim();
             const reqVerified = document.getElementById('t-req-verify').checked;
+            const isPinned = document.getElementById('t-is-pinned').checked;
 
             if(!id || !title || reward <= 0) return alert("Task ID, Title, and Reward are required!");
             if(id.includes(" ") || id.includes(".")) return alert("Task ID cannot contain spaces or dots!");
 
-            const taskData = { title, reward, btnText: btnText || "Claim", link, reqVerified };
+            const taskData = { title, reward, btnText: btnText || "Claim", link, reqVerified, isPinned };
             
             set(ref(db, `tasks/${id}`), taskData).then(() => {
                 alert('Task saved successfully!');
@@ -270,6 +274,7 @@
             document.getElementById('t-btn').value = '';
             document.getElementById('t-link').value = '';
             document.getElementById('t-req-verify').checked = false;
+            document.getElementById('t-is-pinned').checked = false;
         }
 
         window.editTask = function(id) {
@@ -281,6 +286,7 @@
             document.getElementById('t-btn').value = task.btnText || "";
             document.getElementById('t-link').value = task.link || "";
             document.getElementById('t-req-verify').checked = task.reqVerified || false;
+            document.getElementById('t-is-pinned').checked = task.isPinned || false;
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -294,17 +300,18 @@
             const tbody = document.getElementById('tasks-table-body');
             let html = '';
             for(const [id, data] of Object.entries(allTasks)) {
-                const reqBadge = data.reqVerified ? '<span class="text-emerald-400 text-[10px] px-2 py-1 bg-emerald-900/40 rounded">Verified Only</span>' : '<span class="text-slate-400 text-[10px]">None</span>';
+                const reqBadge = data.reqVerified ? '<span class="text-emerald-400 text-[10px] px-2 py-1 bg-emerald-900/40 rounded mr-1">Verified Only</span>' : '';
+                const pinBadge = data.isPinned ? '<span class="text-amber-400 text-[10px] px-2 py-1 bg-amber-900/40 rounded"><i class="fa-solid fa-thumbtack"></i> Pinned</span>' : '';
                 const linkBadge = data.link ? `<a href="${data.link}" target="_blank" class="text-sky-400 text-xs hover:underline">Link <i class="fa-solid fa-up-right-from-square text-[10px]"></i></a>` : '<span class="text-slate-500 text-xs">No Link</span>';
                 
                 html += `
                     <tr class="hover:bg-slate-800/30 transition">
                         <td class="px-4 py-3 font-mono text-amber-300">${id}</td>
-                        <td class="px-4 py-3 font-bold text-white">${data.title}</td>
+                        <td class="px-4 py-3 font-bold text-white">${data.isPinned ? '📌 ' : ''}${data.title}</td>
                         <td class="px-4 py-3 text-emerald-400 font-bold">+${data.reward} TAX</td>
-                        <td class="px-4 py-3 flex gap-2 items-center">${reqBadge} ${linkBadge}</td>
+                        <td class="px-4 py-3 flex items-center gap-1 flex-wrap">${reqBadge} ${pinBadge} <span class="ml-2">${linkBadge}</span></td>
                         <td class="px-4 py-3 text-right">
-                            <button onclick="editTask('${id}')" class="px-3 py-1 bg-blue-500/20 hover:bg-blue-500/40 text-blue-400 rounded text-xs font-bold mr-1 transition"><i class="fa-solid fa-pen"></i> Edit</button>
+                            <button onclick="editTask('${id}')" class="px-3 py-1 bg-blue-500/20 hover:bg-blue-500/40 text-blue-400 rounded text-xs font-bold mr-1 transition"><i class="fa-solid fa-pen"></i></button>
                             <button onclick="deleteTask('${id}')" class="px-3 py-1 bg-rose-500/20 hover:bg-rose-500/40 text-rose-400 rounded text-xs font-bold transition"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
