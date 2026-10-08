@@ -53,7 +53,7 @@ window.applySkinColors = function(skinName) {
 }
 
 // ==========================================
-// DYNAMIC TASKS SYSTEM (Admin Controlled)
+// DYNAMIC TASKS SYSTEM (Pinned Support)
 // ==========================================
 window.dynamicTasks = [];
 
@@ -69,6 +69,13 @@ window.renderTasks = async function() {
             window.dynamicTasks = [];
             if(data) {
                 for(const key in data) { window.dynamicTasks.push({ id: key, ...data[key] }); }
+                
+                // Sorting: Pinned tasks appear first
+                window.dynamicTasks.sort((a, b) => {
+                    if (a.isPinned && !b.isPinned) return -1;
+                    if (!a.isPinned && b.isPinned) return 1;
+                    return 0;
+                });
             }
         } catch(e) { console.log("Task Load Error", e); }
     }
@@ -95,11 +102,21 @@ window.renderTasks = async function() {
             buttonClass = "bg-sky-500 text-white shadow-lg shadow-sky-500/30";
         }
 
+        // Visual cue for Pinned tasks
+        const displayTitle = task.isPinned 
+            ? `<i class="fa-solid fa-thumbtack text-amber-500 mr-1 -rotate-45"></i> ${task.title}` 
+            : task.title;
+
+        // Visual border for pinned tasks
+        const cardClass = task.isPinned 
+            ? "glass-card rounded-2xl p-3.5 flex items-center justify-between transition border-amber-500/40 shadow-[0_0_15px_rgba(245,158,11,0.1)]"
+            : "glass-card rounded-2xl p-3.5 flex items-center justify-between transition hover:border-white/20";
+
         const div = document.createElement('div'); 
-        div.className = "glass-card rounded-2xl p-3.5 flex items-center justify-between transition hover:border-white/20";
+        div.className = cardClass;
         div.innerHTML = `
             <div>
-                <div class="text-xs font-extrabold text-white">${task.title}</div>
+                <div class="text-xs font-extrabold text-white">${displayTitle}</div>
                 <div class="text-xs font-bold text-emerald-400 mt-0.5">+${Number(task.reward).toFixed(4)} TAX</div>
             </div>
             <button type="button" onclick="claimTaskReward('${task.id}')" ${isDone ? 'disabled' : ''} class="px-4 py-2 rounded-full text-xs font-extrabold transition ${buttonClass}">
@@ -270,7 +287,12 @@ window.updateAllUI = function() {
     if (hSoundIcon) { hSoundIcon.className = window.state.soundEnabled ? "fa-solid fa-volume-high text-[11px] text-amber-400" : "fa-solid fa-volume-xmark text-[11px] text-slate-500"; }
 
     if (window.applySkinColors) window.applySkinColors(window.state.skin);
-    window.renderTasks(); window.renderLeaderboard(); 
+    
+    // Force tasks to reload next time tab opens to reflect new pinned states immediately
+    window.dynamicTasks = []; 
+    window.renderTasks(); 
+    
+    window.renderLeaderboard(); 
     if(window.renderWithdrawHistory) window.renderWithdrawHistory(); 
     if(window.updateWithdrawPreview) window.updateWithdrawPreview();
 };
