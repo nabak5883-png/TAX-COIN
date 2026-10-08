@@ -8,7 +8,40 @@ window.leagues = [
     { name: "Diamond Chancellor", min: 500000, next: 2000000 }, { name: "Supreme Tax Boss", min: 2000000, next: 10000000 }
 ];
 
-window.copyRefLink = function() { const link = `https://t.me/TaxCoinArcadeBot?start=ref_${window.state.numericUid}`; const tempInput = document.createElement('textarea'); tempInput.value = link; document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); window.playSound('tap'); window.showToast("📋 Referral Link Copied!"); };
+// প্রফেশনাল রেফারেল মেসেজ
+window.getRefMessage = function() {
+    return `🔥 Join TAX COIN and earn free crypto!\n\n👑 Play games, mine coins, and unlock daily rewards.\n💎 Click my link below to get an instant startup bonus!\n\n👇 Play Now:`;
+};
+
+// লিংক এবং মেসেজ কপি করার ফাংশন
+window.copyRefLink = function() { 
+    const link = `https://t.me/TaxCoinArcadeBot?start=ref_${window.state.numericUid}`; 
+    const fullText = `${window.getRefMessage()}\n${link}`;
+    
+    const tempInput = document.createElement('textarea'); 
+    tempInput.value = fullText; 
+    document.body.appendChild(tempInput); 
+    tempInput.select(); 
+    document.execCommand('copy'); 
+    document.body.removeChild(tempInput); 
+    
+    window.playSound('tap'); 
+    window.showToast("📋 Professional Message & Link Copied!"); 
+};
+
+// সরাসরি টেলিগ্রামে শেয়ার করার ফাংশন
+window.shareRefLink = function() {
+    const link = `https://t.me/TaxCoinArcadeBot?start=ref_${window.state.numericUid}`;
+    const text = window.getRefMessage();
+    const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`;
+    
+    if (window.tg && window.tg.openTelegramLink) {
+        window.tg.openTelegramLink(shareUrl);
+    } else {
+        window.open(shareUrl, '_blank');
+    }
+    window.playSound('tap');
+};
 
 window.toggleSound = function() { window.state.soundEnabled = !window.state.soundEnabled; if (window.state.soundEnabled) window.playSound('tap'); window.updateAllUI(); window.saveGameState(); window.showToast(window.state.soundEnabled ? "🔊 Sound Effects ON" : "🔇 Sound Effects Muted"); };
 
