@@ -1,3 +1,5 @@
+// js/core/ui.js
+
 window.formatTax = function(num) { return Number(num || 0).toFixed(4); };
 
 window.leagues = [
@@ -8,21 +10,13 @@ window.leagues = [
 
 window.copyRefLink = function() { const link = `https://t.me/TaxCoinArcadeBot?start=ref_${window.state.numericUid}`; const tempInput = document.createElement('textarea'); tempInput.value = link; document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); window.playSound('tap'); window.showToast("📋 Referral Link Copied!"); };
 
-window.simulateFriendInvite = function() { 
-    window.state.invitedCount += 1; 
-    window.state.holdingBalance += 200; 
-    if (!window.state.lastUnlockTime) window.state.lastUnlockTime = Date.now();
-    window.playSound('upgrade'); window.showToast("🎉 Friend Joined! +200.0000 TAX Added to Holding Wallet!"); 
-    window.updateAllUI(); window.cloudSync(); 
-};
-
 window.toggleSound = function() { window.state.soundEnabled = !window.state.soundEnabled; if (window.state.soundEnabled) window.playSound('tap'); window.updateAllUI(); window.saveGameState(); window.showToast(window.state.soundEnabled ? "🔊 Sound Effects ON" : "🔇 Sound Effects Muted"); };
 
 window.switchTab = function(tabName) {
     document.querySelectorAll('.tab-page').forEach(p => p.classList.add('hidden'));
     const target = document.getElementById(`tab-${tabName}`); if (target) target.classList.remove('hidden');
     const statsStrip = document.getElementById('top-stats-strip');
-    if (statsStrip) { if (tabName === 'profile' || tabName === 'games' || tabName === 'boost') { statsStrip.classList.add('hidden'); } else { statsStrip.classList.remove('hidden'); } }
+    if (statsStrip) { if (tabName === 'profile' || tabName === 'games' || tabName === 'boost' || tabName === 'friends') { statsStrip.classList.add('hidden'); } else { statsStrip.classList.remove('hidden'); } }
     ['mine', 'games', 'tasks', 'boost', 'friends', 'profile'].forEach(t => {
         const btn = document.getElementById(`nav-${t}`); if (!btn) return;
         if (t === 'boost') { btn.className = (t === tabName) ? "nav-btn flex flex-col items-center py-1 rounded-xl text-amber-400 transition" : "nav-btn flex flex-col items-center py-1 rounded-xl text-slate-300 transition"; } 
@@ -64,11 +58,39 @@ window.claimTaskReward = function(taskId) {
     window.playSound('error'); window.showToast("⚠️ Task verification pending from Admin!", true);
 };
 
+// NEW LEADERBOARD UI - Clean and original user only
 window.renderLeaderboard = function() {
-    const list = document.getElementById('leaderboard-list'); if (!list) return;
+    const list = document.getElementById('leaderboard-list'); 
+    if (!list) return;
+    
     const pName = document.getElementById('player-name')?.textContent || "Tax Collector";
-    const demoPlayers = [ { name: "Satoshi_Tax", balance: 14850.5 }, { name: "Bengal_Whale", balance: 8215.2 }, { name: "CryptoAuditor", balance: 4195.8 }, { name: pName + " (You)", balance: window.state.balance + (window.state.holdingBalance || 0) } ].sort((a, b) => (b.balance || 0) - (a.balance || 0));
-    list.innerHTML = demoPlayers.map((p, idx) => `<div class="glass-card px-3.5 py-2.5 rounded-2xl flex items-center justify-between"><div class="flex items-center gap-3"><span class="w-6 h-6 rounded-lg ${idx === 0 ? 'bg-amber-400 text-slate-950' : idx === 1 ? 'bg-slate-300 text-slate-950' : idx === 2 ? 'bg-amber-700 text-white' : 'bg-slate-800 text-slate-400'} font-black text-xs flex items-center justify-center">${idx + 1}</span><div><div class="text-xs font-bold text-white">${p.name}</div></div></div><div class="text-xs font-extrabold text-amber-400">${Number(p.balance || 0).toFixed(2)} TAX</div></div>`).join('');
+    const initials = pName.charAt(0).toUpperCase();
+    const profilePicUrl = `https://ui-avatars.com/api/?name=${initials}&background=0f172a&color=fbbf24&size=128&bold=true`;
+    
+    // Only original/real users will be shown here
+    const realPlayers = [ 
+        { 
+            name: pName, 
+            subtext: `${Number(window.state.balance + (window.state.holdingBalance || 0)).toFixed(0)}K`, 
+            balance: window.state.balance + (window.state.holdingBalance || 0),
+            pic: profilePicUrl,
+            isYou: true
+        } 
+    ];
+
+    list.innerHTML = realPlayers.map((p, idx) => `
+        <div class="flex items-center justify-between py-3 px-3 border-b border-white/5 last:border-0 hover:bg-white/5 transition rounded-xl">
+            <div class="flex items-center gap-4">
+                <span class="font-black text-amber-500 w-4 text-center text-sm">${idx + 1}</span>
+                <img src="${p.pic}" class="w-11 h-11 rounded-full border-[1.5px] border-slate-700 object-cover shadow-md">
+                <div>
+                    <div class="text-sm font-bold text-white leading-tight">${p.name} ${p.isYou ? '<span class="text-[10px] text-emerald-400 font-normal ml-1">(You)</span>' : ''}</div>
+                    <div class="text-[11px] text-slate-400 mt-0.5">${p.subtext}</div>
+                </div>
+            </div>
+            <div class="text-[15px] font-black text-sky-400">${Number(p.balance || 0).toFixed(0)}</div>
+        </div>
+    `).join('');
 };
 
 window.updateTopStatsUI = function() {
