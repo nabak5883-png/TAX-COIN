@@ -178,19 +178,24 @@
             </div>
         </section>
 
-        <!-- TAB 5: FRIENDS -->
+         <!-- TAB 5: FRIENDS -->
         <section id="tab-friends" class="tab-page hidden space-y-3 pt-1">
             <div class="glass-card gold-border-glow rounded-2xl p-4 text-center space-y-3">
                 <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-2xl mx-auto"><i class="fa-solid fa-user-group"></i></div>
                 <div><h2 class="text-base font-extrabold text-white font-cyber">Invite Friends</h2><p class="text-xs text-slate-300 mt-1">Earn <span class="text-amber-400 font-bold">+200.0000 TAX</span> in your Holding Wallet for every friend who joins!</p></div>
                 <div class="bg-slate-900/90 rounded-xl p-2.5 border border-white/10 flex items-center justify-between text-xs"><span class="text-slate-400">Friends Invited:</span><strong id="invited-count" class="text-amber-400 font-black">0 Friends</strong></div>
-                <div class="grid grid-cols-2 gap-2">
-                    <button type="button" onclick="copyRefLink()" class="py-2.5 rounded-xl gold-pill-btn text-xs flex items-center justify-center gap-1.5 transition"><i class="fa-solid fa-copy"></i> Copy Link</button>
-                    <button type="button" onclick="simulateFriendInvite()" class="py-2.5 rounded-xl bg-slate-800 border border-amber-500/40 text-amber-400 font-extrabold text-xs flex items-center justify-center gap-1.5 active:scale-95 transition"><i class="fa-solid fa-user-plus"></i> Test +1 Friend</button>
+                
+                <!-- Removed Test Button, made Copy Link full width and beautiful -->
+                <div class="grid grid-cols-1 gap-2 mt-2">
+                    <button type="button" onclick="copyRefLink()" class="py-3.5 rounded-xl gold-pill-btn text-sm font-black flex items-center justify-center gap-1.5 transition shadow-lg shadow-amber-500/20"><i class="fa-solid fa-copy"></i> Copy Referral Link</button>
                 </div>
             </div>
-            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider px-1 pt-1">Top Tax Collectors</div>
-            <div id="leaderboard-list" class="space-y-2"></div>
+
+            <!-- Leaderboard UI updated to match the original image format -->
+            <div class="text-sm font-bold text-white px-2 pt-2">Final standings</div>
+            <div class="glass-card rounded-3xl p-2 mb-4">
+                <div id="leaderboard-list" class="flex flex-col"></div>
+            </div>
         </section>
 
         <!-- TAB 6: PROFILE -->
