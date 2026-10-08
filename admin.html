@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TAX COIN - Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -13,7 +13,7 @@
         ::-webkit-scrollbar-track { background: #1e293b; }
         ::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 10px; }
         .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        #login-overlay { position: fixed; inset: 0; background: #0f172a; z-index: 100; display: flex; align-items: center; justify-content: center; }
+        #login-overlay { position: fixed; inset: 0; background: #0f172a; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 1rem; }
     </style>
 </head>
 <body class="h-screen flex overflow-hidden">
@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <!-- SIDEBAR -->
+    <!-- DESKTOP SIDEBAR -->
     <aside class="w-64 glass-panel border-r border-slate-800 flex flex-col hidden sm:flex shrink-0">
         <div class="p-5 border-b border-slate-800 flex items-center gap-3">
             <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center text-slate-900 font-black text-xl">T</div>
@@ -57,8 +57,19 @@
         </div>
     </aside>
 
+    <!-- MOBILE BOTTOM NAVIGATION -->
+    <nav class="sm:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 flex justify-around items-center px-2 py-1.5 z-50">
+        <button onclick="switchTab('dashboard')" id="mob-btn-dashboard" class="flex flex-col items-center p-2 text-amber-400 transition"><i class="fa-solid fa-chart-pie text-lg"></i><span class="text-[10px] mt-1 font-semibold">Dash</span></button>
+        <button onclick="switchTab('users')" id="mob-btn-users" class="flex flex-col items-center p-2 text-slate-400 transition"><i class="fa-solid fa-users text-lg"></i><span class="text-[10px] mt-1 font-semibold">Users</span></button>
+        <button onclick="switchTab('tasks')" id="mob-btn-tasks" class="flex flex-col items-center p-2 text-slate-400 transition"><i class="fa-solid fa-list-check text-lg"></i><span class="text-[10px] mt-1 font-semibold">Tasks</span></button>
+        <button onclick="switchTab('withdrawals')" id="mob-btn-withdrawals" class="flex flex-col items-center p-2 text-slate-400 relative transition">
+            <i class="fa-solid fa-money-bill-transfer text-lg"></i><span class="text-[10px] mt-1 font-semibold">Payouts</span>
+            <span id="mob-pending-badge" class="absolute top-1 right-1 bg-rose-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full hidden">0</span>
+        </button>
+    </nav>
+
     <!-- MAIN CONTENT -->
-    <main class="flex-1 flex flex-col h-full overflow-hidden">
+    <main class="flex-1 flex flex-col h-full overflow-hidden pb-16 sm:pb-0">
         <header class="sm:hidden glass-panel p-4 flex items-center justify-between border-b border-slate-800 shrink-0">
             <h1 class="font-black text-lg text-amber-400">TAX ADMIN</h1>
             <button onclick="location.reload()" class="text-slate-400"><i class="fa-solid fa-power-off"></i></button>
@@ -86,7 +97,7 @@
                 </div>
             </div>
 
-            <!-- Tasks View (NEW) -->
+            <!-- Tasks View -->
             <div id="view-tasks" class="space-y-6 hidden">
                 <h2 class="text-2xl font-black text-white">Task Management</h2>
                 
@@ -119,8 +130,8 @@
                         </div>
                     </div>
                     <div class="flex gap-2 mt-5">
-                        <button onclick="saveTask()" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl transition shadow-lg shadow-amber-500/30">Save Task</button>
-                        <button onclick="clearTaskForm()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition">Clear Form</button>
+                        <button onclick="saveTask()" class="flex-1 sm:flex-none px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl transition shadow-lg shadow-amber-500/30">Save Task</button>
+                        <button onclick="clearTaskForm()" class="flex-1 sm:flex-none px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition">Clear Form</button>
                     </div>
                 </div>
 
@@ -207,17 +218,23 @@
         window.switchTab = function(tab) {
             ['dashboard', 'users', 'tasks', 'withdrawals'].forEach(t => {
                 document.getElementById(`view-${t}`).classList.add('hidden');
+                
+                // Desktop buttons
                 const btn = document.getElementById(`btn-${t}`);
                 if(btn) { btn.className = (t === tab) ? "w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-500/20 text-amber-400 font-bold transition" : "w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800/50 text-slate-400 hover:text-white font-bold transition"; }
+                
+                // Mobile buttons
+                const mobBtn = document.getElementById(`mob-btn-${t}`);
+                if(mobBtn) { mobBtn.className = (t === tab) ? "flex flex-col items-center p-2 text-amber-400 transition" : "flex flex-col items-center p-2 text-slate-400 transition"; }
             });
             document.getElementById(`view-${tab}`).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function startListeningToDatabase() {
             onValue(ref(db, 'users'), (snapshot) => { allUsers = snapshot.val() || {}; updateDashboardStats(); renderUsersTable(); });
             onValue(ref(db, 'withdrawals'), (snapshot) => { allWithdrawals = snapshot.val() || {}; updateDashboardStats(); renderWithdrawalsTable(); });
             onValue(ref(db, 'settings'), (snapshot) => { const settings = snapshot.val() || {}; const currentPrice = settings.tokenPrice || 0.00063633; document.getElementById('input-token-price').value = currentPrice; document.getElementById('display-token-price').innerText = currentPrice; });
-            // Fetch Tasks
             onValue(ref(db, 'tasks'), (snapshot) => { allTasks = snapshot.val() || {}; renderTasksTable(); });
         }
 
@@ -303,7 +320,13 @@
             document.getElementById('stat-total-tax').innerText = totalTax.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
             const pendingKeys = Object.keys(allWithdrawals).filter(k => allWithdrawals[k].status === 'Pending'); document.getElementById('stat-pending-wd').innerText = pendingKeys.length;
             const badge = document.getElementById('pending-badge');
-            if(pendingKeys.length > 0) { badge.innerText = pendingKeys.length; badge.classList.remove('hidden'); } else { badge.classList.add('hidden'); }
+            const mobBadge = document.getElementById('mob-pending-badge');
+            if(pendingKeys.length > 0) { 
+                badge.innerText = pendingKeys.length; badge.classList.remove('hidden'); 
+                mobBadge.innerText = pendingKeys.length; mobBadge.classList.remove('hidden'); 
+            } else { 
+                badge.classList.add('hidden'); mobBadge.classList.add('hidden'); 
+            }
         }
 
         function renderUsersTable() {
