@@ -52,32 +52,97 @@ window.applySkinColors = function(skinName) {
     else { f1.setAttribute('stop-color', '#fde047'); f2.setAttribute('stop-color', '#d97706'); f3.setAttribute('stop-color', '#451a03'); } 
 }
 
-const tasksList = [
-    { id: "daily_checkin", title: "🎁 Claim Daily Tax Return", reward: 250, btnText: "Claim" },
-    { id: "join_tg", title: "📢 Join Official TAX COIN Channel", reward: 500, btnText: "Join & Claim" },
-    { id: "follow_x", title: "🐦 Follow TAX COIN on X (Twitter)", reward: 400, btnText: "Follow" },
-    { id: "verify_acc", title: "✅ Verify Your Account in Profile", reward: 300, btnText: "Claim", reqVerified: true }
-];
+// ==========================================
+// DYNAMIC TASKS SYSTEM (Admin Controlled)
+// ==========================================
+window.dynamicTasks = [];
 
-window.renderTasks = function() {
-    const container = document.getElementById('tasks-container'); if (!container) return; container.innerHTML = '';
-    tasksList.forEach(task => {
+window.renderTasks = async function() {
+    const container = document.getElementById('tasks-container'); 
+    if (!container) return;
+
+    if (window.dynamicTasks.length === 0) {
+        container.innerHTML = `<div class="text-center py-5 text-[11px] text-slate-400">Loading missions... <i class="fa-solid fa-circle-notch fa-spin ml-1 text-amber-500"></i></div>`;
+        try {
+            const res = await fetch("https://tax-coin-ce652-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json");
+            const data = await res.json();
+            window.dynamicTasks = [];
+            if(data) {
+                for(const key in data) { window.dynamicTasks.push({ id: key, ...data[key] }); }
+            }
+        } catch(e) { console.log("Task Load Error", e); }
+    }
+
+    container.innerHTML = '';
+    
+    if(window.dynamicTasks.length === 0) {
+        container.innerHTML = '<div class="text-center py-6 text-slate-500 text-xs font-bold border border-white/5 rounded-xl bg-slate-900/50">No new missions available right now. Check back later!</div>';
+        return;
+    }
+
+    window.dynamicTasks.forEach(task => {
         const isDone = !!window.state.completedTasks[task.id];
-        const div = document.createElement('div'); div.className = "glass-card rounded-2xl p-3.5 flex items-center justify-between";
-        div.innerHTML = `<div><div class="text-xs font-extrabold text-white">${task.title}</div><div class="text-xs font-bold text-emerald-400 mt-0.5">+${task.reward.toFixed(4)} TAX</div></div><button type="button" onclick="claimTaskReward('${task.id}')" ${isDone ? 'disabled' : ''} class="px-4 py-2 rounded-full text-xs font-extrabold transition ${isDone ? 'bg-slate-800 text-emerald-400 cursor-not-allowed' : 'gold-pill-btn'}">${isDone ? 'Done ✅' : task.btnText}</button>`; 
+        const isClicked = !!window.state.completedTasks[task.id + "_clicked"];
+        
+        let buttonText = task.btnText || "Claim";
+        let buttonClass = "gold-pill-btn";
+        
+        if (isDone) {
+            buttonText = "Done ✅";
+            buttonClass = "bg-slate-800 text-emerald-400 cursor-not-allowed";
+        } else if (task.link && isClicked) {
+            buttonText = "Check & Claim";
+            buttonClass = "bg-sky-500 text-white shadow-lg shadow-sky-500/30";
+        }
+
+        const div = document.createElement('div'); 
+        div.className = "glass-card rounded-2xl p-3.5 flex items-center justify-between transition hover:border-white/20";
+        div.innerHTML = `
+            <div>
+                <div class="text-xs font-extrabold text-white">${task.title}</div>
+                <div class="text-xs font-bold text-emerald-400 mt-0.5">+${Number(task.reward).toFixed(4)} TAX</div>
+            </div>
+            <button type="button" onclick="claimTaskReward('${task.id}')" ${isDone ? 'disabled' : ''} class="px-4 py-2 rounded-full text-xs font-extrabold transition ${buttonClass}">
+                ${buttonText}
+            </button>
+        `; 
         container.appendChild(div);
     });
 };
 
 window.claimTaskReward = function(taskId) {
-    const task = tasksList.find(t => t.id === taskId); if (!task || window.state.completedTasks[taskId]) return;
-    if (task.id === 'play_aviator') return window.openAviatorModal();
-    if (task.id === 'play_mines') return window.openMinesModal();
-    window.playSound('error'); window.showToast("⚠️ Task verification pending from Admin!", true);
+    const task = window.dynamicTasks.find(t => t.id === taskId); 
+    if (!task || window.state.completedTasks[taskId]) return;
+    
+    // Check verification requirement
+    if (task.reqVerified && !window.state.isVerified) { 
+        window.playSound('error'); 
+        window.switchTab('profile'); 
+        window.openVerifyModal(); 
+        return window.showToast("⚠️ Verify your account in Profile first!", true); 
+    }
+
+    // Link/Action logic
+    if (task.link && !window.state.completedTasks[taskId + "_clicked"]) {
+        window.open(task.link, '_blank');
+        window.state.completedTasks[taskId + "_clicked"] = true;
+        window.saveGameState();
+        window.renderTasks(); // update button to "Check & Claim"
+        window.playSound('tap');
+        return window.showToast("⏳ Please complete the task and return to claim!");
+    }
+
+    // Give Reward
+    window.state.balance += Number(task.reward);
+    window.state.completedTasks[taskId] = true;
+    window.playSound('upgrade'); 
+    window.showToast(`🎉 Mission Completed! +${task.reward} TAX Added!`);
+    window.updateAllUI(); 
+    window.cloudSync();
 };
 
 // ==========================================
-// NEW LEADERBOARD UI - FIREBASE REALTIME DB CONNECTED
+// LEADERBOARD UI 
 // ==========================================
 window.leaderboardCache = null;
 window.isFetchingLeaderboard = false;
@@ -86,32 +151,24 @@ window.renderLeaderboard = async function() {
     const list = document.getElementById('leaderboard-list'); 
     if (!list) return;
 
-    // Show loading spinner
     if (!window.leaderboardCache && !window.isFetchingLeaderboard) {
         list.innerHTML = `<div class="text-center py-5 text-[11px] text-slate-400">Loading top players from Database... <i class="fa-solid fa-circle-notch fa-spin ml-1 text-amber-500"></i></div>`;
-        
         window.isFetchingLeaderboard = true;
         try {
-            // Fetching REAL Data directly from your Firebase Database link
             const res = await fetch("https://tax-coin-ce652-default-rtdb.asia-southeast1.firebasedatabase.app/users.json");
             const data = await res.json();
-            
             if (data && !data.error) {
                 let usersArray = [];
                 for (const uid in data) {
                     const u = data[uid];
                     const totalBal = (parseFloat(u.balance) || 0) + (parseFloat(u.holdingBalance) || 0);
-                    // Name fallback logic
                     let uname = u.name || u.firstName || u.username || ("User_" + uid.toString().slice(-4));
                     usersArray.push({ uid: uid, name: uname, balance: totalBal });
                 }
-                // Sort by highest balance
                 usersArray.sort((a, b) => b.balance - a.balance);
-                window.leaderboardCache = usersArray.slice(0, 100); // Show Top 100 users
+                window.leaderboardCache = usersArray.slice(0, 100); 
             }
-        } catch (e) {
-            console.log("Firebase Leaderboard Error:", e);
-        }
+        } catch (e) {}
         window.isFetchingLeaderboard = false;
     }
 
@@ -124,21 +181,13 @@ window.renderLeaderboard = async function() {
             const displayName = isMe ? `${pName}` : p.name;
             const initials = displayName.charAt(0).toUpperCase();
             const pic = `https://ui-avatars.com/api/?name=${initials}&background=0f172a&color=fbbf24&size=128&bold=true`;
-            
             return { name: displayName, balance: p.balance, pic: pic, isYou: isMe };
         });
     } else {
-        // Fallback jodi database load hote deri hoy
         const initials = pName.charAt(0).toUpperCase();
-        playersToShow = [{ 
-            name: pName, 
-            balance: window.state.balance + (window.state.holdingBalance || 0),
-            pic: `https://ui-avatars.com/api/?name=${initials}&background=0f172a&color=fbbf24&size=128&bold=true`,
-            isYou: true
-        }];
+        playersToShow = [{ name: pName, balance: window.state.balance + (window.state.holdingBalance || 0), pic: `https://ui-avatars.com/api/?name=${initials}&background=0f172a&color=fbbf24&size=128&bold=true`, isYou: true }];
     }
 
-    // Modern MIDASO style rendering with dynamic images
     list.innerHTML = playersToShow.map((p, idx) => `
         <div class="flex items-center justify-between py-3 px-3 border-b border-white/5 last:border-0 hover:bg-white/5 transition rounded-xl">
             <div class="flex items-center gap-4">
