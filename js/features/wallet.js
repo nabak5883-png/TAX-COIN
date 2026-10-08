@@ -2,7 +2,7 @@
 
 // Initialize Real TON Connect
 window.tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-    manifestUrl: 'https://games-hub.vercel.app/tonconnect-manifest.json?v=1'
+    manifestUrl: 'https://tax-coin-mini-app-with-games-hub.vercel.app/tonconnect-manifest.json?v=2'
 });
 
 // যখন ইউজার Connect Wallet বাটনে ক্লিক করবে
