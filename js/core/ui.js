@@ -10,15 +10,18 @@ window.leagues = [
 
 window.getRefMessage = function() { return `🔥 Join TAX COIN and earn free crypto!\n\n👑 Play games, mine coins, and unlock daily rewards.\n💎 Click my link below to get an instant startup bonus!\n\n👇 Play Now:`; };
 
+// UPDATED REFERRAL LINK FORMAT FOR TELEGRAM PREVIEW
 window.copyRefLink = function() { 
-    const link = `https://t.me/TaxCoinArcadeBot?start=ref_${window.state.numericUid}`; 
+    // Using /app?startapp= format for rich preview
+    const link = `https://t.me/TaxCoinArcadeBot/app?startapp=ref_${window.state.numericUid}`; 
     const fullText = `${window.getRefMessage()}\n${link}`;
     const tempInput = document.createElement('textarea'); tempInput.value = fullText; document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); 
     window.playSound('tap'); window.showToast("📋 Professional Message & Link Copied!"); 
 };
 
 window.shareRefLink = function() {
-    const link = `https://t.me/TaxCoinArcadeBot?start=ref_${window.state.numericUid}`; const text = window.getRefMessage();
+    // Using /app?startapp= format for rich preview
+    const link = `https://t.me/TaxCoinArcadeBot/app?startapp=ref_${window.state.numericUid}`; const text = window.getRefMessage();
     const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`;
     if (window.tg && window.tg.openTelegramLink) { window.tg.openTelegramLink(shareUrl); } else { window.open(shareUrl, '_blank'); }
     window.playSound('tap');
