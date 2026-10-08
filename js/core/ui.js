@@ -8,38 +8,23 @@ window.leagues = [
     { name: "Diamond Chancellor", min: 500000, next: 2000000 }, { name: "Supreme Tax Boss", min: 2000000, next: 10000000 }
 ];
 
-// প্রফেশনাল রেফারেল মেসেজ
 window.getRefMessage = function() {
     return `🔥 Join TAX COIN and earn free crypto!\n\n👑 Play games, mine coins, and unlock daily rewards.\n💎 Click my link below to get an instant startup bonus!\n\n👇 Play Now:`;
 };
 
-// লিংক এবং মেসেজ কপি করার ফাংশন
 window.copyRefLink = function() { 
     const link = `https://t.me/TaxCoinArcadeBot?start=ref_${window.state.numericUid}`; 
     const fullText = `${window.getRefMessage()}\n${link}`;
-    
-    const tempInput = document.createElement('textarea'); 
-    tempInput.value = fullText; 
-    document.body.appendChild(tempInput); 
-    tempInput.select(); 
-    document.execCommand('copy'); 
-    document.body.removeChild(tempInput); 
-    
-    window.playSound('tap'); 
-    window.showToast("📋 Professional Message & Link Copied!"); 
+    const tempInput = document.createElement('textarea'); tempInput.value = fullText; 
+    document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); 
+    window.playSound('tap'); window.showToast("📋 Professional Message & Link Copied!"); 
 };
 
-// সরাসরি টেলিগ্রামে শেয়ার করার ফাংশন
 window.shareRefLink = function() {
     const link = `https://t.me/TaxCoinArcadeBot?start=ref_${window.state.numericUid}`;
     const text = window.getRefMessage();
     const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`;
-    
-    if (window.tg && window.tg.openTelegramLink) {
-        window.tg.openTelegramLink(shareUrl);
-    } else {
-        window.open(shareUrl, '_blank');
-    }
+    if (window.tg && window.tg.openTelegramLink) { window.tg.openTelegramLink(shareUrl); } else { window.open(shareUrl, '_blank'); }
     window.playSound('tap');
 };
 
@@ -91,34 +76,77 @@ window.claimTaskReward = function(taskId) {
     window.playSound('error'); window.showToast("⚠️ Task verification pending from Admin!", true);
 };
 
-// NEW LEADERBOARD UI - Clean and original user only
-window.renderLeaderboard = function() {
+// ==========================================
+// NEW LEADERBOARD UI - FIREBASE REALTIME DB CONNECTED
+// ==========================================
+window.leaderboardCache = null;
+window.isFetchingLeaderboard = false;
+
+window.renderLeaderboard = async function() {
     const list = document.getElementById('leaderboard-list'); 
     if (!list) return;
-    
-    const pName = document.getElementById('player-name')?.textContent || "Tax Collector";
-    const initials = pName.charAt(0).toUpperCase();
-    const profilePicUrl = `https://ui-avatars.com/api/?name=${initials}&background=0f172a&color=fbbf24&size=128&bold=true`;
-    
-    // Only original/real users will be shown here
-    const realPlayers = [ 
-        { 
-            name: pName, 
-            subtext: `${Number(window.state.balance + (window.state.holdingBalance || 0)).toFixed(0)}K`, 
-            balance: window.state.balance + (window.state.holdingBalance || 0),
-            pic: profilePicUrl,
-            isYou: true
-        } 
-    ];
 
-    list.innerHTML = realPlayers.map((p, idx) => `
+    // Show loading spinner
+    if (!window.leaderboardCache && !window.isFetchingLeaderboard) {
+        list.innerHTML = `<div class="text-center py-5 text-[11px] text-slate-400">Loading top players from Database... <i class="fa-solid fa-circle-notch fa-spin ml-1 text-amber-500"></i></div>`;
+        
+        window.isFetchingLeaderboard = true;
+        try {
+            // Fetching REAL Data directly from your Firebase Database link
+            const res = await fetch("https://tax-coin-ce652-default-rtdb.asia-southeast1.firebasedatabase.app/users.json");
+            const data = await res.json();
+            
+            if (data && !data.error) {
+                let usersArray = [];
+                for (const uid in data) {
+                    const u = data[uid];
+                    const totalBal = (parseFloat(u.balance) || 0) + (parseFloat(u.holdingBalance) || 0);
+                    // Name fallback logic
+                    let uname = u.name || u.firstName || u.username || ("User_" + uid.toString().slice(-4));
+                    usersArray.push({ uid: uid, name: uname, balance: totalBal });
+                }
+                // Sort by highest balance
+                usersArray.sort((a, b) => b.balance - a.balance);
+                window.leaderboardCache = usersArray.slice(0, 100); // Show Top 100 users
+            }
+        } catch (e) {
+            console.log("Firebase Leaderboard Error:", e);
+        }
+        window.isFetchingLeaderboard = false;
+    }
+
+    let playersToShow = [];
+    const pName = document.getElementById('player-name')?.textContent || "Tax Collector";
+
+    if (window.leaderboardCache && window.leaderboardCache.length > 0) {
+        playersToShow = window.leaderboardCache.map(p => {
+            const isMe = String(p.uid) === String(window.state.numericUid);
+            const displayName = isMe ? `${pName}` : p.name;
+            const initials = displayName.charAt(0).toUpperCase();
+            const pic = `https://ui-avatars.com/api/?name=${initials}&background=0f172a&color=fbbf24&size=128&bold=true`;
+            
+            return { name: displayName, balance: p.balance, pic: pic, isYou: isMe };
+        });
+    } else {
+        // Fallback jodi database load hote deri hoy
+        const initials = pName.charAt(0).toUpperCase();
+        playersToShow = [{ 
+            name: pName, 
+            balance: window.state.balance + (window.state.holdingBalance || 0),
+            pic: `https://ui-avatars.com/api/?name=${initials}&background=0f172a&color=fbbf24&size=128&bold=true`,
+            isYou: true
+        }];
+    }
+
+    // Modern MIDASO style rendering with dynamic images
+    list.innerHTML = playersToShow.map((p, idx) => `
         <div class="flex items-center justify-between py-3 px-3 border-b border-white/5 last:border-0 hover:bg-white/5 transition rounded-xl">
             <div class="flex items-center gap-4">
                 <span class="font-black text-amber-500 w-4 text-center text-sm">${idx + 1}</span>
                 <img src="${p.pic}" class="w-11 h-11 rounded-full border-[1.5px] border-slate-700 object-cover shadow-md">
                 <div>
                     <div class="text-sm font-bold text-white leading-tight">${p.name} ${p.isYou ? '<span class="text-[10px] text-emerald-400 font-normal ml-1">(You)</span>' : ''}</div>
-                    <div class="text-[11px] text-slate-400 mt-0.5">${p.subtext}</div>
+                    <div class="text-[11px] text-slate-400 mt-0.5">Assets Score</div>
                 </div>
             </div>
             <div class="text-[15px] font-black text-sky-400">${Number(p.balance || 0).toFixed(0)}</div>
