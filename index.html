@@ -185,11 +185,15 @@
                 <div><h2 class="text-base font-extrabold text-white font-cyber">Invite Friends</h2><p class="text-xs text-slate-300 mt-1">Earn <span class="text-amber-400 font-bold">+200.0000 TAX</span> in your Holding Wallet for every friend who joins!</p></div>
                 <div class="bg-slate-900/90 rounded-xl p-2.5 border border-white/10 flex items-center justify-between text-xs"><span class="text-slate-400">Friends Invited:</span><strong id="invited-count" class="text-amber-400 font-black">0 Friends</strong></div>
                 
-                <!-- Removed Test Button, made Copy Link full width and beautiful -->
-                <div class="grid grid-cols-1 gap-2 mt-2">
-                    <button type="button" onclick="copyRefLink()" class="py-3.5 rounded-xl gold-pill-btn text-sm font-black flex items-center justify-center gap-1.5 transition shadow-lg shadow-amber-500/20"><i class="fa-solid fa-copy"></i> Copy Referral Link</button>
+      <!-- PRO REFERRAL BUTTONS -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+                    <button type="button" onclick="copyRefLink()" class="py-3.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs flex items-center justify-center gap-1.5 active:scale-95 transition border border-white/10">
+                        <i class="fa-solid fa-copy"></i> Copy Link
+                    </button>
+                    <button type="button" onclick="shareRefLink()" class="py-3.5 rounded-xl gold-pill-btn text-sm font-black flex items-center justify-center gap-1.5 transition shadow-lg shadow-amber-500/20">
+                        <i class="fa-solid fa-share-nodes"></i> Share with Friends
+                    </button>
                 </div>
-            </div>
 
             <!-- Leaderboard UI updated to match the original image format -->
             <div class="text-sm font-bold text-white px-2 pt-2">Final standings</div>
