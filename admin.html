@@ -12,18 +12,8 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #1e293b; }
         ::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 10px; }
-        
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Login Overlay */
-        #login-overlay {
-            position: fixed; inset: 0; background: #0f172a; z-index: 100;
-            display: flex; align-items: center; justify-content: center;
-        }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        #login-overlay { position: fixed; inset: 0; background: #0f172a; z-index: 100; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body class="h-screen flex overflow-hidden">
@@ -36,12 +26,8 @@
             </div>
             <h2 class="text-2xl font-black text-white mb-1">Admin Login</h2>
             <p class="text-xs text-slate-400 mb-6">TAX COIN Master Control</p>
-            
             <input type="password" id="admin-pass" placeholder="Enter Admin Password" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-amber-400 mb-4 text-center tracking-widest">
-            
-            <button onclick="checkLogin()" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-slate-950 font-black hover:scale-[0.98] transition">
-                Access Dashboard
-            </button>
+            <button onclick="checkLogin()" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-slate-950 font-black hover:scale-[0.98] transition">Access Dashboard</button>
             <p id="login-error" class="text-red-400 text-xs mt-3 hidden font-bold">Incorrect Password!</p>
         </div>
     </div>
@@ -49,9 +35,7 @@
     <!-- SIDEBAR -->
     <aside class="w-64 glass-panel border-r border-slate-800 flex flex-col hidden sm:flex shrink-0">
         <div class="p-5 border-b border-slate-800 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center text-slate-900 font-black text-xl">
-                T
-            </div>
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center text-slate-900 font-black text-xl">T</div>
             <div>
                 <h1 class="font-black text-lg text-white leading-tight">TAX ADMIN</h1>
                 <div class="text-[10px] text-emerald-400 font-bold flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> DB Connected</div>
@@ -59,12 +43,9 @@
         </div>
         
         <nav class="p-4 flex-1 space-y-2">
-            <button onclick="switchTab('dashboard')" id="btn-dashboard" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-500/20 text-amber-400 font-bold transition">
-                <i class="fa-solid fa-chart-pie"></i> Dashboard
-            </button>
-            <button onclick="switchTab('users')" id="btn-users" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800/50 text-slate-400 hover:text-white font-bold transition">
-                <i class="fa-solid fa-users"></i> Manage Users
-            </button>
+            <button onclick="switchTab('dashboard')" id="btn-dashboard" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-500/20 text-amber-400 font-bold transition"><i class="fa-solid fa-chart-pie"></i> Dashboard</button>
+            <button onclick="switchTab('users')" id="btn-users" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800/50 text-slate-400 hover:text-white font-bold transition"><i class="fa-solid fa-users"></i> Manage Users</button>
+            <button onclick="switchTab('tasks')" id="btn-tasks" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800/50 text-slate-400 hover:text-white font-bold transition"><i class="fa-solid fa-list-check"></i> Manage Tasks</button>
             <button onclick="switchTab('withdrawals')" id="btn-withdrawals" class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-slate-800/50 text-slate-400 hover:text-white font-bold transition">
                 <div class="flex items-center gap-3"><i class="fa-solid fa-money-bill-transfer"></i> Withdrawals</div>
                 <span id="pending-badge" class="bg-rose-500 text-white text-[10px] px-2 py-0.5 rounded-full hidden">0</span>
@@ -72,52 +53,94 @@
         </nav>
 
         <div class="p-4 border-t border-slate-800">
-            <button onclick="location.reload()" class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-sm transition">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
-            </button>
+            <button onclick="location.reload()" class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-sm transition"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
         </div>
     </aside>
 
     <!-- MAIN CONTENT -->
     <main class="flex-1 flex flex-col h-full overflow-hidden">
-        <!-- Top Mobile Header -->
         <header class="sm:hidden glass-panel p-4 flex items-center justify-between border-b border-slate-800 shrink-0">
             <h1 class="font-black text-lg text-amber-400">TAX ADMIN</h1>
             <button onclick="location.reload()" class="text-slate-400"><i class="fa-solid fa-power-off"></i></button>
         </header>
 
-        <!-- Dynamic View Area -->
         <div class="flex-1 p-4 sm:p-8 overflow-y-auto" id="main-content">
             
             <!-- Dashboard View -->
             <div id="view-dashboard" class="space-y-6 block">
                 <h2 class="text-2xl font-black text-white">System Overview</h2>
-                
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div class="glass-panel p-5 rounded-2xl border-t-2 border-t-amber-400">
-                        <div class="text-slate-400 text-sm font-semibold mb-1">Total Users</div>
-                        <div class="text-3xl font-black text-white" id="stat-total-users">0</div>
-                    </div>
-                    <div class="glass-panel p-5 rounded-2xl border-t-2 border-t-emerald-400">
-                        <div class="text-slate-400 text-sm font-semibold mb-1">Total TAX Circulating</div>
-                        <div class="text-3xl font-black text-emerald-400" id="stat-total-tax">0.00</div>
-                    </div>
-                    <div class="glass-panel p-5 rounded-2xl border-t-2 border-t-sky-400">
-                        <div class="text-slate-400 text-sm font-semibold mb-1">Pending Withdrawals</div>
-                        <div class="text-3xl font-black text-sky-400" id="stat-pending-wd">0</div>
-                    </div>
+                    <div class="glass-panel p-5 rounded-2xl border-t-2 border-t-amber-400"><div class="text-slate-400 text-sm font-semibold mb-1">Total Users</div><div class="text-3xl font-black text-white" id="stat-total-users">0</div></div>
+                    <div class="glass-panel p-5 rounded-2xl border-t-2 border-t-emerald-400"><div class="text-slate-400 text-sm font-semibold mb-1">Total TAX Circulating</div><div class="text-3xl font-black text-emerald-400" id="stat-total-tax">0.00</div></div>
+                    <div class="glass-panel p-5 rounded-2xl border-t-2 border-t-sky-400"><div class="text-slate-400 text-sm font-semibold mb-1">Pending Withdrawals</div><div class="text-3xl font-black text-sky-400" id="stat-pending-wd">0</div></div>
                 </div>
 
-                <!-- Price Control Settings -->
                 <h2 class="text-2xl font-black text-white mt-8 mb-4">System Settings</h2>
                 <div class="glass-panel p-5 rounded-2xl border-t-2 border-t-purple-400 max-w-md">
                     <div class="text-slate-400 text-sm font-semibold mb-2">Live Token Price (1 TAX to USD)</div>
                     <div class="flex gap-2">
-                        <input type="number" id="input-token-price" step="any" placeholder="e.g., 0.00063633" class="w-full px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-purple-400 font-mono">
+                        <input type="number" id="input-token-price" step="any" class="w-full px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-purple-400 font-mono">
                         <button onclick="setTokenPrice()" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl transition shadow-lg shadow-purple-500/30">Save</button>
                     </div>
                     <p class="text-[11px] text-emerald-400 mt-2 font-semibold">Current Rate: $<span id="display-token-price">0.00063633</span></p>
-                    <p class="text-[10px] text-slate-500 mt-1">Change this to increase/decrease the USD value shown to users.</p>
+                </div>
+            </div>
+
+            <!-- Tasks View (NEW) -->
+            <div id="view-tasks" class="space-y-6 hidden">
+                <h2 class="text-2xl font-black text-white">Task Management</h2>
+                
+                <div class="glass-panel p-5 rounded-2xl border-t-2 border-t-amber-400 max-w-3xl">
+                    <h3 class="text-lg font-bold text-white mb-4" id="task-form-title">Create / Edit Task</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-[11px] text-slate-400 font-bold">TASK ID (Unique, No spaces)</label>
+                            <input type="text" id="t-id" placeholder="e.g., join_tg_1" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1">
+                        </div>
+                        <div>
+                            <label class="text-[11px] text-slate-400 font-bold">TASK TITLE (Use emojis!)</label>
+                            <input type="text" id="t-title" placeholder="e.g., 📢 Join Official Channel" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1">
+                        </div>
+                        <div>
+                            <label class="text-[11px] text-slate-400 font-bold">REWARD (TAX COIN)</label>
+                            <input type="number" id="t-reward" placeholder="e.g., 500" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1">
+                        </div>
+                        <div>
+                            <label class="text-[11px] text-slate-400 font-bold">BUTTON TEXT</label>
+                            <input type="text" id="t-btn" placeholder="e.g., Join & Claim" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="text-[11px] text-slate-400 font-bold">TASK LINK (URL to visit - Optional)</label>
+                            <input type="text" id="t-link" placeholder="e.g., https://t.me/taxcoin" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1">
+                        </div>
+                        <div class="sm:col-span-2 flex items-center gap-2 mt-1">
+                            <input type="checkbox" id="t-req-verify" class="w-4 h-4 accent-amber-500 cursor-pointer">
+                            <label class="text-sm text-slate-300 font-bold cursor-pointer" for="t-req-verify">User must be VERIFIED to complete this task</label>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 mt-5">
+                        <button onclick="saveTask()" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl transition shadow-lg shadow-amber-500/30">Save Task</button>
+                        <button onclick="clearTaskForm()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition">Clear Form</button>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm whitespace-nowrap">
+                            <thead class="bg-slate-900/50 text-slate-400 text-xs uppercase font-bold">
+                                <tr>
+                                    <th class="px-4 py-3">Task ID</th>
+                                    <th class="px-4 py-3">Title</th>
+                                    <th class="px-4 py-3">Reward</th>
+                                    <th class="px-4 py-3">Requirements</th>
+                                    <th class="px-4 py-3 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tasks-table-body" class="divide-y divide-slate-800/50 text-slate-200">
+                                <tr><td colspan="5" class="px-4 py-8 text-center text-slate-500">Loading tasks...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -127,22 +150,11 @@
                     <h2 class="text-2xl font-black text-white">Registered Users</h2>
                     <input type="text" id="search-user" placeholder="Search by User ID..." class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm focus:outline-none focus:border-amber-400 text-white w-full sm:w-64">
                 </div>
-                
                 <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-sm whitespace-nowrap">
-                            <thead class="bg-slate-900/50 text-slate-400 text-xs uppercase font-bold">
-                                <tr>
-                                    <th class="px-4 py-3">User ID</th>
-                                    <th class="px-4 py-3">Pool Balance</th>
-                                    <th class="px-4 py-3">PPH (Income)</th>
-                                    <th class="px-4 py-3">Verified</th>
-                                    <th class="px-4 py-3 text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="users-table-body" class="divide-y divide-slate-800/50 text-slate-200">
-                                <tr><td colspan="5" class="px-4 py-8 text-center text-slate-500">Loading users...</td></tr>
-                            </tbody>
+                            <thead class="bg-slate-900/50 text-slate-400 text-xs uppercase font-bold"><tr><th class="px-4 py-3">User ID</th><th class="px-4 py-3">Pool Balance</th><th class="px-4 py-3">PPH (Income)</th><th class="px-4 py-3">Verified</th><th class="px-4 py-3 text-right">Actions</th></tr></thead>
+                            <tbody id="users-table-body" class="divide-y divide-slate-800/50 text-slate-200"><tr><td colspan="5" class="px-4 py-8 text-center text-slate-500">Loading users...</td></tr></tbody>
                         </table>
                     </div>
                 </div>
@@ -151,23 +163,11 @@
             <!-- Withdrawals View -->
             <div id="view-withdrawals" class="space-y-4 hidden">
                 <h2 class="text-2xl font-black text-white">Withdrawal Requests</h2>
-                
                 <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-sm whitespace-nowrap">
-                            <thead class="bg-slate-900/50 text-slate-400 text-xs uppercase font-bold">
-                                <tr>
-                                    <th class="px-4 py-3">Time</th>
-                                    <th class="px-4 py-3">User ID</th>
-                                    <th class="px-4 py-3">Method & Address</th>
-                                    <th class="px-4 py-3">Amount (TAX)</th>
-                                    <th class="px-4 py-3">Status</th>
-                                    <th class="px-4 py-3 text-right">Controls</th>
-                                </tr>
-                            </thead>
-                            <tbody id="withdraw-table-body" class="divide-y divide-slate-800/50 text-slate-200">
-                                <tr><td colspan="6" class="px-4 py-8 text-center text-slate-500">No pending withdrawals.</td></tr>
-                            </tbody>
+                            <thead class="bg-slate-900/50 text-slate-400 text-xs uppercase font-bold"><tr><th class="px-4 py-3">Time</th><th class="px-4 py-3">User ID</th><th class="px-4 py-3">Method & Address</th><th class="px-4 py-3">Amount (TAX)</th><th class="px-4 py-3">Status</th><th class="px-4 py-3 text-right">Controls</th></tr></thead>
+                            <tbody id="withdraw-table-body" class="divide-y divide-slate-800/50 text-slate-200"><tr><td colspan="6" class="px-4 py-8 text-center text-slate-500">No pending withdrawals.</td></tr></tbody>
                         </table>
                     </div>
                 </div>
@@ -176,12 +176,11 @@
         </div>
     </main>
 
-    <!-- Firebase SDK (Modular v10 via CDN) -->
+    <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getDatabase, ref, onValue, update, remove, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-        // Your provided Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDi53ScdpGIF1u2rRuGavDwlQoTvbaxRNc",
             authDomain: "tax-coin-ce652.firebaseapp.com",
@@ -195,192 +194,147 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Global Variables for Admin
         let allUsers = {};
         let allWithdrawals = {};
+        let allTasks = {};
 
-        // 1. Password Protection (Basic Client-Side)
         window.checkLogin = function() {
             const pass = document.getElementById('admin-pass').value;
-            // Admin password set to: admin123 (Change this later if needed)
-            if(pass === "admin123") {
-                document.getElementById('login-overlay').style.display = 'none';
-                startListeningToDatabase();
-            } else {
-                document.getElementById('login-error').classList.remove('hidden');
-            }
+            if(pass === "admin123") { document.getElementById('login-overlay').style.display = 'none'; startListeningToDatabase(); } 
+            else { document.getElementById('login-error').classList.remove('hidden'); }
         }
 
-        // 2. Tab Switcher
         window.switchTab = function(tab) {
-            ['dashboard', 'users', 'withdrawals'].forEach(t => {
+            ['dashboard', 'users', 'tasks', 'withdrawals'].forEach(t => {
                 document.getElementById(`view-${t}`).classList.add('hidden');
-                
                 const btn = document.getElementById(`btn-${t}`);
-                if(btn) {
-                    btn.className = (t === tab) 
-                        ? "w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-500/20 text-amber-400 font-bold transition"
-                        : "w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800/50 text-slate-400 hover:text-white font-bold transition";
-                }
+                if(btn) { btn.className = (t === tab) ? "w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-500/20 text-amber-400 font-bold transition" : "w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800/50 text-slate-400 hover:text-white font-bold transition"; }
             });
             document.getElementById(`view-${tab}`).classList.remove('hidden');
         }
 
-        // 3. Database Connection
         function startListeningToDatabase() {
-            // Listen to Users
-            const usersRef = ref(db, 'users');
-            onValue(usersRef, (snapshot) => {
-                allUsers = snapshot.val() || {};
-                updateDashboardStats();
-                renderUsersTable();
-            });
-
-            // Listen to Withdrawals
-            const withdrawRef = ref(db, 'withdrawals');
-            onValue(withdrawRef, (snapshot) => {
-                allWithdrawals = snapshot.val() || {};
-                updateDashboardStats();
-                renderWithdrawalsTable();
-            });
-
-            // Listen to Settings (Token Price)
-            const settingsRef = ref(db, 'settings');
-            onValue(settingsRef, (snapshot) => {
-                const settings = snapshot.val() || {};
-                const currentPrice = settings.tokenPrice || 0.00063633;
-                document.getElementById('input-token-price').value = currentPrice;
-                document.getElementById('display-token-price').innerText = currentPrice;
-            });
+            onValue(ref(db, 'users'), (snapshot) => { allUsers = snapshot.val() || {}; updateDashboardStats(); renderUsersTable(); });
+            onValue(ref(db, 'withdrawals'), (snapshot) => { allWithdrawals = snapshot.val() || {}; updateDashboardStats(); renderWithdrawalsTable(); });
+            onValue(ref(db, 'settings'), (snapshot) => { const settings = snapshot.val() || {}; const currentPrice = settings.tokenPrice || 0.00063633; document.getElementById('input-token-price').value = currentPrice; document.getElementById('display-token-price').innerText = currentPrice; });
+            // Fetch Tasks
+            onValue(ref(db, 'tasks'), (snapshot) => { allTasks = snapshot.val() || {}; renderTasksTable(); });
         }
 
-        // 4. Update Settings (Token Price)
         window.setTokenPrice = function() {
             const newPrice = parseFloat(document.getElementById('input-token-price').value);
-            if(newPrice > 0) {
-                // Update Firebase DB
-                update(ref(db, 'settings'), { tokenPrice: newPrice })
-                    .then(() => alert('Token Price updated successfully! This will reflect in the mini app instantly.'))
-                    .catch(err => alert('Error updating price: ' + err));
-            } else {
-                alert('Please enter a valid numeric price.');
+            if(newPrice > 0) { update(ref(db, 'settings'), { tokenPrice: newPrice }).then(() => alert('Token Price updated successfully!')).catch(err => alert('Error updating price: ' + err)); }
+        }
+
+        // ================= TASKS SYSTEM =================
+        window.saveTask = function() {
+            const id = document.getElementById('t-id').value.trim();
+            const title = document.getElementById('t-title').value.trim();
+            const reward = parseFloat(document.getElementById('t-reward').value) || 0;
+            const btnText = document.getElementById('t-btn').value.trim();
+            const link = document.getElementById('t-link').value.trim();
+            const reqVerified = document.getElementById('t-req-verify').checked;
+
+            if(!id || !title || reward <= 0) return alert("Task ID, Title, and Reward are required!");
+            if(id.includes(" ") || id.includes(".")) return alert("Task ID cannot contain spaces or dots!");
+
+            const taskData = { title, reward, btnText: btnText || "Claim", link, reqVerified };
+            
+            set(ref(db, `tasks/${id}`), taskData).then(() => {
+                alert('Task saved successfully!');
+                clearTaskForm();
+            }).catch(err => alert('Error saving task: ' + err));
+        }
+
+        window.clearTaskForm = function() {
+            document.getElementById('t-id').value = '';
+            document.getElementById('t-title').value = '';
+            document.getElementById('t-reward').value = '';
+            document.getElementById('t-btn').value = '';
+            document.getElementById('t-link').value = '';
+            document.getElementById('t-req-verify').checked = false;
+        }
+
+        window.editTask = function(id) {
+            const task = allTasks[id];
+            if(!task) return;
+            document.getElementById('t-id').value = id;
+            document.getElementById('t-title').value = task.title || "";
+            document.getElementById('t-reward').value = task.reward || "";
+            document.getElementById('t-btn').value = task.btnText || "";
+            document.getElementById('t-link').value = task.link || "";
+            document.getElementById('t-req-verify').checked = task.reqVerified || false;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.deleteTask = function(id) {
+            if(confirm(`Are you sure you want to permanently delete task "${id}"?`)) {
+                remove(ref(db, `tasks/${id}`)).then(() => alert('Task deleted!')).catch(err => alert('Error deleting: ' + err));
             }
         }
 
-        // 5. Render Functions
-        function updateDashboardStats() {
-            const userKeys = Object.keys(allUsers);
-            document.getElementById('stat-total-users').innerText = userKeys.length;
-
-            let totalTax = 0;
-            userKeys.forEach(uid => {
-                totalTax += (allUsers[uid].balance || 0);
-                totalTax += (allUsers[uid].holdingBalance || 0);
-            });
-            document.getElementById('stat-total-tax').innerText = totalTax.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-            const pendingKeys = Object.keys(allWithdrawals).filter(k => allWithdrawals[k].status === 'Pending');
-            document.getElementById('stat-pending-wd').innerText = pendingKeys.length;
-            
-            const badge = document.getElementById('pending-badge');
-            if(pendingKeys.length > 0) {
-                badge.innerText = pendingKeys.length;
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
-            }
-        }
-
-        function renderUsersTable() {
-            const tbody = document.getElementById('users-table-body');
-            const search = document.getElementById('search-user')?.value.toLowerCase() || "";
-            
+        function renderTasksTable() {
+            const tbody = document.getElementById('tasks-table-body');
             let html = '';
-            for(const [uid, data] of Object.entries(allUsers)) {
-                if(search && !uid.toLowerCase().includes(search)) continue;
-
-                const bal = parseFloat(data.balance || 0).toFixed(4);
-                const pph = parseInt(data.pph || 0);
-                const verified = data.isVerified ? '<span class="text-emerald-400"><i class="fa-solid fa-check-circle"></i> Yes</span>' : '<span class="text-slate-500">No</span>';
-
+            for(const [id, data] of Object.entries(allTasks)) {
+                const reqBadge = data.reqVerified ? '<span class="text-emerald-400 text-[10px] px-2 py-1 bg-emerald-900/40 rounded">Verified Only</span>' : '<span class="text-slate-400 text-[10px]">None</span>';
+                const linkBadge = data.link ? `<a href="${data.link}" target="_blank" class="text-sky-400 text-xs hover:underline">Link <i class="fa-solid fa-up-right-from-square text-[10px]"></i></a>` : '<span class="text-slate-500 text-xs">No Link</span>';
+                
                 html += `
-                    <tr>
-                        <td class="px-4 py-3 font-mono text-amber-300">${uid}</td>
-                        <td class="px-4 py-3 font-bold">${bal} TAX</td>
-                        <td class="px-4 py-3 text-emerald-400">+${pph}/hr</td>
-                        <td class="px-4 py-3">${verified}</td>
+                    <tr class="hover:bg-slate-800/30 transition">
+                        <td class="px-4 py-3 font-mono text-amber-300">${id}</td>
+                        <td class="px-4 py-3 font-bold text-white">${data.title}</td>
+                        <td class="px-4 py-3 text-emerald-400 font-bold">+${data.reward} TAX</td>
+                        <td class="px-4 py-3 flex gap-2 items-center">${reqBadge} ${linkBadge}</td>
                         <td class="px-4 py-3 text-right">
-                            <button onclick="editBalance('${uid}', ${bal})" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-sky-400 rounded text-xs font-bold border border-sky-500/30">Edit Coins</button>
+                            <button onclick="editTask('${id}')" class="px-3 py-1 bg-blue-500/20 hover:bg-blue-500/40 text-blue-400 rounded text-xs font-bold mr-1 transition"><i class="fa-solid fa-pen"></i> Edit</button>
+                            <button onclick="deleteTask('${id}')" class="px-3 py-1 bg-rose-500/20 hover:bg-rose-500/40 text-rose-400 rounded text-xs font-bold transition"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 `;
             }
+            tbody.innerHTML = html || '<tr><td colspan="5" class="px-4 py-8 text-center text-slate-500">No tasks created yet.</td></tr>';
+        }
 
+        // ================= SYSTEM STATS & WITHDRAWALS =================
+        function updateDashboardStats() {
+            const userKeys = Object.keys(allUsers); document.getElementById('stat-total-users').innerText = userKeys.length;
+            let totalTax = 0; userKeys.forEach(uid => { totalTax += (allUsers[uid].balance || 0); totalTax += (allUsers[uid].holdingBalance || 0); });
+            document.getElementById('stat-total-tax').innerText = totalTax.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            const pendingKeys = Object.keys(allWithdrawals).filter(k => allWithdrawals[k].status === 'Pending'); document.getElementById('stat-pending-wd').innerText = pendingKeys.length;
+            const badge = document.getElementById('pending-badge');
+            if(pendingKeys.length > 0) { badge.innerText = pendingKeys.length; badge.classList.remove('hidden'); } else { badge.classList.add('hidden'); }
+        }
+
+        function renderUsersTable() {
+            const tbody = document.getElementById('users-table-body'); const search = document.getElementById('search-user')?.value.toLowerCase() || "";
+            let html = '';
+            for(const [uid, data] of Object.entries(allUsers)) {
+                if(search && !uid.toLowerCase().includes(search)) continue;
+                const bal = parseFloat(data.balance || 0).toFixed(4); const pph = parseInt(data.pph || 0);
+                const verified = data.isVerified ? '<span class="text-emerald-400"><i class="fa-solid fa-check-circle"></i> Yes</span>' : '<span class="text-slate-500">No</span>';
+                html += `<tr><td class="px-4 py-3 font-mono text-amber-300">${uid}</td><td class="px-4 py-3 font-bold">${bal} TAX</td><td class="px-4 py-3 text-emerald-400">+${pph}/hr</td><td class="px-4 py-3">${verified}</td><td class="px-4 py-3 text-right"><button onclick="editBalance('${uid}', ${bal})" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-sky-400 rounded text-xs font-bold border border-sky-500/30">Edit Coins</button></td></tr>`;
+            }
             tbody.innerHTML = html || '<tr><td colspan="5" class="px-4 py-8 text-center text-slate-500">No users found.</td></tr>';
         }
 
         document.getElementById('search-user').addEventListener('input', renderUsersTable);
-
-        window.editBalance = function(uid, currentBal) {
-            const newBal = prompt(`Enter new TAX balance for user ${uid}:`, currentBal);
-            if(newBal !== null && !isNaN(newBal)) {
-                const userRef = ref(db, `users/${uid}`);
-                update(userRef, { balance: parseFloat(newBal) })
-                    .then(() => alert('Balance updated successfully!'))
-                    .catch(err => alert('Error updating balance: ' + err));
-            }
-        }
+        window.editBalance = function(uid, currentBal) { const newBal = prompt(`Enter new TAX balance for user ${uid}:`, currentBal); if(newBal !== null && !isNaN(newBal)) { update(ref(db, `users/${uid}`), { balance: parseFloat(newBal) }).then(() => alert('Balance updated!')).catch(err => alert('Error: ' + err)); } }
 
         function renderWithdrawalsTable() {
-            const tbody = document.getElementById('withdraw-table-body');
-            let html = '';
-
+            const tbody = document.getElementById('withdraw-table-body'); let html = '';
             const requests = Object.entries(allWithdrawals).sort((a, b) => b[1].timestamp - a[1].timestamp);
-
             for(const [key, data] of requests) {
-                let statusBadge = '';
-                let controls = '';
-
-                if(data.status === 'Pending') {
-                    statusBadge = `<span class="bg-amber-500/20 text-amber-400 px-2 py-1 rounded text-[10px] font-bold border border-amber-500/30">Pending ⏳</span>`;
-                    controls = `
-                        <button onclick="processWithdrawal('${key}', 'Approved')" class="px-2.5 py-1 bg-emerald-500/20 hover:bg-emerald-500/40 text-emerald-400 rounded text-xs font-bold mr-1">Approve</button>
-                        <button onclick="processWithdrawal('${key}', 'Rejected')" class="px-2.5 py-1 bg-rose-500/20 hover:bg-rose-500/40 text-rose-400 rounded text-xs font-bold">Reject</button>
-                    `;
-                } else if(data.status === 'Approved') {
-                    statusBadge = `<span class="text-emerald-400 text-xs font-bold"><i class="fa-solid fa-check"></i> Paid</span>`;
-                    controls = `<span class="text-slate-500 text-[10px]">Closed</span>`;
-                } else {
-                    statusBadge = `<span class="text-rose-400 text-xs font-bold"><i class="fa-solid fa-xmark"></i> Rejected</span>`;
-                    controls = `<span class="text-slate-500 text-[10px]">Closed</span>`;
-                }
-
-                html += `
-                    <tr>
-                        <td class="px-4 py-3 text-xs text-slate-400">${new Date(data.timestamp).toLocaleString()}</td>
-                        <td class="px-4 py-3 font-mono text-amber-300">${data.userId}</td>
-                        <td class="px-4 py-3">
-                            <span class="font-bold text-white uppercase text-[10px] bg-slate-800 px-1.5 py-0.5 rounded">${data.method}</span>
-                            <br><span class="text-[11px] text-sky-300 font-mono">${data.address}</span>
-                        </td>
-                        <td class="px-4 py-3 font-black text-emerald-400">${parseFloat(data.amount).toFixed(2)} TAX</td>
-                        <td class="px-4 py-3">${statusBadge}</td>
-                        <td class="px-4 py-3 text-right">${controls}</td>
-                    </tr>
-                `;
+                let statusBadge = ''; let controls = '';
+                if(data.status === 'Pending') { statusBadge = `<span class="bg-amber-500/20 text-amber-400 px-2 py-1 rounded text-[10px] font-bold border border-amber-500/30">Pending ⏳</span>`; controls = `<button onclick="processWithdrawal('${key}', 'Approved')" class="px-2.5 py-1 bg-emerald-500/20 hover:bg-emerald-500/40 text-emerald-400 rounded text-xs font-bold mr-1">Approve</button><button onclick="processWithdrawal('${key}', 'Rejected')" class="px-2.5 py-1 bg-rose-500/20 hover:bg-rose-500/40 text-rose-400 rounded text-xs font-bold">Reject</button>`; } 
+                else if(data.status === 'Approved') { statusBadge = `<span class="text-emerald-400 text-xs font-bold"><i class="fa-solid fa-check"></i> Paid</span>`; controls = `<span class="text-slate-500 text-[10px]">Closed</span>`; } 
+                else { statusBadge = `<span class="text-rose-400 text-xs font-bold"><i class="fa-solid fa-xmark"></i> Rejected</span>`; controls = `<span class="text-slate-500 text-[10px]">Closed</span>`; }
+                html += `<tr><td class="px-4 py-3 text-xs text-slate-400">${new Date(data.timestamp).toLocaleString()}</td><td class="px-4 py-3 font-mono text-amber-300">${data.userId}</td><td class="px-4 py-3"><span class="font-bold text-white uppercase text-[10px] bg-slate-800 px-1.5 py-0.5 rounded">${data.method}</span><br><span class="text-[11px] text-sky-300 font-mono">${data.address}</span></td><td class="px-4 py-3 font-black text-emerald-400">${parseFloat(data.amount).toFixed(2)} TAX</td><td class="px-4 py-3">${statusBadge}</td><td class="px-4 py-3 text-right">${controls}</td></tr>`;
             }
-
             tbody.innerHTML = html || '<tr><td colspan="6" class="px-4 py-8 text-center text-slate-500">No withdrawal requests found.</td></tr>';
         }
 
-        window.processWithdrawal = function(reqId, action) {
-            if(confirm(`Are you sure you want to mark this request as ${action}?`)) {
-                const reqRef = ref(db, `withdrawals/${reqId}`);
-                update(reqRef, { status: action })
-                    .then(() => alert(`Withdrawal marked as ${action}!`))
-                    .catch(err => alert('Error processing: ' + err));
-            }
-        }
+        window.processWithdrawal = function(reqId, action) { if(confirm(`Are you sure you want to mark this request as ${action}?`)) { update(ref(db, `withdrawals/${reqId}`), { status: action }).then(() => alert(`Withdrawal marked as ${action}!`)).catch(err => alert('Error: ' + err)); } }
     </script>
 </body>
 </html>
