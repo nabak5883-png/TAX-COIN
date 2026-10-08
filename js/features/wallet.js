@@ -5,8 +5,6 @@ window.tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
     manifestUrl: 'https://games-hub.vercel.app/tonconnect-manifest.json?v=1'
 });
 
-
-
 // যখন ইউজার Connect Wallet বাটনে ক্লিক করবে
 window.openWalletModal = function() {
     if (window.tonConnectUI.connected) {
