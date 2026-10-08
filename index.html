@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TAX COIN - Official Telegram Mini App</title>
-
-<script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script
+    
+    <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="css/style.css?v=5">
+    <link rel="stylesheet" href="css/style.css?v=7">
 </head>
 <body class="select-none">
 
@@ -111,10 +110,14 @@
                         <div class="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400"><i class="fa-solid fa-bolt text-sm"></i></div>
                         <div><div class="text-xs font-extrabold text-white" id="energy-display">1000 / 1000</div><div class="text-[10px] text-slate-400">+<span id="regen-rate-display">2</span>/sec recharge</div></div>
                     </div>
+                    
+                    <!-- NEW BOOST BUTTON IN MINE TAB -->
                     <div class="flex items-center gap-1.5">
-                        <button type="button" onclick="useFreeRefill()" class="px-2.5 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-extrabold text-xs flex items-center gap-1 active:scale-95 transition"><i class="fa-solid fa-battery-full"></i><span id="refill-left-Quick">3</span></button>
-                        <button type="button" onclick="activateTurbo()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-slate-950 font-extrabold text-xs flex items-center gap-1.5 shadow-lg shadow-amber-500/25 active:scale-95 transition"><i class="fa-solid fa-fire-flame-curved"></i><span>Turbo (<span id="turbo-left">3</span>)</span></button>
+                        <button type="button" onclick="switchTab('boost')" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 font-extrabold text-xs flex items-center gap-1.5 shadow-lg shadow-orange-500/25 active:scale-95 transition">
+                            <i class="fa-solid fa-rocket"></i><span>Boost</span>
+                        </button>
                     </div>
+
                 </div>
                 <div class="w-full h-3 bg-slate-800/90 rounded-full overflow-hidden p-0.5 border border-slate-700">
                     <div id="energy-bar" class="h-full bg-gradient-to-r from-amber-500 via-yellow-400 to-lime-300 rounded-full transition-all duration-200" style="width: 100%"></div>
@@ -169,10 +172,8 @@
                 <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-white text-2xl mx-auto mb-2 shadow-lg shadow-orange-500/30"><i class="fa-solid fa-bolt"></i></div>
                 <h2 class="text-base font-extrabold text-white font-cyber">TAP & ENERGY BOOSTERS</h2>
             </div>
-            <div class="grid grid-cols-2 gap-2">
-                <button type="button" onclick="useFreeRefill()" class="glass-card rounded-2xl p-3 flex items-center gap-2.5 border border-emerald-500/30 active:scale-95 transition text-left"><i class="fa-solid fa-battery-full text-emerald-400 text-xl"></i><div><div class="text-xs font-bold text-white">Full Tank</div><div class="text-[10px] text-emerald-400 font-bold"><span id="refill-left">3</span>/3 Free</div></div></button>
-                <button type="button" onclick="activateTurbo()" class="glass-card rounded-2xl p-3 flex items-center gap-2.5 border border-orange-500/30 active:scale-95 transition text-left"><i class="fa-solid fa-fire-flame-curved text-orange-400 text-xl"></i><div><div class="text-xs font-bold text-white">5x Turbo</div><div class="text-[10px] text-orange-400 font-bold"><span id="turbo-left-boost">3</span>/3 Free</div></div></button>
-            </div>
+            
+            <!-- Boost options (Multitap, Energy Limit, Recharge Speed) -->
             <div class="space-y-2 pt-1">
                 <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between"><div><div class="text-sm font-bold text-white">👆 Multitap Stamp <span id="multitap-lvl" class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 ml-1">Lvl 1</span></div><div class="text-xs text-amber-400 font-extrabold mt-1" id="multitap-cost-display">🪙 100 TAX (+1/tap)</div></div><button type="button" onclick="buyUpgrade('multitap')" class="px-4 py-2 rounded-full gold-pill-btn text-xs">Upgrade</button></div>
                 <div class="glass-card rounded-2xl p-3.5 flex items-center justify-between"><div><div class="text-sm font-bold text-white">🔋 Energy Limit <span id="energy-lvl" class="text-[10px] px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-400 ml-1">Lvl 1</span></div><div class="text-xs text-amber-400 font-extrabold mt-1" id="energy-cost-display">🪙 150 TAX (+500 Max)</div></div><button type="button" onclick="buyUpgrade('energy')" class="px-4 py-2 rounded-full gold-pill-btn text-xs">Upgrade</button></div>
@@ -180,14 +181,13 @@
             </div>
         </section>
 
-         <!-- TAB 5: FRIENDS -->
+        <!-- TAB 5: FRIENDS -->
         <section id="tab-friends" class="tab-page hidden space-y-3 pt-1">
             <div class="glass-card gold-border-glow rounded-2xl p-4 text-center space-y-3">
                 <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-2xl mx-auto"><i class="fa-solid fa-user-group"></i></div>
                 <div><h2 class="text-base font-extrabold text-white font-cyber">Invite Friends</h2><p class="text-xs text-slate-300 mt-1">Earn <span class="text-amber-400 font-bold">+200.0000 TAX</span> in your Holding Wallet for every friend who joins!</p></div>
                 <div class="bg-slate-900/90 rounded-xl p-2.5 border border-white/10 flex items-center justify-between text-xs"><span class="text-slate-400">Friends Invited:</span><strong id="invited-count" class="text-amber-400 font-black">0 Friends</strong></div>
                 
-      <!-- PRO REFERRAL BUTTONS -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
                     <button type="button" onclick="copyRefLink()" class="py-3.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs flex items-center justify-center gap-1.5 active:scale-95 transition border border-white/10">
                         <i class="fa-solid fa-copy"></i> Copy Link
@@ -196,8 +196,8 @@
                         <i class="fa-solid fa-share-nodes"></i> Share with Friends
                     </button>
                 </div>
+            </div>
 
-            <!-- Leaderboard UI updated to match the original image format -->
             <div class="text-sm font-bold text-white px-2 pt-2">Final standings</div>
             <div class="glass-card rounded-3xl p-2 mb-4">
                 <div id="leaderboard-list" class="flex flex-col"></div>
@@ -241,12 +241,11 @@
 
     </main>
 
-    <!-- BOTTOM NAVIGATION -->
+    <!-- BOTTOM NAVIGATION (Clean Grid-5) -->
     <nav class="fixed bottom-0 left-0 right-0 px-2 pb-2 pt-1.5 z-30 bg-slate-950/95 backdrop-blur-lg border-t border-white/10">
-        <div class="grid grid-cols-6 gap-1 max-w-md mx-auto items-center">
+        <div class="grid grid-cols-5 gap-1 max-w-md mx-auto items-center">
             <button type="button" id="nav-mine" onclick="switchTab('mine')" class="nav-btn flex flex-col items-center py-1.5 rounded-xl text-amber-400 transition"><i class="fa-solid fa-hammer text-lg"></i><span class="text-[10px] font-semibold mt-0.5">Mine</span></button>
             <button type="button" id="nav-games" onclick="switchTab('games')" class="nav-btn flex flex-col items-center py-1.5 rounded-xl text-slate-400 hover:text-white transition"><i class="fa-solid fa-gamepad text-lg"></i><span class="text-[10px] font-semibold mt-0.5">Games</span></button>
-            <button type="button" id="nav-boost" onclick="switchTab('boost')" class="nav-btn flex flex-col items-center py-1 rounded-xl text-slate-300 transition"><div class="w-11 h-11 rounded-2xl bg-orange-950/90 border border-orange-400/40 shadow-[0_0_15px_rgba(249,115,22,0.3)] flex items-center justify-center text-amber-400 text-xl -mt-3"><i class="fa-solid fa-bolt"></i></div><span class="text-[10px] font-semibold mt-1">Boost</span></button>
             <button type="button" id="nav-tasks" onclick="switchTab('tasks')" class="nav-btn flex flex-col items-center py-1.5 rounded-xl text-slate-400 hover:text-white transition"><i class="fa-solid fa-clipboard-list text-lg"></i><span class="text-[10px] font-semibold mt-0.5">Tasks</span></button>
             <button type="button" id="nav-friends" onclick="switchTab('friends')" class="nav-btn flex flex-col items-center py-1.5 rounded-xl text-slate-400 hover:text-white transition"><i class="fa-solid fa-user-group text-lg"></i><span class="text-[10px] font-semibold mt-0.5">Friends</span></button>
             <button type="button" id="nav-profile" onclick="switchTab('profile')" class="nav-btn flex flex-col items-center py-1.5 rounded-xl text-slate-400 hover:text-white transition"><i class="fa-solid fa-user text-lg"></i><span class="text-[10px] font-semibold mt-0.5">Profile</span></button>
@@ -461,21 +460,21 @@
     </div>
 
     <!-- ============================================== -->
-    <!-- LOAD ALL SCRIPTS (Cache Bypassed v5) -->
+    <!-- LOAD ALL SCRIPTS (Cache Bypassed v7) -->
     <!-- ============================================== -->
-    <script defer src="js/core/state.js?v=5"></script>
-    <script defer src="js/core/ui.js?v=5"></script>
-    <script defer src="js/features/wallet.js?v=5"></script>
-    <script defer src="js/features/mining.js?v=5"></script>
-    <script defer src="js/features/boost.js?v=5"></script>
-    <script defer src="js/features/profile.js?v=5"></script>
+    <script defer src="js/core/state.js?v=7"></script>
+    <script defer src="js/core/ui.js?v=7"></script>
+    <script defer src="js/features/wallet.js?v=7"></script>
+    <script defer src="js/features/mining.js?v=7"></script>
+    <script defer src="js/features/boost.js?v=7"></script>
+    <script defer src="js/features/profile.js?v=7"></script>
     
-    <script defer src="js/games/aviator.js?v=5"></script>
-    <script defer src="js/games/mines.js?v=5"></script>
-    <script defer src="js/games/coinflip.js?v=5"></script>
-    <script defer src="js/games/spin.js?v=5"></script>
+    <script defer src="js/games/aviator.js?v=7"></script>
+    <script defer src="js/games/mines.js?v=7"></script>
+    <script defer src="js/games/coinflip.js?v=7"></script>
+    <script defer src="js/games/spin.js?v=7"></script>
     
-    <script type="module" defer src="js/core/firebase.js?v=5"></script>
+    <script type="module" defer src="js/core/firebase.js?v=7"></script>
 
 </body>
 </html>
