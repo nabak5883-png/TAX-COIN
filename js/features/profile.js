@@ -1,29 +1,17 @@
-// js/features/profile.js
-
-window.copyUserId = function() { 
-    const temp = document.createElement('textarea'); temp.value = window.state.numericUid; 
-    document.body.appendChild(temp); temp.select(); document.execCommand('copy'); document.body.removeChild(temp); 
-    window.playSound('tap'); window.showToast(`📋 User ID (${window.state.numericUid}) Copied!`); 
-};
-
-window.openVerifyModal = function() { 
-    if (window.state.isVerified) return window.showToast("✅ Your account is already verified!"); 
-    document.getElementById('verify-modal').classList.remove('hidden'); document.getElementById('verify-modal').classList.add('flex'); 
-};
+window.copyUserId = function() { const temp = document.createElement('textarea'); temp.value = window.state.numericUid; document.body.appendChild(temp); temp.select(); document.execCommand('copy'); document.body.removeChild(temp); window.playSound('tap'); window.showToast(`📋 User ID (${window.state.numericUid}) Copied!`); };
+window.openVerifyModal = function() { if (window.state.isVerified) return window.showToast("✅ Your account is already verified!"); document.getElementById('verify-modal').classList.remove('hidden'); document.getElementById('verify-modal').classList.add('flex'); };
 window.closeVerifyModal = function() { document.getElementById('verify-modal').classList.add('hidden'); document.getElementById('verify-modal').classList.remove('flex'); };
 window.quickFillVerify = function() { document.getElementById('verify-wallet-input').value = "UQA7xTaxCoinOfficialVault" + window.state.numericUid.slice(-4); };
 
-// Profile Verification Bonus now goes to Holding Wallet
 window.completeAccountVerification = function() { 
     let val = document.getElementById('verify-wallet-input').value.trim(); 
     if (!val) val = "UQA7xTaxCoinVerified" + window.state.numericUid.slice(-4); 
     window.state.isVerified = true; window.state.walletAddress = val; 
     
-    window.state.holdingBalance += 250; // Updated to Holding
+    window.state.holdingBalance += 250; 
     if (!window.state.lastUnlockTime) window.state.lastUnlockTime = Date.now();
     
-    window.playSound('upgrade'); window.closeVerifyModal(); 
-    window.showToast("✅ Account Verified! +250.0000 TAX to Holding Wallet!"); 
+    window.playSound('upgrade'); window.closeVerifyModal(); window.showToast("✅ Account Verified! +250.0000 TAX to Holding Wallet!"); 
     if(window.updateAllUI) window.updateAllUI(); window.saveGameState(); 
 };
 
@@ -84,15 +72,7 @@ window.submitWithdrawal = function() {
     if (amount > window.state.balance) { window.playSound('error'); return window.showToast("⚠️ Insufficient Pool Wallet balance!", true); }
     
     window.state.balance = Math.max(0, window.state.balance - amount);
-    const txRecord = { 
-        id: "TX-" + Math.floor(100000 + Math.random() * 900000), 
-        method: window.state.withdrawMethod, 
-        address: address, 
-        amountTax: amount.toFixed(4), 
-        payout: document.getElementById('withdraw-estimate-display').textContent, 
-        status: "Processing ⏳", 
-        date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) 
-    };
+    const txRecord = { id: "TX-" + Math.floor(100000 + Math.random() * 900000), method: window.state.withdrawMethod, address: address, amountTax: amount.toFixed(4), payout: document.getElementById('withdraw-estimate-display').textContent, status: "Processing ⏳", date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) };
     
     window.state.withdrawHistory.unshift(txRecord);
     if (window.sendWithdrawalToAdmin) window.sendWithdrawalToAdmin(txRecord);
