@@ -1,47 +1,33 @@
-// js/features/mining.js
-
 window.spawnFloatingTap = function(x, y, text) { 
     const el = document.createElement('div'); 
     el.className = `floating-tap ${window.state.turboActive ? 'text-red-400' : 'text-amber-300'}`; 
-    el.textContent = text; 
-    el.style.left = `${x - 20}px`; 
-    el.style.top = `${y - 30}px`; 
-    document.body.appendChild(el); 
-    setTimeout(() => el.remove(), 800); 
+    el.textContent = text; el.style.left = `${x - 20}px`; el.style.top = `${y - 30}px`; 
+    document.body.appendChild(el); setTimeout(() => el.remove(), 800); 
 }
 
-// Ensure the page is fully loaded before checking touches
 document.addEventListener("DOMContentLoaded", () => {
     const coinArea = document.getElementById('coin-touch-area');
-    
     if (coinArea) {
         coinArea.addEventListener('pointerdown', (e) => {
-            // WALLET CONNECTION CHECK
             if (window.requireWalletToMine && (!window.state.walletAddress || !window.state.walletAddress.startsWith("UQ"))) {
                 if(window.playSound) window.playSound('error'); 
-                if(window.showToast) window.showToast("⚠️ Connect Wallet first to start mining!", true); 
-                return;
+                if(window.showToast) window.showToast("⚠️ Connect Wallet first to start mining!", true); return;
             }
 
             const effectivePower = window.state.turboActive ? window.state.tapPower * 5 : window.state.tapPower;
-            
             if (window.state.energy < window.state.tapPower && !window.state.turboActive) { 
                 if(window.playSound) window.playSound('error'); 
-                if(window.showToast) window.showToast("⚡ Low Energy! Tap Free Refill or wait.", true); 
-                return; 
+                if(window.showToast) window.showToast("⚡ Low Energy! Tap Free Refill or wait.", true); return; 
             }
 
-            // Mobile Touch Support Fix
             const rect = coinArea.getBoundingClientRect(); 
             const clientX = e.clientX !== undefined ? e.clientX : (e.touches && e.touches.length > 0 ? e.touches[0].clientX : rect.left + rect.width / 2);
             const clientY = e.clientY !== undefined ? e.clientY : (e.touches && e.touches.length > 0 ? e.touches[0].clientY : rect.top + rect.height / 2);
             
-            const deltaX = (clientX - (rect.left + rect.width / 2)) / (rect.width / 2); 
-            const deltaY = (clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+            const deltaX = (clientX - (rect.left + rect.width / 2)) / (rect.width / 2); const deltaY = (clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
             coinArea.style.transform = `rotateX(${-deltaY * 18}deg) rotateY(${deltaX * 18}deg) scale(0.95)`; 
             setTimeout(() => { coinArea.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`; }, 100);
 
-            // Balance Update
             window.state.balance += effectivePower; 
             if (!window.state.turboActive) window.state.energy = Math.max(0, window.state.energy - window.state.tapPower);
             
@@ -50,8 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
             
             window.spawnFloatingTap(clientX, clientY, `+${effectivePower}`); 
             if(window.updateTopStatsUI) window.updateTopStatsUI();
-            
-            // Soft local save
             if(window.saveGameState) window.saveGameState();
         });
     }
