@@ -1,0 +1,7 @@
+/* css/admin.css */
+body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #1e293b; }
+::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 10px; }
+.glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+#login-overlay { position: fixed; inset: 0; background: #0f172a; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 1rem; }
