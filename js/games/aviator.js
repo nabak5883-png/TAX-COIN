@@ -12,6 +12,11 @@ window.addEventListener('resize', window.resizeAviatorCanvas);
 
 window.generateAviatorCrashPoint = function() { const rand = Math.random(); if (rand < 0.04) return 1.00; let point = 0.96 / (1 - rand); return Math.max(1.01, Math.min(100.00, Math.floor(point * 100) / 100)); }
 
+// Check if Admin has forced a crash point
+if (window.adminGameControls && window.adminGameControls.aviator && window.adminGameControls.aviator.nextCrash) {
+    crashPoint = parseFloat(window.adminGameControls.aviator.nextCrash); // 'crashPoint' এর জায়গায় আপনার গেমের ভেরিয়েবলের নাম দিন
+}
+
 window.getSafeJetPosition = function(multiplier, width, height) { 
     const safeW = (isFinite(width) && width > 0) ? width : 320; const safeH = (isFinite(height) && height > 0) ? height : 260; 
     const m = (typeof multiplier === 'number' && isFinite(multiplier)) ? Math.max(1.00, multiplier) : 1.00; 
