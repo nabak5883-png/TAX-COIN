@@ -89,89 +89,16 @@
             </div>
         </div>
 
-    <!-- 2. COIN (HEAVY 3D TEXTURED DESIGN LIKE ATF) -->
-<div class="flex-1 flex items-center justify-center w-full relative z-0 pt-1 pb-10">
-    <div id="coin-touch-area" class="coin-3d w-56 h-56 sm:w-64 sm:h-64 rounded-full cursor-pointer flex items-center justify-center relative select-none drop-shadow-[0_0_30px_rgba(245,158,11,0.3)]">
-        
-        <!-- NEW TEXTURED 3D COIN SVG -->
-        <svg id="coin-svg" viewBox="0 0 260 260" class="w-full h-full pointer-events-none">
-            <defs>
-                <!-- Base Gold Gradients -->
-                <linearGradient id="coinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#fde047" />
-                    <stop offset="40%" stop-color="#eab308" />
-                    <stop offset="80%" stop-color="#b45309" />
-                    <stop offset="100%" stop-color="#78350f" />
-                </linearGradient>
-
-                <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#fef08a" />
-                    <stop offset="50%" stop-color="#d97706" />
-                    <stop offset="100%" stop-color="#451a03" />
-                </linearGradient>
-
-                <linearGradient id="textBorderGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#fef08a" />
-                    <stop offset="50%" stop-color="#f59e0b" />
-                    <stop offset="100%" stop-color="#92400e" />
-                </linearGradient>
-
-                <!-- Drop Shadows -->
-                <filter id="mainShadow" x="-20%" y="-20%" width="140%" height="140%">
-                    <feDropShadow dx="0" dy="15" stdDeviation="10" flood-color="#000" flood-opacity="0.8"/>
-                </filter>
+            <!-- 2. COIN (CUSTOM 3D IMAGE) -->
+        <div class="flex-1 flex items-center justify-center w-full relative z-0 pt-1 pb-10">
+            <!-- Coin Area (Tap Animation Added) -->
+            <div id="coin-touch-area" class="w-64 h-64 sm:w-72 sm:h-72 rounded-full cursor-pointer flex items-center justify-center relative select-none drop-shadow-[0_0_40px_rgba(56,189,248,0.3)]">
                 
-                <filter id="text3DShadow">
-                    <feDropShadow dx="0" dy="6" stdDeviation="3" flood-color="#000" flood-opacity="0.9"/>
-                </filter>
-
-                <!-- Hammered Gold Texture (This creates the bumpy realistic inner look!) -->
-                <filter id="hammeredTexture">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="4" result="noise" />
-                    <feColorMatrix type="luminanceToAlpha" in="noise" result="alphaNoise" />
-                    <feDiffuseLighting in="alphaNoise" surfaceScale="5" diffuseConstant="1.2" lighting-color="#fbbf24" result="light">
-                        <feDistantLight azimuth="60" elevation="50" />
-                    </feDiffuseLighting>
-                    <feBlend mode="multiply" in="light" in2="SourceGraphic" />
-                </filter>
-            </defs>
-
-            <!-- 1. Outer Coin Base with Drop Shadow -->
-            <circle cx="130" cy="130" r="122" fill="#000" filter="url(#mainShadow)" opacity="0.6"/>
-
-            <!-- 2. Outer Smooth Bevel -->
-            <circle cx="130" cy="130" r="125" fill="url(#rimGrad)" />
-            <circle cx="130" cy="130" r="122" fill="none" stroke="#fef08a" stroke-width="2" opacity="0.6"/>
-
-            <!-- 3. Ridged Milled Edge (The gear teeth look like ATF) -->
-            <circle cx="130" cy="130" r="110" fill="none" stroke="url(#coinGrad)" stroke-width="18" stroke-dasharray="4 5" opacity="0.9"/>
-            
-            <!-- 4. Inner Ring border -->
-            <circle cx="130" cy="130" r="102" fill="url(#rimGrad)" />
-            <circle cx="130" cy="130" r="99" fill="none" stroke="#451a03" stroke-width="4" opacity="0.8" />
-            <circle cx="130" cy="130" r="97" fill="none" stroke="#fef08a" stroke-width="1.5" opacity="0.5" />
-
-            <!-- 5. Inner Textured Face (Hammered Bumpy Gold) -->
-            <circle cx="130" cy="130" r="96" fill="url(#coinGrad)" filter="url(#hammeredTexture)" />
-            
-            <!-- Top Glass Reflection to make it shiny -->
-            <ellipse cx="130" cy="55" rx="70" ry="25" fill="#fff" opacity="0.15" filter="blur(4px)" />
-
-            <!-- 6. Bold 3D Text (TAX) -->
-            <g filter="url(#text3DShadow)" transform="translate(0, 0)">
-                <!-- Dark Extrusion / 3D Base -->
-                <text x="130" y="165" font-family="'Inter', 'Arial Black', sans-serif" font-size="85" font-weight="900" fill="#1a0a00" text-anchor="middle" letter-spacing="1">TAX</text>
+                <!-- YOUR EXACT PHOTO -->
+                <img src="tax_coin.png" alt="TAX Coin" class="w-full h-full object-contain active:scale-95 transition-transform duration-75" draggable="false">
                 
-                <!-- Shiny Gold Border -->
-                <text x="130" y="160" font-family="'Inter', 'Arial Black', sans-serif" font-size="85" font-weight="900" fill="none" stroke="url(#textBorderGrad)" stroke-width="6" stroke-linejoin="round" text-anchor="middle" letter-spacing="1">TAX</text>
-                
-                <!-- Very Dark Front Face -->
-                <text x="130" y="160" font-family="'Inter', 'Arial Black', sans-serif" font-size="85" font-weight="900" fill="#240f00" text-anchor="middle" letter-spacing="1">TAX</text>
-            </g>
-        </svg>
-        
-    </div>
-</div>
+            </div>
+        </div>
 
 
         <!-- 3. ENERGY BAR & BOOST (BOTTOM) -->
