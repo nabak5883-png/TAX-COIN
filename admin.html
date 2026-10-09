@@ -103,29 +103,54 @@
                 </div>
             </div>
 
-            <!-- GAMES CONTROL VIEW (NEW) -->
+            <!-- GAMES CONTROL VIEW (NEW & UPDATED) -->
             <div id="view-games" class="space-y-6 hidden">
                 <h2 class="text-2xl font-black text-white">Games Control Room</h2>
                 
-                <div class="glass-panel p-6 rounded-2xl border-t-2 border-t-red-500 max-w-md bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
-                    <div class="flex items-center gap-3 mb-2">
-                        <i class="fa-solid fa-plane-up text-red-500 text-2xl"></i>
-                        <h3 class="text-lg font-black text-white">Aviator Override</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- 1. INSTANT OVERRIDE -->
+                    <div class="glass-panel p-6 rounded-2xl border-t-2 border-t-red-500 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fa-solid fa-plane-up text-red-500 text-2xl"></i>
+                            <h3 class="text-lg font-black text-white">Instant Override</h3>
+                        </div>
+                        <p class="text-xs text-slate-400 mb-5">Force the plane to crash at a specific multiplier for the NEXT round instantly.</p>
+                        
+                        <div class="flex gap-2">
+                            <input type="number" id="aviator-next-crash" step="0.01" placeholder="e.g. 1.50" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-red-500 font-mono font-bold text-lg text-center tracking-widest">
+                            <button onclick="setAviatorCrash()" class="px-5 py-3 bg-red-600 hover:bg-red-500 text-white font-black rounded-xl transition shadow-lg shadow-red-500/30 whitespace-nowrap">SET</button>
+                        </div>
+                        
+                        <div class="mt-4 flex items-center justify-between text-[13px] font-bold bg-slate-900/50 p-3 rounded-lg border border-white/5">
+                            <span class="text-slate-400">Current Next Crash:</span>
+                            <span id="display-aviator-crash" class="text-emerald-400 text-sm">Auto (Random)</span>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button onclick="clearAviatorCrash()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-xs transition border border-slate-600/50"><i class="fa-solid fa-shuffle mr-1"></i> Reset to Auto/Random Mode</button>
+                        </div>
                     </div>
-                    <p class="text-xs text-slate-400 mb-5">Force the plane to crash at a specific multiplier for the NEXT round. Good for controlling payouts.</p>
-                    
-                    <div class="flex gap-2">
-                        <input type="number" id="aviator-next-crash" step="0.01" placeholder="e.g. 1.50" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-red-500 font-mono font-bold text-lg text-center tracking-widest">
-                        <button onclick="setAviatorCrash()" class="px-5 py-3 bg-red-600 hover:bg-red-500 text-white font-black rounded-xl transition shadow-lg shadow-red-500/30 whitespace-nowrap">SET CRASH</button>
-                    </div>
-                    
-                    <div class="mt-4 flex items-center justify-between text-[13px] font-bold bg-slate-900/50 p-3 rounded-lg border border-white/5">
-                        <span class="text-slate-400">Current Next Crash:</span>
-                        <span id="display-aviator-crash" class="text-emerald-400 text-sm">Auto (Random)</span>
-                    </div>
-                    
-                    <div class="mt-4">
-                        <button onclick="clearAviatorCrash()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-xs transition border border-slate-600/50"><i class="fa-solid fa-shuffle mr-1"></i> Reset to Auto/Random Mode</button>
+
+                    <!-- 2. TIME-BASED SCHEDULE (NEW FEATURE) -->
+                    <div class="glass-panel p-6 rounded-2xl border-t-2 border-t-amber-500 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fa-solid fa-clock text-amber-500 text-2xl"></i>
+                            <h3 class="text-lg font-black text-white">Time-Based Schedule</h3>
+                        </div>
+                        <p class="text-xs text-slate-400 mb-5">Set exact times (HH:MM) for specific crash points.</p>
+
+                        <div class="flex gap-2 mb-4">
+                            <input type="time" id="aviator-time" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-amber-500 font-mono font-bold">
+                            <input type="number" id="aviator-time-crash" step="0.01" placeholder="Value (e.g. 5.0)" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-amber-500 font-mono font-bold text-center">
+                        </div>
+                        <button onclick="addAviatorSchedule()" class="w-full px-5 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl transition shadow-lg shadow-amber-500/30">ADD SCHEDULE</button>
+
+                        <div class="mt-5">
+                            <h4 class="text-xs font-bold text-slate-400 uppercase mb-2">Active Schedules</h4>
+                            <div id="aviator-schedules-list" class="space-y-2 max-h-32 overflow-y-auto pr-1">
+                                <!-- Scheduled items will appear here -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -173,7 +198,7 @@
     <script type="module" src="js/admin/auth.js"></script>
     <script type="module" src="js/admin/tasks.js"></script>
     <script type="module" src="js/admin/users.js"></script>
-    <script type="module" src="js/admin/games.js"></script> <!-- NEW SCRIPT -->
+    <script type="module" src="js/admin/games.js"></script>
 
 </body>
 </html>
