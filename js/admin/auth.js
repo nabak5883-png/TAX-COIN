@@ -1,5 +1,3 @@
-// js/admin/auth.js
-
 window.checkLogin = function() {
     const pass = document.getElementById('admin-pass').value;
     if(pass === "admin123") { document.getElementById('login-overlay').style.display = 'none'; window.startListeningToDatabase(); } 
@@ -7,7 +5,6 @@ window.checkLogin = function() {
 }
 
 window.switchTab = function(tab) {
-    // Added 'games' to the list
     ['dashboard', 'users', 'tasks', 'withdrawals', 'games'].forEach(t => {
         document.getElementById(`view-${t}`).classList.add('hidden');
         const btn = document.getElementById(`btn-${t}`);
@@ -27,38 +24,43 @@ window.startListeningToDatabase = function() {
     window.dbOnValue(window.dbRef(window.db, 'settings'), (snapshot) => { 
         const settings = snapshot.val() || {}; 
         
-        // 1. Settings
+        // 1. Settings & Maintenance
         const currentPrice = settings.tokenPrice || 0.00063633; 
-        document.getElementById('input-token-price').value = currentPrice; 
-        document.getElementById('display-token-price').innerText = currentPrice; 
-        
-        // 2. Maintenance
+        document.getElementById('input-token-price').value = currentPrice; document.getElementById('display-token-price').innerText = currentPrice; 
         const maint = settings.maintenance || {};
-        ['global', 'withdraw', 'aviator', 'mines', 'coinflip', 'spin'].forEach(key => {
-            const checkbox = document.getElementById(`maint-${key}`);
-            if (checkbox) checkbox.checked = !!maint[key];
-        });
+        ['global', 'withdraw', 'aviator', 'mines', 'coinflip', 'spin'].forEach(key => { const checkbox = document.getElementById(`maint-${key}`); if (checkbox) checkbox.checked = !!maint[key]; });
 
-        // 3. Aviator Control (NEW)
+        // 2. Aviator Games Controls
         const games = settings.games || {};
         const aviatorDisplay = document.getElementById('display-aviator-crash');
         if (aviatorDisplay) {
-            if (games.aviator && games.aviator.nextCrash) {
-                aviatorDisplay.innerText = games.aviator.nextCrash + "x";
-                aviatorDisplay.className = "text-red-400 text-sm font-black";
-            } else {
-                aviatorDisplay.innerText = "Auto (Random)";
-                aviatorDisplay.className = "text-emerald-400 text-sm font-bold";
+            if (games.aviator && games.aviator.nextCrash) { aviatorDisplay.innerText = games.aviator.nextCrash + "x"; aviatorDisplay.className = "text-red-400 text-sm font-black"; } 
+            else { aviatorDisplay.innerText = "Auto (Random)"; aviatorDisplay.className = "text-emerald-400 text-sm font-bold"; }
+        }
+
+        // 3. Aviator TIME Schedules Render
+        const schedList = document.getElementById('aviator-schedules-list');
+        if (schedList) {
+            let html = '';
+            if (games.aviator && games.aviator.scheduled) {
+                const times = Object.keys(games.aviator.scheduled).sort();
+                times.forEach(t => {
+                    const val = games.aviator.scheduled[t];
+                    html += `
+                        <div class="flex justify-between items-center bg-slate-900 p-3 rounded-lg border border-slate-700">
+                            <div class="flex items-center gap-3">
+                                <span class="bg-amber-500/20 text-amber-400 px-2 py-1 rounded font-mono text-xs font-bold"><i class="fa-regular fa-clock"></i> ${t}</span>
+                                <span class="text-emerald-400 font-black">${val}x</span>
+                            </div>
+                            <button onclick="deleteAviatorSchedule('${t}')" class="text-rose-500 hover:text-rose-400 p-1"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    `;
+                });
             }
+            schedList.innerHTML = html || '<p class="text-xs text-slate-500 italic text-center py-2">No schedules set.</p>';
         }
     });
 }
 
-window.setTokenPrice = function() {
-    const newPrice = parseFloat(document.getElementById('input-token-price').value);
-    if(newPrice > 0) { window.dbUpdate(window.dbRef(window.db, 'settings'), { tokenPrice: newPrice }).then(() => alert('Token Price updated successfully!')).catch(err => alert('Error updating price: ' + err)); }
-}
-
-window.toggleMaintenance = function(key, isEnabled) {
-    window.dbUpdate(window.dbRef(window.db, `settings/maintenance`), { [key]: isEnabled }).catch(err => alert("Error: " + err));
-}
+window.setTokenPrice = function() { const newPrice = parseFloat(document.getElementById('input-token-price').value); if(newPrice > 0) { window.dbUpdate(window.dbRef(window.db, 'settings'), { tokenPrice: newPrice }).then(() => alert('Price updated!')).catch(err => alert('Error: ' + err)); } }
+window.toggleMaintenance = function(key, isEnabled) { window.dbUpdate(window.dbRef(window.db, `settings/maintenance`), { [key]: isEnabled }).catch(err => alert("Error: " + err)); }
