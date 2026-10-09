@@ -229,6 +229,7 @@ window.adminGameControls = {}; // Store game settings
 window.checkSettingsStatus = async function() {
     try {
         const res = await fetch("https://tax-coin-ce652-default-rtdb.asia-southeast1.firebasedatabase.app/settings.json");
+
         const data = await res.json();
         if (data) {
             window.appMaintenance = data.maintenance || {};
