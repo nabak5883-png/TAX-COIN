@@ -85,12 +85,14 @@
                         <div id="league-bar" class="h-full bg-gradient-to-r from-amber-500 via-yellow-400 to-emerald-400 rounded-full transition-all duration-300" style="width: 4%"></div>
                     </div>
                 </div>
-                <div class="inline-flex items-center gap-1 bg-slate-900/80 p-1 rounded-full border border-slate-800 mt-2.5">
-                    <button type="button" onclick="setSkin('gold')" id="skin-gold" class="px-3 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 transition">Classic Gold</button>
-                    <button type="button" onclick="setSkin('cyber')" id="skin-cyber" class="px-3 py-0.5 rounded-full text-[10px] font-bold text-slate-400 hover:text-white transition">Cyber Neon</button>
-                    <button type="button" onclick="setSkin('royal')" id="skin-royal" class="px-3 py-0.5 rounded-full text-[10px] font-bold text-slate-400 hover:text-white transition">Royal Emerald</button>
-                </div>
-            </div>
+                <div class="inline-flex flex-wrap items-center justify-center gap-2 bg-slate-900/80 p-2 rounded-2xl border border-slate-800 mt-2.5 w-full max-w-xs mx-auto" id="skins-container">
+    <button type="button" id="skin-gold" onclick="setSkin('gold')">Gold</button>
+    <button type="button" id="skin-cyber" onclick="setSkin('cyber')">Cyber</button>
+    <button type="button" id="skin-royal" onclick="setSkin('royal')">Royal</button>
+    <button type="button" id="skin-ruby" onclick="setSkin('ruby')">Ruby</button>
+    <button type="button" id="skin-emerald" onclick="setSkin('emerald')">Emerald</button>
+    <button type="button" id="skin-darkmatter" onclick="setSkin('darkmatter')">Dark Matter</button>
+</div>
 
             <div class="coin-wrapper my-auto flex items-center justify-center py-2">
                 <div id="coin-touch-area" class="coin-3d w-64 h-64 sm:w-72 sm:h-72 rounded-full cursor-pointer flex items-center justify-center relative select-none">
