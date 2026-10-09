@@ -10,11 +10,39 @@ window.resizeAviatorCanvas = function() {
 }
 window.addEventListener('resize', window.resizeAviatorCanvas);
 
-window.generateAviatorCrashPoint = function() { const rand = Math.random(); if (rand < 0.04) return 1.00; let point = 0.96 / (1 - rand); return Math.max(1.01, Math.min(100.00, Math.floor(point * 100) / 100)); }
+window.generateAviatorCrashPoint = function() { 
+    // ১. চেক করবে অ্যাডমিন টাইম-বেসড কোনো ক্র্যাশ পয়েন্ট সেট করেছে কিনা (Time check)
+    if (typeof window.adminGameControls !== 'undefined' &&
+        window.adminGameControls.aviator &&
+        window.adminGameControls.aviator.scheduled) {
 
-// Check if Admin has forced a crash point
-if (window.adminGameControls && window.adminGameControls.aviator && window.adminGameControls.aviator.nextCrash) {
-    crashPoint = parseFloat(window.adminGameControls.aviator.nextCrash); // 'crashPoint' এর জায়গায় আপনার গেমের ভেরিয়েবলের নাম দিন
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const mins = String(now.getMinutes()).padStart(2, '0');
+        const currentTimeStr = hours + ":" + mins;
+
+        const scheduledCrash = window.adminGameControls.aviator.scheduled[currentTimeStr];
+
+        // যদি এই নির্দিষ্ট মিনিটের জন্য কোনো ক্র্যাশ পয়েন্ট থাকে এবং সেটা এই সেশনে একবারও ব্যবহার না হয়ে থাকে
+        if (scheduledCrash && window.lastPlayedScheduleMinute !== currentTimeStr) {
+            window.lastPlayedScheduleMinute = currentTimeStr; // সেভ করে রাখা হলো যাতে একই মিনিটে বারবার না আসে
+            return parseFloat(scheduledCrash);
+        }
+    }
+
+    // ২. অ্যাডমিনের ম্যানুয়াল "Next Crash" (Instant override) চেক
+    if (typeof window.adminGameControls !== 'undefined' && 
+        window.adminGameControls.aviator && 
+        window.adminGameControls.aviator.nextCrash) {
+        
+        return parseFloat(window.adminGameControls.aviator.nextCrash);
+    }
+    
+    // ৩. সাধারণ র‍্যান্ডম লজিক (অ্যাডমিন কিছু না দিলে অটোমেটিক চলবে)
+    const rand = Math.random(); 
+    if (rand < 0.04) return 1.00; 
+    let point = 0.96 / (1 - rand); 
+    return Math.max(1.01, Math.min(100.00, Math.floor(point * 100) / 100)); 
 }
 
 window.getSafeJetPosition = function(multiplier, width, height) { 
