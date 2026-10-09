@@ -8,7 +8,6 @@ window.leagues = [
     { name: "Diamond Chancellor", min: 500000, next: 2000000 }, { name: "Supreme Tax Boss", min: 2000000, next: 10000000 }
 ];
 
-// UPDATED: Format matches your screenshot (Link at top, text below)
 window.getRefMessage = function(link) { 
     return `${link}\n\n🔥 Join TAX COIN and earn free crypto!\n👑 Play games, mine coins, and unlock daily rewards.\n💎 Click the link to get an instant startup bonus!`; 
 };
@@ -43,13 +42,60 @@ window.switchTab = function(tabName) {
     window.updateAllUI();
 };
 
-window.setSkin = function(skinName) { window.state.skin = skinName; window.applySkinColors(skinName); window.saveGameState(); };
+window.setSkin = function(skinName) { window.state.skin = skinName; window.applySkinColors(skinName); window.saveGameState(); window.playSound('tap'); };
+
+// ==========================================
+// NEW: DYNAMIC LEVEL SKINS & COLORS (6 Levels)
+// ==========================================
 window.applySkinColors = function(skinName) { 
-    ['gold', 'cyber', 'royal'].forEach(s => { const btn = document.getElementById(`skin-${s}`); if (!btn) return; btn.className = (s === skinName) ? "px-3 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 transition" : "px-3 py-0.5 rounded-full text-[10px] font-bold text-slate-400 hover:text-white transition"; }); 
-    const f1 = document.getElementById('stop-face-1'); const f2 = document.getElementById('stop-face-2'); const f3 = document.getElementById('stop-face-3'); if (!f1 || !f2 || !f3) return; 
+    const poolBal = window.state.balance || 0;
+    let currentLvl = 0; 
+    for (let i = 0; i < window.leagues.length; i++) { if (poolBal >= window.leagues[i].min) currentLvl = i; }
+
+    // 6 Colors for 6 Leagues
+    window.skinsList = ['gold', 'cyber', 'royal', 'ruby', 'emerald', 'darkmatter'];
+    const skinDisplayNames = ['Gold', 'Cyber', 'Royal', 'Ruby', 'Emerald', 'Dark Matter'];
+    
+    // Auto-fallback if a user somehow has a locked skin saved
+    const requestedSkinIdx = window.skinsList.indexOf(skinName);
+    if(requestedSkinIdx > currentLvl) {
+        skinName = window.skinsList[currentLvl]; 
+        window.state.skin = skinName;
+    }
+
+    // Update Buttons (Lock/Unlock)
+    window.skinsList.forEach((s, idx) => { 
+        const btn = document.getElementById(`skin-${s}`); 
+        if (!btn) return; 
+        
+        const isUnlocked = currentLvl >= idx;
+        
+        if(!isUnlocked) {
+            btn.className = "px-3 py-1 rounded-full text-[10px] font-bold bg-slate-800/80 text-slate-500 cursor-not-allowed border border-slate-700/50 flex items-center gap-1";
+            btn.innerHTML = `<i class="fa-solid fa-lock text-[8px]"></i> Lvl ${idx + 1}`;
+            btn.onclick = null; // Lock the click
+        } else {
+            btn.onclick = () => window.setSkin(s); // Unlock the click
+            if (s === skinName) {
+                btn.className = "px-3 py-1 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 transition border border-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.3)]";
+                btn.innerHTML = skinDisplayNames[idx];
+            } else {
+                btn.className = "px-3 py-1 rounded-full text-[10px] font-bold text-slate-400 hover:text-white transition border border-slate-700 hover:border-slate-500 bg-slate-900";
+                btn.innerHTML = skinDisplayNames[idx];
+            }
+        }
+    }); 
+
+    // Apply SVG Gradients to Coin
+    const f1 = document.getElementById('stop-face-1'); const f2 = document.getElementById('stop-face-2'); const f3 = document.getElementById('stop-face-3'); 
+    if (!f1 || !f2 || !f3) return; 
+    
     if (skinName === 'cyber') { f1.setAttribute('stop-color', '#67e8f9'); f2.setAttribute('stop-color', '#7c3aed'); f3.setAttribute('stop-color', '#1e1b4b'); } 
     else if (skinName === 'royal') { f1.setAttribute('stop-color', '#6ee7b7'); f2.setAttribute('stop-color', '#059669'); f3.setAttribute('stop-color', '#064e3b'); } 
-    else { f1.setAttribute('stop-color', '#fde047'); f2.setAttribute('stop-color', '#d97706'); f3.setAttribute('stop-color', '#451a03'); } 
+    else if (skinName === 'ruby') { f1.setAttribute('stop-color', '#fca5a5'); f2.setAttribute('stop-color', '#e11d48'); f3.setAttribute('stop-color', '#4c0519'); } 
+    else if (skinName === 'emerald') { f1.setAttribute('stop-color', '#6ee7b7'); f2.setAttribute('stop-color', '#10b981'); f3.setAttribute('stop-color', '#064e3b'); } 
+    else if (skinName === 'darkmatter') { f1.setAttribute('stop-color', '#c084fc'); f2.setAttribute('stop-color', '#000000'); f3.setAttribute('stop-color', '#111827'); } 
+    else { f1.setAttribute('stop-color', '#fde047'); f2.setAttribute('stop-color', '#d97706'); f3.setAttribute('stop-color', '#451a03'); } // Gold
 }
 
 // ==========================================
@@ -133,20 +179,42 @@ window.renderLeaderboard = async function() {
 
 window.updateTopStatsUI = function() {
     try {
-        const poolBal = window.state.balance || 0; const holdingBal = window.state.holdingBalance || 0; const totalAssets = poolBal + holdingBal; const usdVal = totalAssets * (window.TAX_TO_USD_RATE || 0.00063633);
+        const poolBal = window.state.balance || 0; 
+        const holdingBal = window.state.holdingBalance || 0; 
+        const totalAssets = poolBal + holdingBal; 
+        const usdVal = totalAssets * (window.TAX_TO_USD_RATE || 0.00063633);
+        
+        // ==========================================
+        // NEW: AUTO TAP POWER LOGIC (0.07 BASE, 1.5x PER LEVEL)
+        // ==========================================
+        let currentLeagueIdx = 0; 
+        for (let i = 0; i < window.leagues.length; i++) { 
+            if (poolBal >= window.leagues[i].min) currentLeagueIdx = i; 
+        }
+        
+        window.state.tapPower = 0.07 * Math.pow(1.5, currentLeagueIdx);
+        
         window.safeSetText('balance-display', window.formatTax(poolBal));
-        const effectiveTap = window.state.turboActive ? window.state.tapPower * 5 : window.state.tapPower; window.safeSetText('stat-tap', `+${effectiveTap}`); window.safeSetText('stat-usd-val', `≈ $${usdVal.toFixed(3)}`);
-        window.safeSetText('energy-display', `${Math.floor(window.state.energy)} / ${window.state.maxEnergy}`); window.safeSetText('regen-rate-display', window.state.regenRate);
+        
+        const effectiveTap = window.state.turboActive ? window.state.tapPower * 5 : window.state.tapPower; 
+        window.safeSetText('stat-tap', `+${Number(effectiveTap).toFixed(4)}`); 
+        window.safeSetText('stat-usd-val', `≈ $${usdVal.toFixed(3)}`);
+        
+        window.safeSetText('energy-display', `${Math.floor(window.state.energy)} / ${window.state.maxEnergy}`); 
+        window.safeSetText('regen-rate-display', window.state.regenRate);
         const energyBar = document.getElementById('energy-bar'); if(energyBar) energyBar.style.width = `${Math.min(100, (window.state.energy / window.state.maxEnergy) * 100)}%`;
         window.safeSetText('aviator-pool-bal', `${window.formatTax(poolBal)} TAX`); window.safeSetText('mines-pool-bal', `${window.formatTax(poolBal)} TAX`);
         
-        let currentLeagueIdx = 0; for (let i = 0; i < window.leagues.length; i++) { if (poolBal >= window.leagues[i].min) currentLeagueIdx = i; }
         const lg = window.leagues[currentLeagueIdx]; 
         if(lg) {
             window.safeSetText('league-name', lg.name); window.safeSetText('league-progress-label', `${lg.name} (${currentLeagueIdx + 1}/${window.leagues.length})`); 
             const pct = Math.min(100, Math.floor((poolBal / lg.next) * 100)); window.safeSetText('league-percent', `${pct}%`); 
             const lgBar = document.getElementById('league-bar'); if(lgBar) lgBar.style.width = `${Math.max(4, pct)}%`;
         }
+        
+        // Trigger skin updates
+        if (window.applySkinColors) window.applySkinColors(window.state.skin);
+        
         window.safeSetText('profile-assets-tax', `${window.formatTax(totalAssets)} TAX`); window.safeSetText('profile-assets-usd', `≈ ${usdVal.toFixed(3)}$`);
         window.safeSetText('profile-holding-tax', holdingBal > 0 ? `${window.formatTax(holdingBal)} TAX` : `0 TAX`); window.safeSetText('profile-pool-tax', `${window.formatTax(poolBal)} TAX`);
         window.safeSetText('vip-modal-pool', `${window.formatTax(poolBal)} TAX`); window.safeSetText('vip-modal-holding', holdingBal > 0 ? `${window.formatTax(holdingBal)} TAX` : `0 TAX`);
@@ -165,9 +233,6 @@ window.updateTopStatsUI = function() {
 window.updateAllUI = function() {
     if(window.updateTopStatsUI) window.updateTopStatsUI();
     window.safeSetText('turbo-left', window.state.turbosLeft); window.safeSetText('turbo-left-boost', window.state.turbosLeft); window.safeSetText('refill-left', window.state.refillsLeft); window.safeSetText('refill-left-Quick', window.state.refillsLeft);
-    window.safeSetText('multitap-lvl', `Lvl ${window.state.multitapLvl}`); window.safeSetText('multitap-cost-display', `🪙 ${window.state.multitapCost.toLocaleString()} TAX (+1/tap)`); 
-    window.safeSetText('energy-lvl', `Lvl ${window.state.energyLvl}`); window.safeSetText('energy-cost-display', `🪙 ${window.state.energyCost.toLocaleString()} TAX (+500 Max)`); 
-    window.safeSetText('regen-lvl', `Lvl ${window.state.regenLvl}`); window.safeSetText('regen-cost-display', `🪙 ${window.state.regenCost.toLocaleString()} TAX (+1/sec)`);
     window.safeSetText('invited-count', `${window.state.invitedCount} Friends`); window.safeSetText('profile-uid-text', window.state.numericUid); window.safeSetText('uid-display', `ID: ${window.state.numericUid}`);
     const verifyStatus = document.getElementById('profile-verify-status'); const verifyBtn = document.getElementById('profile-verify-btn'); const miniBadge = document.getElementById('verified-mini-icon');
     if (window.state.isVerified) { 
@@ -183,7 +248,6 @@ window.updateAllUI = function() {
     if (pSoundStatus && pSoundIcon) { pSoundStatus.textContent = window.state.soundEnabled ? "On — tap to mute" : "Off — tap to unmute"; pSoundIcon.className = window.state.soundEnabled ? "fa-solid fa-volume-high text-sky-300" : "fa-solid fa-volume-xmark text-slate-500"; }
     if (hSoundIcon) { hSoundIcon.className = window.state.soundEnabled ? "fa-solid fa-volume-high text-[11px] text-amber-400" : "fa-solid fa-volume-xmark text-[11px] text-slate-500"; }
     
-    if (window.applySkinColors) window.applySkinColors(window.state.skin);
     window.dynamicTasks = []; window.renderTasks(); window.renderLeaderboard(); 
     if(window.renderWithdrawHistory) window.renderWithdrawHistory(); if(window.updateWithdrawPreview) window.updateWithdrawPreview();
 };
@@ -203,33 +267,14 @@ setInterval(() => {
 }, 1000);
 
 // ==========================================
-// REAL-TIME MAINTENANCE LISTENER & SECURITY
-// ==========================================
-window.appMaintenance = {};
-window.checkMaintenanceStatus = async function() {
-    try {
-        const res = await fetch("https://tax-coin-ce652-default-rtdb.asia-southeast1.firebasedatabase.app/settings/maintenance.json");
-        const data = await res.json();
-        if (data) {
-            window.appMaintenance = data;
-            const globalScreen = document.getElementById('global-maintenance-screen');
-            if (globalScreen) {
-                if (data.global === true) { globalScreen.classList.remove('hidden'); globalScreen.classList.add('flex'); } 
-                else { globalScreen.classList.add('hidden'); globalScreen.classList.remove('flex'); }
-            }
-        }
-    } catch (e) {}
-};
-// ==========================================
 // REAL-TIME SETTINGS, MAINTENANCE & ADMIN CONTROLS
 // ==========================================
 window.appMaintenance = {};
-window.adminGameControls = {}; // Store game settings
+window.adminGameControls = {}; 
 
 window.checkSettingsStatus = async function() {
     try {
         const res = await fetch("https://tax-coin-ce652-default-rtdb.asia-southeast1.firebasedatabase.app/settings.json?nocache=" + new Date().getTime());
-
         const data = await res.json();
         if (data) {
             window.appMaintenance = data.maintenance || {};
@@ -250,13 +295,7 @@ setInterval(window.checkSettingsStatus, 10000);
 document.addEventListener("DOMContentLoaded", () => { 
     setTimeout(() => { 
         window.updateAllUI(); 
-        const featuresToLock = [ 
-            { fn: 'openWithdrawModal', key: 'withdraw', name: 'Withdrawals' }, 
-            { fn: 'openAviatorModal', key: 'aviator', name: 'Aviator Game' }, 
-            { fn: 'openMinesModal', key: 'mines', name: 'Mines Game' }, 
-            { fn: 'openCoinFlipModal', key: 'coinflip', name: 'Coin Flip' }, 
-            { fn: 'openSpinModal', key: 'spin', name: 'Spin Wheel' } 
-        ];
+        const featuresToLock = [ { fn: 'openWithdrawModal', key: 'withdraw', name: 'Withdrawals' }, { fn: 'openAviatorModal', key: 'aviator', name: 'Aviator Game' }, { fn: 'openMinesModal', key: 'mines', name: 'Mines Game' }, { fn: 'openCoinFlipModal', key: 'coinflip', name: 'Coin Flip' }, { fn: 'openSpinModal', key: 'spin', name: 'Spin Wheel' } ];
         featuresToLock.forEach(feat => {
             if(window[feat.fn]) {
                 const originalFunction = window[feat.fn];
