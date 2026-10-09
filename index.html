@@ -63,106 +63,81 @@
 
     <main class="flex-1 overflow-y-auto px-4 pb-24 pt-2 relative z-10">
 
-        <!-- TAB 1: MINE -->
-        <section id="tab-mine" class="tab-page h-full flex flex-col justify-between items-center py-1 block">
-            <div class="w-full text-center">
-                <div class="flex items-center justify-center gap-2">
-                    <svg class="w-8 h-8 drop-shadow-[0_0_10px_rgba(251,191,36,0.6)] shrink-0" viewBox="0 0 64 64">
-                        <defs><radialGradient id="miniCoinGrad" cx="30%" cy="30%" r="70%"><stop offset="0%" stop-color="#fef08a"/><stop offset="50%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#92400e"/></radialGradient></defs>
-                        <circle cx="32" cy="32" r="29" fill="url(#miniCoinGrad)" stroke="#fde047" stroke-width="3"/>
-                        <circle cx="32" cy="32" r="22" fill="none" stroke="#78350f" stroke-width="1.5" stroke-dasharray="4 2"/>
-                        <text x="32" y="39" text-anchor="middle" fill="#451a03" font-weight="900" font-size="20" font-family="Orbitron, sans-serif">T</text>
-                    </svg>
-                    <h1 id="balance-display" class="text-4xl sm:text-5xl font-black tracking-tight text-white font-cyber drop-shadow-[0_2px_15px_rgba(251,191,36,0.3)]">0.0000</h1>
+     <!-- ========================================== -->
+    <!-- TAB 1: MINE (CLEAN & CENTERED) -->
+    <!-- ========================================== -->
+    <div id="tab-mine" class="tab-page flex flex-col h-full overflow-hidden pt-6 pb-20 relative">
+        
+        <!-- 1. BIG BALANCE (TOP) -->
+        <div class="flex flex-col items-center justify-center shrink-0 z-10">
+            <div class="flex items-center justify-center gap-3 text-4xl sm:text-5xl font-black text-white font-cyber drop-shadow-md">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center text-slate-900 border-2 border-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.5)]">
+                    <i class="fa-solid fa-t text-xl"></i>
                 </div>
-                <div class="max-w-xs mx-auto mt-2">
-                    <div class="flex justify-between text-[10px] text-slate-400 mb-1 px-1">
-                        <span id="league-progress-label">Bronze Auditor (1/6)</span>
-                        <span id="turbo-badge" class="hidden text-red-400 font-bold animate-bounce">🔥 5x TURBO ACTIVE!</span>
-                        <span id="league-percent">0%</span>
-                    </div>
-                    <div class="w-full h-2 bg-slate-800/90 rounded-full overflow-hidden p-0.5 border border-slate-700/60">
-                        <div id="league-bar" class="h-full bg-gradient-to-r from-amber-500 via-yellow-400 to-emerald-400 rounded-full transition-all duration-300" style="width: 4%"></div>
-                    </div>
+                <span id="balance-display" class="tracking-tight">0.0000</span>
+            </div>
+            
+            <!-- League Progress Bar (Minimal) -->
+            <div class="w-full max-w-xs mx-auto mt-4 shrink-0 px-4">
+                <div class="flex justify-between items-end mb-1">
+                    <span id="league-name" class="text-xs font-bold text-slate-400">Bronze Auditor</span>
+                    <span id="league-percent" class="text-[10px] text-slate-500 font-bold">0%</span>
                 </div>
-                <div class="inline-flex flex-wrap items-center justify-center gap-2 bg-slate-900/80 p-2 rounded-2xl border border-slate-800 mt-2.5 w-full max-w-xs mx-auto" id="skins-container">
-    <button type="button" id="skin-gold" onclick="setSkin('gold')">Gold</button>
-    <button type="button" id="skin-cyber" onclick="setSkin('cyber')">Cyber</button>
-    <button type="button" id="skin-royal" onclick="setSkin('royal')">Royal</button>
-    <button type="button" id="skin-ruby" onclick="setSkin('ruby')">Ruby</button>
-    <button type="button" id="skin-emerald" onclick="setSkin('emerald')">Emerald</button>
-    <button type="button" id="skin-darkmatter" onclick="setSkin('darkmatter')">Dark Matter</button>
-</div>
+                <div class="w-full bg-slate-900/80 rounded-full h-1.5 border border-slate-800">
+                    <div id="league-bar" class="bg-gradient-to-r from-amber-500 via-yellow-400 to-emerald-400 rounded-full transition-all duration-300 h-full" style="width: 4%"></div>
+                </div>
+            </div>
+        </div>
 
-<!-- ========================================== -->
-<!-- 1000 TAPS ENERGY BAR + SMALL BOOST BUTTON -->
-<!-- ========================================== -->
-<div class="px-6 mt-4 mb-2 w-full max-w-md mx-auto z-10 relative">
-    <div class="flex justify-between items-center mb-2">
-        <!-- Energy Info -->
-        <div class="flex items-center gap-1.5">
-            <i class="fa-solid fa-bolt text-amber-400 animate-pulse text-sm"></i>
-            <span id="energy-display" class="text-xs font-black text-white font-mono">1000 / 1000</span>
+        <!-- 2. COIN (PERFECTLY CENTERED) -->
+        <div class="flex-1 flex items-center justify-center w-full relative z-0">
+            <div id="coin-touch-area" class="coin-3d w-64 h-64 sm:w-72 sm:h-72 rounded-full cursor-pointer flex items-center justify-center relative select-none drop-shadow-[0_0_30px_rgba(245,158,11,0.2)]">
+                <!-- Coin SVG Graphics -->
+                <svg id="coin-svg" viewBox="0 0 260 260" class="w-full h-full pointer-events-none">
+                    <defs>
+                        <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" id="stop-rim-1" stop-color="#fef08a" />
+                            <stop offset="45%" id="stop-rim-2" stop-color="#f59e0b" />
+                            <stop offset="80%" id="stop-rim-3" stop-color="#b45309" />
+                            <stop offset="100%" id="stop-rim-4" stop-color="#78350f" />
+                        </linearGradient>
+                        <linearGradient id="faceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" id="stop-face-1" stop-color="#fde047" />
+                            <stop offset="50%" id="stop-face-2" stop-color="#d97706" />
+                            <stop offset="100%" id="stop-face-3" stop-color="#451a03" />
+                        </linearGradient>
+                        <filter id="glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                    </defs>
+                    <circle cx="130" cy="130" r="125" fill="url(#rimGrad)" filter="drop-shadow(0px 10px 15px rgba(0,0,0,0.6))" />
+                    <circle cx="130" cy="130" r="110" fill="url(#faceGrad)" stroke="#451a03" stroke-width="2" />
+                    <circle cx="130" cy="130" r="95" fill="none" stroke="#fef08a" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.5" />
+                    <path d="M 100 80 L 160 80 L 130 130 Z" fill="#fef08a" filter="url(#glow)" opacity="0.9" />
+                    <text x="130" y="165" font-family="'Inter', sans-serif" font-size="42" font-weight="900" fill="#fef08a" text-anchor="middle" filter="url(#glow)" letter-spacing="2">TAX</text>
+                    <text x="130" y="195" font-family="'Inter', sans-serif" font-size="14" font-weight="800" fill="#451a03" text-anchor="middle" opacity="0.8" letter-spacing="3" class="bg-amber-500 rounded px-2">OFFICIAL</text>
+                    <path d="M 115 130 L 145 130 M 120 140 L 140 140" stroke="#451a03" stroke-width="4" stroke-linecap="round" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- 3. ENERGY BAR & BOOST (BOTTOM) -->
+        <div class="px-6 w-full max-w-md mx-auto shrink-0 z-10 mb-4">
+            <div class="flex justify-between items-center mb-2">
+                <div class="flex items-center gap-1.5">
+                    <i class="fa-solid fa-bolt text-amber-400 animate-pulse text-sm"></i>
+                    <span id="energy-display" class="text-xs font-black text-white font-mono">1000 / 1000</span>
+                </div>
+                <button onclick="switchTab('boost')" class="flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-600 text-slate-900 rounded-full font-black text-[10px] uppercase tracking-wider shadow-lg shadow-orange-500/20 active:scale-95 transition">
+                    <i class="fa-solid fa-rocket"></i> Boost
+                </button>
+            </div>
+            <div class="w-full bg-slate-900 rounded-full h-2.5 border border-slate-700 overflow-hidden shadow-inner">
+                <div id="energy-bar" class="bg-gradient-to-r from-amber-400 to-orange-500 h-full rounded-full transition-all duration-300 shadow-[0_0_10px_rgba(245,158,11,0.5)]" style="width: 100%;"></div>
+            </div>
         </div>
         
-        <!-- SMALL BOOST BUTTON -->
-        <button onclick="switchTab('boost')" class="flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-600 text-slate-900 rounded-full font-black text-[10px] uppercase tracking-wider shadow-lg shadow-orange-500/20 active:scale-95 transition">
-            <i class="fa-solid fa-rocket"></i> Boost
-        </button>
     </div>
-    
-    <!-- Progress Bar -->
-    <div class="w-full bg-slate-900 rounded-full h-2.5 border border-slate-700 overflow-hidden shadow-inner">
-        <div id="energy-bar" class="bg-gradient-to-r from-amber-400 to-orange-500 h-full rounded-full transition-all duration-300 shadow-[0_0_10px_rgba(245,158,11,0.5)]" style="width: 100%;"></div>
-    </div>
-</div>
-<!-- ========================================== -->
+    <!-- ========================================== -->
 
-            <<div class="coin-wrapper my-auto flex items-center justify-center pt-1 pb-10 shrink-0">
-    <div id="coin-touch-area" class="coin-3d w-52 h-52 sm:w-64 sm:h-64 rounded-full cursor-pointer flex items-center justify-center relative select-none">
-
-                    <svg id="coin-svg" viewBox="0 0 260 260" class="w-full h-full pointer-events-none">
-                        <defs>
-                            <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" id="stop-rim-1" stop-color="#fef08a" /><stop offset="45%" id="stop-rim-2" stop-color="#f59e0b" /><stop offset="80%" id="stop-rim-3" stop-color="#b45309" /><stop offset="100%" id="stop-rim-4" stop-color="#78350f" /></linearGradient>
-                            <radialGradient id="faceGrad" cx="35%" cy="30%" r="70%"><stop offset="0%" id="stop-face-1" stop-color="#fde047" /><stop offset="55%" id="stop-face-2" stop-color="#d97706" /><stop offset="100%" id="stop-face-3" stop-color="#451a03" /></radialGradient>
-                            <linearGradient id="emblemGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/><stop offset="100%" stop-color="#fef08a" stop-opacity="0.4"/></linearGradient>
-                        </defs>
-                        <circle cx="130" cy="134" r="120" fill="#451a03" opacity="0.7"/>
-                        <circle cx="130" cy="130" r="120" fill="url(#rimGrad)" stroke="#fef9c3" stroke-width="3"/>
-                        <circle cx="130" cy="130" r="110" fill="none" stroke="#78350f" stroke-width="5" stroke-dasharray="4 4" opacity="0.65"/>
-                        <circle cx="130" cy="130" r="102" fill="url(#faceGrad)" stroke="#fde047" stroke-width="2"/>
-                        <circle cx="130" cy="130" r="88" fill="none" stroke="#fef08a" stroke-width="1.5" stroke-dasharray="14 8" opacity="0.5"/>
-                        <g fill="#fef08a" opacity="0.85"><polygon points="130,28 133,35 140,35 134,39 136,46 130,42 124,46 126,39 120,35 127,35"/><polygon points="130,214 133,221 140,221 134,225 136,232 130,228 124,232 126,225 120,221 127,221"/></g>
-                        <path d="M105 90 L118 102 L130 84 L142 102 L155 90 L150 112 L110 112 Z" fill="url(#emblemGrad)" stroke="#78350f" stroke-width="1.5"/>
-                        <text x="130" y="152" text-anchor="middle" fill="#451a03" font-family="Orbitron, sans-serif" font-weight="900" font-size="44" letter-spacing="3" opacity="0.45">TAX</text>
-                        <text x="130" y="149" text-anchor="middle" fill="#fef9c3" stroke="#78350f" stroke-width="1.5" font-family="Orbitron, sans-serif" font-weight="900" font-size="44" letter-spacing="3">TAX</text>
-                        <rect x="82" y="164" width="96" height="22" rx="11" fill="#451a03" opacity="0.75" stroke="#fde047" stroke-width="1"/>
-                        <text x="130" y="179" text-anchor="middle" fill="#fde047" font-family="Inter, sans-serif" font-weight="800" font-size="11" letter-spacing="3.5">OFFICIAL</text>
-                        <path d="M 55 75 A 95 95 0 0 1 195 65 A 105 100 0 0 0 55 75 Z" fill="#ffffff" opacity="0.22"/>
-                    </svg>
-                </div>
-            </div>
-
-            <div class="w-full max-w-md">
-                <div class="flex items-center justify-between mb-1.5">
-                    <div class="flex items-center gap-2">
-                        <div class="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400"><i class="fa-solid fa-bolt text-sm"></i></div>
-                        <div><div class="text-xs font-extrabold text-white" id="energy-display">1000 / 1000</div><div class="text-[10px] text-slate-400">+<span id="regen-rate-display">2</span>/sec recharge</div></div>
-                    </div>
-                    
-                    <!-- NEW BOOST BUTTON IN MINE TAB -->
-                    <div class="flex items-center gap-1.5">
-                        <button type="button" onclick="switchTab('boost')" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 font-extrabold text-xs flex items-center gap-1.5 shadow-lg shadow-orange-500/25 active:scale-95 transition">
-                            <i class="fa-solid fa-rocket"></i><span>Boost</span>
-                        </button>
-                    </div>
-
-                </div>
-                <div class="w-full h-3 bg-slate-800/90 rounded-full overflow-hidden p-0.5 border border-slate-700">
-                    <div id="energy-bar" class="h-full bg-gradient-to-r from-amber-500 via-yellow-400 to-lime-300 rounded-full transition-all duration-200" style="width: 100%"></div>
-                </div>
-            </div>
-        </section>
 
         <!-- TAB 2: GAMES HUB -->
         <section id="tab-games" class="tab-page hidden space-y-3.5 pt-1">
