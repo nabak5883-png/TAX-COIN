@@ -94,6 +94,17 @@
     <button type="button" id="skin-darkmatter" onclick="setSkin('darkmatter')">Dark Matter</button>
 </div>
 
+<!-- 1000 TAPS ENERGY BAR -->
+<div class="px-6 mt-4 mb-2 w-full max-w-md mx-auto">
+    <div class="flex justify-between items-center mb-2">
+        <span class="text-xs font-bold text-slate-300 flex items-center gap-1"><i class="fa-solid fa-bolt text-amber-400 animate-pulse"></i> Energy</span>
+        <span id="energy-display" class="text-xs font-black text-white font-mono">1000 / 1000</span>
+    </div>
+    <div class="w-full bg-slate-900 rounded-full h-2.5 border border-slate-700 overflow-hidden shadow-inner">
+        <div id="energy-bar" class="bg-gradient-to-r from-amber-400 to-orange-500 h-full rounded-full transition-all duration-300 shadow-[0_0_10px_rgba(245,158,11,0.5)]" style="width: 100%;"></div>
+    </div>
+</div>
+
             <div class="coin-wrapper my-auto flex items-center justify-center py-2">
                 <div id="coin-touch-area" class="coin-3d w-64 h-64 sm:w-72 sm:h-72 rounded-full cursor-pointer flex items-center justify-center relative select-none">
                     <svg id="coin-svg" viewBox="0 0 260 260" class="w-full h-full pointer-events-none">
