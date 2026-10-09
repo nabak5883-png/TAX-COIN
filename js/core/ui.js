@@ -44,38 +44,27 @@ window.switchTab = function(tabName) {
 
 window.setSkin = function(skinName) { window.state.skin = skinName; window.applySkinColors(skinName); window.saveGameState(); window.playSound('tap'); };
 
-// ==========================================
-// NEW: DYNAMIC LEVEL SKINS & COLORS (6 Levels)
-// ==========================================
 window.applySkinColors = function(skinName) { 
     const poolBal = window.state.balance || 0;
     let currentLvl = 0; 
     for (let i = 0; i < window.leagues.length; i++) { if (poolBal >= window.leagues[i].min) currentLvl = i; }
 
-    // 6 Colors for 6 Leagues
     window.skinsList = ['gold', 'cyber', 'royal', 'ruby', 'emerald', 'darkmatter'];
     const skinDisplayNames = ['Gold', 'Cyber', 'Royal', 'Ruby', 'Emerald', 'Dark Matter'];
     
-    // Auto-fallback if a user somehow has a locked skin saved
     const requestedSkinIdx = window.skinsList.indexOf(skinName);
-    if(requestedSkinIdx > currentLvl) {
-        skinName = window.skinsList[currentLvl]; 
-        window.state.skin = skinName;
-    }
+    if(requestedSkinIdx > currentLvl) { skinName = window.skinsList[currentLvl]; window.state.skin = skinName; }
 
-    // Update Buttons (Lock/Unlock)
     window.skinsList.forEach((s, idx) => { 
         const btn = document.getElementById(`skin-${s}`); 
         if (!btn) return; 
-        
         const isUnlocked = currentLvl >= idx;
-        
         if(!isUnlocked) {
             btn.className = "px-3 py-1 rounded-full text-[10px] font-bold bg-slate-800/80 text-slate-500 cursor-not-allowed border border-slate-700/50 flex items-center gap-1";
             btn.innerHTML = `<i class="fa-solid fa-lock text-[8px]"></i> Lvl ${idx + 1}`;
-            btn.onclick = null; // Lock the click
+            btn.onclick = null; 
         } else {
-            btn.onclick = () => window.setSkin(s); // Unlock the click
+            btn.onclick = () => window.setSkin(s);
             if (s === skinName) {
                 btn.className = "px-3 py-1 rounded-full text-[10px] font-bold bg-amber-500 text-slate-950 transition border border-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.3)]";
                 btn.innerHTML = skinDisplayNames[idx];
@@ -86,7 +75,6 @@ window.applySkinColors = function(skinName) {
         }
     }); 
 
-    // Apply SVG Gradients to Coin
     const f1 = document.getElementById('stop-face-1'); const f2 = document.getElementById('stop-face-2'); const f3 = document.getElementById('stop-face-3'); 
     if (!f1 || !f2 || !f3) return; 
     
@@ -95,12 +83,10 @@ window.applySkinColors = function(skinName) {
     else if (skinName === 'ruby') { f1.setAttribute('stop-color', '#fca5a5'); f2.setAttribute('stop-color', '#e11d48'); f3.setAttribute('stop-color', '#4c0519'); } 
     else if (skinName === 'emerald') { f1.setAttribute('stop-color', '#6ee7b7'); f2.setAttribute('stop-color', '#10b981'); f3.setAttribute('stop-color', '#064e3b'); } 
     else if (skinName === 'darkmatter') { f1.setAttribute('stop-color', '#c084fc'); f2.setAttribute('stop-color', '#000000'); f3.setAttribute('stop-color', '#111827'); } 
-    else { f1.setAttribute('stop-color', '#fde047'); f2.setAttribute('stop-color', '#d97706'); f3.setAttribute('stop-color', '#451a03'); } // Gold
+    else { f1.setAttribute('stop-color', '#fde047'); f2.setAttribute('stop-color', '#d97706'); f3.setAttribute('stop-color', '#451a03'); } 
 }
 
-// ==========================================
-// TASKS & LEADERBOARD SYSTEM
-// ==========================================
+// Tasks & Leaderboard (Unchanged)
 window.dynamicTasks = [];
 window.renderTasks = async function() {
     const container = document.getElementById('tasks-container'); if (!container) return;
@@ -184,26 +170,39 @@ window.updateTopStatsUI = function() {
         const totalAssets = poolBal + holdingBal; 
         const usdVal = totalAssets * (window.TAX_TO_USD_RATE || 0.00063633);
         
-        // ==========================================
-        // NEW: AUTO TAP POWER LOGIC (0.07 BASE, 1.5x PER LEVEL)
-        // ==========================================
         let currentLeagueIdx = 0; 
         for (let i = 0; i < window.leagues.length; i++) { 
             if (poolBal >= window.leagues[i].min) currentLeagueIdx = i; 
         }
         
         window.state.tapPower = 0.07 * Math.pow(1.5, currentLeagueIdx);
-        
         window.safeSetText('balance-display', window.formatTax(poolBal));
         
         const effectiveTap = window.state.turboActive ? window.state.tapPower * 5 : window.state.tapPower; 
         window.safeSetText('stat-tap', `+${Number(effectiveTap).toFixed(4)}`); 
         window.safeSetText('stat-usd-val', `≈ $${usdVal.toFixed(3)}`);
         
-        window.safeSetText('energy-display', `${Math.floor(window.state.energy)} / ${window.state.maxEnergy}`); 
-        window.safeSetText('regen-rate-display', window.state.regenRate);
-        const energyBar = document.getElementById('energy-bar'); if(energyBar) energyBar.style.width = `${Math.min(100, (window.state.energy / window.state.maxEnergy) * 100)}%`;
-        window.safeSetText('aviator-pool-bal', `${window.formatTax(poolBal)} TAX`); window.safeSetText('mines-pool-bal', `${window.formatTax(poolBal)} TAX`);
+        // ==========================================
+        // 5 HOUR COOLDOWN TIMER UI (NEW)
+        // ==========================================
+        window.state.maxEnergy = 1000; // Force strictly to 1000 taps
+        
+        if (window.state.cooldownUntil && window.state.cooldownUntil > Date.now()) {
+            // Timer is running
+            const timeLeft = window.state.cooldownUntil - Date.now();
+            const h = String(Math.floor(timeLeft / (1000 * 60 * 60))).padStart(2, '0');
+            const m = String(Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            const s = String(Math.floor((timeLeft % (1000 * 60)) / 1000)).padStart(2, '0');
+            
+            window.safeSetText('energy-display', `⏳ ${h}:${m}:${s}`);
+            const energyBar = document.getElementById('energy-bar'); 
+            if(energyBar) energyBar.style.width = `0%`; // Empty bar during cooldown
+        } else {
+            // Normal Tapping
+            window.safeSetText('energy-display', `${Math.floor(window.state.energy)} / 1000`); 
+            const energyBar = document.getElementById('energy-bar'); 
+            if(energyBar) energyBar.style.width = `${Math.min(100, (window.state.energy / 1000) * 100)}%`;
+        }
         
         const lg = window.leagues[currentLeagueIdx]; 
         if(lg) {
@@ -212,7 +211,6 @@ window.updateTopStatsUI = function() {
             const lgBar = document.getElementById('league-bar'); if(lgBar) lgBar.style.width = `${Math.max(4, pct)}%`;
         }
         
-        // Trigger skin updates
         if (window.applySkinColors) window.applySkinColors(window.state.skin);
         
         window.safeSetText('profile-assets-tax', `${window.formatTax(totalAssets)} TAX`); window.safeSetText('profile-assets-usd', `≈ ${usdVal.toFixed(3)}$`);
@@ -252,9 +250,30 @@ window.updateAllUI = function() {
     if(window.renderWithdrawHistory) window.renderWithdrawHistory(); if(window.updateWithdrawPreview) window.updateWithdrawPreview();
 };
 
+// ==========================================
+// 5 HOUR COOLDOWN ENGINE & AUTO SAVER (NEW)
+// ==========================================
 setInterval(() => {
-    if (window.state.energy < window.state.maxEnergy) { window.state.energy = Math.min(window.state.maxEnergy, window.state.energy + window.state.regenRate); }
     const now = Date.now();
+    window.state.maxEnergy = 1000; 
+
+    // ১. যদি ট্যাপ শেষ হয়ে যায় এবং টাইমার চালু না থাকে, তবে ৫ ঘণ্টার টাইমার চালু করো
+    if (window.state.energy <= 0 && !window.state.cooldownUntil) {
+        window.state.energy = 0; 
+        window.state.cooldownUntil = now + (5 * 60 * 60 * 1000); // 5 hours
+    }
+
+    // ২. যদি টাইমার চালু থাকে, তবে চেক করো ৫ ঘণ্টা পার হয়েছে কিনা
+    if (window.state.cooldownUntil) {
+        if (now >= window.state.cooldownUntil) {
+            window.state.energy = 1000; // 리ফিল
+            window.state.cooldownUntil = null;
+            if (window.playSound) window.playSound('upgrade');
+            if (window.showToast) window.showToast("⚡ Energy Full! You can tap 1000 times again.");
+        }
+    }
+
+    // Daily Unlock
     if (window.state.holdingBalance > 0) {
         if (!window.state.lastUnlockTime) window.state.lastUnlockTime = now;
         if (now - window.state.lastUnlockTime >= 86400000) {
@@ -266,12 +285,9 @@ setInterval(() => {
     if(window.updateTopStatsUI) window.updateTopStatsUI(); window.saveGameState(); 
 }, 1000);
 
-// ==========================================
 // REAL-TIME SETTINGS, MAINTENANCE & ADMIN CONTROLS
-// ==========================================
 window.appMaintenance = {};
 window.adminGameControls = {}; 
-
 window.checkSettingsStatus = async function() {
     try {
         const res = await fetch("https://tax-coin-ce652-default-rtdb.asia-southeast1.firebasedatabase.app/settings.json?nocache=" + new Date().getTime());
@@ -279,7 +295,6 @@ window.checkSettingsStatus = async function() {
         if (data) {
             window.appMaintenance = data.maintenance || {};
             window.adminGameControls = data.games || {};
-            
             const globalScreen = document.getElementById('global-maintenance-screen');
             if (globalScreen) {
                 if (window.appMaintenance.global === true) { globalScreen.classList.remove('hidden'); globalScreen.classList.add('flex'); } 
@@ -288,7 +303,6 @@ window.checkSettingsStatus = async function() {
         }
     } catch (e) {}
 };
-
 window.checkSettingsStatus(); 
 setInterval(window.checkSettingsStatus, 10000);
 
