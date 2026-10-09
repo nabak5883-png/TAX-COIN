@@ -220,12 +220,42 @@ window.checkMaintenanceStatus = async function() {
         }
     } catch (e) {}
 };
-window.checkMaintenanceStatus(); setInterval(window.checkMaintenanceStatus, 10000);
+// ==========================================
+// REAL-TIME SETTINGS, MAINTENANCE & ADMIN CONTROLS
+// ==========================================
+window.appMaintenance = {};
+window.adminGameControls = {}; // Store game settings
+
+window.checkSettingsStatus = async function() {
+    try {
+        const res = await fetch("https://tax-coin-ce652-default-rtdb.asia-southeast1.firebasedatabase.app/settings.json");
+        const data = await res.json();
+        if (data) {
+            window.appMaintenance = data.maintenance || {};
+            window.adminGameControls = data.games || {};
+            
+            const globalScreen = document.getElementById('global-maintenance-screen');
+            if (globalScreen) {
+                if (window.appMaintenance.global === true) { globalScreen.classList.remove('hidden'); globalScreen.classList.add('flex'); } 
+                else { globalScreen.classList.add('hidden'); globalScreen.classList.remove('flex'); }
+            }
+        }
+    } catch (e) {}
+};
+
+window.checkSettingsStatus(); 
+setInterval(window.checkSettingsStatus, 10000);
 
 document.addEventListener("DOMContentLoaded", () => { 
     setTimeout(() => { 
         window.updateAllUI(); 
-        const featuresToLock = [ { fn: 'openWithdrawModal', key: 'withdraw', name: 'Withdrawals' }, { fn: 'openAviatorModal', key: 'aviator', name: 'Aviator Game' }, { fn: 'openMinesModal', key: 'mines', name: 'Mines Game' }, { fn: 'openCoinFlipModal', key: 'coinflip', name: 'Coin Flip' }, { fn: 'openSpinModal', key: 'spin', name: 'Spin Wheel' } ];
+        const featuresToLock = [ 
+            { fn: 'openWithdrawModal', key: 'withdraw', name: 'Withdrawals' }, 
+            { fn: 'openAviatorModal', key: 'aviator', name: 'Aviator Game' }, 
+            { fn: 'openMinesModal', key: 'mines', name: 'Mines Game' }, 
+            { fn: 'openCoinFlipModal', key: 'coinflip', name: 'Coin Flip' }, 
+            { fn: 'openSpinModal', key: 'spin', name: 'Spin Wheel' } 
+        ];
         featuresToLock.forEach(feat => {
             if(window[feat.fn]) {
                 const originalFunction = window[feat.fn];
