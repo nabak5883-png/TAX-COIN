@@ -39,6 +39,7 @@
             <button onclick="switchTab('dashboard')" id="btn-dashboard" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-500/20 text-amber-400 font-bold transition"><i class="fa-solid fa-chart-pie"></i> Dashboard</button>
             <button onclick="switchTab('users')" id="btn-users" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800/50 text-slate-400 hover:text-white font-bold transition"><i class="fa-solid fa-users"></i> Manage Users</button>
             <button onclick="switchTab('tasks')" id="btn-tasks" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800/50 text-slate-400 hover:text-white font-bold transition"><i class="fa-solid fa-list-check"></i> Manage Tasks</button>
+            <button onclick="switchTab('games')" id="btn-games" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800/50 text-slate-400 hover:text-white font-bold transition"><i class="fa-solid fa-gamepad"></i> Game Controls</button>
             <button onclick="switchTab('withdrawals')" id="btn-withdrawals" class="w-full flex items-center justify-between px-4 py-3 rounded-xl hover:bg-slate-800/50 text-slate-400 hover:text-white font-bold transition">
                 <div class="flex items-center gap-3"><i class="fa-solid fa-money-bill-transfer"></i> Withdrawals</div>
                 <span id="pending-badge" class="bg-rose-500 text-white text-[10px] px-2 py-0.5 rounded-full hidden">0</span>
@@ -55,6 +56,7 @@
         <button onclick="switchTab('dashboard')" id="mob-btn-dashboard" class="flex flex-col items-center p-2 text-amber-400 transition"><i class="fa-solid fa-chart-pie text-lg"></i><span class="text-[10px] mt-1 font-semibold">Dash</span></button>
         <button onclick="switchTab('users')" id="mob-btn-users" class="flex flex-col items-center p-2 text-slate-400 transition"><i class="fa-solid fa-users text-lg"></i><span class="text-[10px] mt-1 font-semibold">Users</span></button>
         <button onclick="switchTab('tasks')" id="mob-btn-tasks" class="flex flex-col items-center p-2 text-slate-400 transition"><i class="fa-solid fa-list-check text-lg"></i><span class="text-[10px] mt-1 font-semibold">Tasks</span></button>
+        <button onclick="switchTab('games')" id="mob-btn-games" class="flex flex-col items-center p-2 text-slate-400 transition"><i class="fa-solid fa-gamepad text-lg"></i><span class="text-[10px] mt-1 font-semibold">Games</span></button>
         <button onclick="switchTab('withdrawals')" id="mob-btn-withdrawals" class="flex flex-col items-center p-2 text-slate-400 relative transition">
             <i class="fa-solid fa-money-bill-transfer text-lg"></i><span class="text-[10px] mt-1 font-semibold">Payouts</span>
             <span id="mob-pending-badge" class="absolute top-1 right-1 bg-rose-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full hidden">0</span>
@@ -79,57 +81,15 @@
                     <div class="glass-panel p-5 rounded-2xl border-t-2 border-t-sky-400"><div class="text-slate-400 text-sm font-semibold mb-1">Pending Withdrawals</div><div class="text-3xl font-black text-sky-400" id="stat-pending-wd">0</div></div>
                 </div>
 
-                <!-- MAINTENANCE CONTROLS (NEW) -->
+                <!-- MAINTENANCE CONTROLS -->
                 <h2 class="text-2xl font-black text-white mt-8 mb-4">Maintenance Mode (ON/OFF)</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <!-- Global App -->
-                    <div class="glass-panel p-4 rounded-xl border-l-4 border-l-rose-500 flex justify-between items-center bg-rose-500/5">
-                        <div>
-                            <h3 class="text-sm font-bold text-white">Full App (Global)</h3>
-                            <p class="text-[10px] text-slate-400">Lock entire mini app</p>
-                        </div>
-                        <input type="checkbox" id="maint-global" onchange="toggleMaintenance('global', this.checked)" class="w-5 h-5 accent-rose-500 cursor-pointer">
-                    </div>
-                    <!-- Withdrawals -->
-                    <div class="glass-panel p-4 rounded-xl border-l-4 border-l-sky-500 flex justify-between items-center">
-                        <div>
-                            <h3 class="text-sm font-bold text-white">Withdrawals</h3>
-                            <p class="text-[10px] text-slate-400">Pause payout requests</p>
-                        </div>
-                        <input type="checkbox" id="maint-withdraw" onchange="toggleMaintenance('withdraw', this.checked)" class="w-5 h-5 accent-sky-500 cursor-pointer">
-                    </div>
-                    <!-- Aviator -->
-                    <div class="glass-panel p-4 rounded-xl border-l-4 border-l-red-500 flex justify-between items-center">
-                        <div>
-                            <h3 class="text-sm font-bold text-white">Aviator Game</h3>
-                            <p class="text-[10px] text-slate-400">Maintenance mode</p>
-                        </div>
-                        <input type="checkbox" id="maint-aviator" onchange="toggleMaintenance('aviator', this.checked)" class="w-5 h-5 accent-red-500 cursor-pointer">
-                    </div>
-                    <!-- Mines -->
-                    <div class="glass-panel p-4 rounded-xl border-l-4 border-l-emerald-500 flex justify-between items-center">
-                        <div>
-                            <h3 class="text-sm font-bold text-white">Mines Game</h3>
-                            <p class="text-[10px] text-slate-400">Maintenance mode</p>
-                        </div>
-                        <input type="checkbox" id="maint-mines" onchange="toggleMaintenance('mines', this.checked)" class="w-5 h-5 accent-emerald-500 cursor-pointer">
-                    </div>
-                    <!-- Coin Flip -->
-                    <div class="glass-panel p-4 rounded-xl border-l-4 border-l-amber-500 flex justify-between items-center">
-                        <div>
-                            <h3 class="text-sm font-bold text-white">Coin Flip</h3>
-                            <p class="text-[10px] text-slate-400">Maintenance mode</p>
-                        </div>
-                        <input type="checkbox" id="maint-coinflip" onchange="toggleMaintenance('coinflip', this.checked)" class="w-5 h-5 accent-amber-500 cursor-pointer">
-                    </div>
-                    <!-- Spin Wheel -->
-                    <div class="glass-panel p-4 rounded-xl border-l-4 border-l-purple-500 flex justify-between items-center">
-                        <div>
-                            <h3 class="text-sm font-bold text-white">Spin Wheel</h3>
-                            <p class="text-[10px] text-slate-400">Maintenance mode</p>
-                        </div>
-                        <input type="checkbox" id="maint-spin" onchange="toggleMaintenance('spin', this.checked)" class="w-5 h-5 accent-purple-500 cursor-pointer">
-                    </div>
+                    <div class="glass-panel p-4 rounded-xl border-l-4 border-l-rose-500 flex justify-between items-center bg-rose-500/5"><div><h3 class="text-sm font-bold text-white">Full App (Global)</h3><p class="text-[10px] text-slate-400">Lock entire mini app</p></div><input type="checkbox" id="maint-global" onchange="toggleMaintenance('global', this.checked)" class="w-5 h-5 accent-rose-500 cursor-pointer"></div>
+                    <div class="glass-panel p-4 rounded-xl border-l-4 border-l-sky-500 flex justify-between items-center"><div><h3 class="text-sm font-bold text-white">Withdrawals</h3><p class="text-[10px] text-slate-400">Pause payout requests</p></div><input type="checkbox" id="maint-withdraw" onchange="toggleMaintenance('withdraw', this.checked)" class="w-5 h-5 accent-sky-500 cursor-pointer"></div>
+                    <div class="glass-panel p-4 rounded-xl border-l-4 border-l-red-500 flex justify-between items-center"><div><h3 class="text-sm font-bold text-white">Aviator Game</h3><p class="text-[10px] text-slate-400">Maintenance mode</p></div><input type="checkbox" id="maint-aviator" onchange="toggleMaintenance('aviator', this.checked)" class="w-5 h-5 accent-red-500 cursor-pointer"></div>
+                    <div class="glass-panel p-4 rounded-xl border-l-4 border-l-emerald-500 flex justify-between items-center"><div><h3 class="text-sm font-bold text-white">Mines Game</h3><p class="text-[10px] text-slate-400">Maintenance mode</p></div><input type="checkbox" id="maint-mines" onchange="toggleMaintenance('mines', this.checked)" class="w-5 h-5 accent-emerald-500 cursor-pointer"></div>
+                    <div class="glass-panel p-4 rounded-xl border-l-4 border-l-amber-500 flex justify-between items-center"><div><h3 class="text-sm font-bold text-white">Coin Flip</h3><p class="text-[10px] text-slate-400">Maintenance mode</p></div><input type="checkbox" id="maint-coinflip" onchange="toggleMaintenance('coinflip', this.checked)" class="w-5 h-5 accent-amber-500 cursor-pointer"></div>
+                    <div class="glass-panel p-4 rounded-xl border-l-4 border-l-purple-500 flex justify-between items-center"><div><h3 class="text-sm font-bold text-white">Spin Wheel</h3><p class="text-[10px] text-slate-400">Maintenance mode</p></div><input type="checkbox" id="maint-spin" onchange="toggleMaintenance('spin', this.checked)" class="w-5 h-5 accent-purple-500 cursor-pointer"></div>
                 </div>
 
                 <h2 class="text-2xl font-black text-white mt-8 mb-4">System Settings</h2>
@@ -143,40 +103,66 @@
                 </div>
             </div>
 
+            <!-- GAMES CONTROL VIEW (NEW) -->
+            <div id="view-games" class="space-y-6 hidden">
+                <h2 class="text-2xl font-black text-white">Games Control Room</h2>
+                
+                <div class="glass-panel p-6 rounded-2xl border-t-2 border-t-red-500 max-w-md bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
+                    <div class="flex items-center gap-3 mb-2">
+                        <i class="fa-solid fa-plane-up text-red-500 text-2xl"></i>
+                        <h3 class="text-lg font-black text-white">Aviator Override</h3>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-5">Force the plane to crash at a specific multiplier for the NEXT round. Good for controlling payouts.</p>
+                    
+                    <div class="flex gap-2">
+                        <input type="number" id="aviator-next-crash" step="0.01" placeholder="e.g. 1.50" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-red-500 font-mono font-bold text-lg text-center tracking-widest">
+                        <button onclick="setAviatorCrash()" class="px-5 py-3 bg-red-600 hover:bg-red-500 text-white font-black rounded-xl transition shadow-lg shadow-red-500/30 whitespace-nowrap">SET CRASH</button>
+                    </div>
+                    
+                    <div class="mt-4 flex items-center justify-between text-[13px] font-bold bg-slate-900/50 p-3 rounded-lg border border-white/5">
+                        <span class="text-slate-400">Current Next Crash:</span>
+                        <span id="display-aviator-crash" class="text-emerald-400 text-sm">Auto (Random)</span>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button onclick="clearAviatorCrash()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-xs transition border border-slate-600/50"><i class="fa-solid fa-shuffle mr-1"></i> Reset to Auto/Random Mode</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Tasks View -->
             <div id="view-tasks" class="space-y-6 hidden">
-                <!-- Task view code unchanged... kept intact by modular system -->
                 <h2 class="text-2xl font-black text-white">Task Management</h2>
                 <div class="glass-panel p-5 rounded-2xl border-t-2 border-t-amber-400 max-w-3xl">
                     <h3 class="text-lg font-bold text-white mb-4" id="task-form-title">Create / Edit Task</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div><label class="text-[11px] text-slate-400 font-bold">TASK ID (Unique, No spaces)</label><input type="text" id="t-id" placeholder="e.g., join_tg_1" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1"></div>
-                        <div><label class="text-[11px] text-slate-400 font-bold">TASK TITLE (Use emojis!)</label><input type="text" id="t-title" placeholder="e.g., 📢 Join Official Channel" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1"></div>
-                        <div><label class="text-[11px] text-slate-400 font-bold">REWARD (TAX COIN)</label><input type="number" id="t-reward" placeholder="e.g., 500" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1"></div>
-                        <div><label class="text-[11px] text-slate-400 font-bold">BUTTON TEXT</label><input type="text" id="t-btn" placeholder="e.g., Join & Claim" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1"></div>
-                        <div class="sm:col-span-2"><label class="text-[11px] text-slate-400 font-bold">TASK LINK (URL to visit - Optional)</label><input type="text" id="t-link" placeholder="e.g., https://t.me/taxcoin" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1"></div>
+                        <div><label class="text-[11px] text-slate-400 font-bold">TASK ID</label><input type="text" id="t-id" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1"></div>
+                        <div><label class="text-[11px] text-slate-400 font-bold">TASK TITLE</label><input type="text" id="t-title" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1"></div>
+                        <div><label class="text-[11px] text-slate-400 font-bold">REWARD (TAX)</label><input type="number" id="t-reward" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1"></div>
+                        <div><label class="text-[11px] text-slate-400 font-bold">BUTTON TEXT</label><input type="text" id="t-btn" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1"></div>
+                        <div class="sm:col-span-2"><label class="text-[11px] text-slate-400 font-bold">TASK LINK</label><input type="text" id="t-link" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm focus:border-amber-400 mt-1"></div>
                         <div class="sm:col-span-2 flex flex-col gap-3 mt-1">
-                            <div class="flex items-center gap-2"><input type="checkbox" id="t-req-verify" class="w-4 h-4 accent-amber-500 cursor-pointer"><label class="text-sm text-slate-300 font-bold cursor-pointer" for="t-req-verify">User must be VERIFIED to complete</label></div>
-                            <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 p-2 rounded-lg w-max"><input type="checkbox" id="t-is-pinned" class="w-4 h-4 accent-amber-500 cursor-pointer"><label class="text-sm text-amber-400 font-bold cursor-pointer" for="t-is-pinned">📌 Pin this task to top</label></div>
+                            <div class="flex items-center gap-2"><input type="checkbox" id="t-req-verify" class="w-4 h-4 accent-amber-500 cursor-pointer"><label class="text-sm text-slate-300 font-bold cursor-pointer" for="t-req-verify">User must be VERIFIED</label></div>
+                            <div class="flex items-center gap-2 bg-amber-500/10 p-2 rounded-lg w-max"><input type="checkbox" id="t-is-pinned" class="w-4 h-4 accent-amber-500 cursor-pointer"><label class="text-sm text-amber-400 font-bold cursor-pointer" for="t-is-pinned">📌 Pin to top</label></div>
                         </div>
                     </div>
-                    <div class="flex gap-2 mt-5"><button onclick="saveTask()" class="flex-1 sm:flex-none px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl transition shadow-lg shadow-amber-500/30">Save Task</button><button onclick="clearTaskForm()" class="flex-1 sm:flex-none px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition">Clear Form</button></div>
+                    <div class="flex gap-2 mt-5"><button onclick="saveTask()" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl">Save Task</button><button onclick="clearTaskForm()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl">Clear</button></div>
                 </div>
                 <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800">
-                    <div class="overflow-x-auto"><table class="w-full text-left text-sm whitespace-nowrap"><thead class="bg-slate-900/50 text-slate-400 text-xs uppercase font-bold"><tr><th class="px-4 py-3">Task ID</th><th class="px-4 py-3">Title</th><th class="px-4 py-3">Reward</th><th class="px-4 py-3">Requirements</th><th class="px-4 py-3 text-right">Actions</th></tr></thead><tbody id="tasks-table-body" class="divide-y divide-slate-800/50 text-slate-200"><tr><td colspan="5" class="px-4 py-8 text-center text-slate-500">Loading tasks...</td></tr></tbody></table></div>
+                    <div class="overflow-x-auto"><table class="w-full text-left text-sm whitespace-nowrap"><thead class="bg-slate-900/50 text-slate-400 text-xs uppercase font-bold"><tr><th class="px-4 py-3">ID</th><th class="px-4 py-3">Title</th><th class="px-4 py-3">Reward</th><th class="px-4 py-3 text-right">Actions</th></tr></thead><tbody id="tasks-table-body" class="divide-y divide-slate-800/50 text-slate-200"></tbody></table></div>
                 </div>
             </div>
 
             <!-- Users View -->
             <div id="view-users" class="space-y-4 hidden">
                 <div class="flex flex-col sm:flex-row justify-between items-center gap-4"><h2 class="text-2xl font-black text-white">Registered Users</h2><input type="text" id="search-user" placeholder="Search by User ID..." class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm focus:outline-none focus:border-amber-400 text-white w-full sm:w-64"></div>
-                <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800"><div class="overflow-x-auto"><table class="w-full text-left text-sm whitespace-nowrap"><thead class="bg-slate-900/50 text-slate-400 text-xs uppercase font-bold"><tr><th class="px-4 py-3">User ID</th><th class="px-4 py-3">Pool Balance</th><th class="px-4 py-3">PPH (Income)</th><th class="px-4 py-3">Verified</th><th class="px-4 py-3 text-right">Actions</th></tr></thead><tbody id="users-table-body" class="divide-y divide-slate-800/50 text-slate-200"><tr><td colspan="5" class="px-4 py-8 text-center text-slate-500">Loading users...</td></tr></tbody></table></div></div>
+                <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800"><div class="overflow-x-auto"><table class="w-full text-left text-sm whitespace-nowrap"><thead class="bg-slate-900/50 text-slate-400 text-xs uppercase font-bold"><tr><th class="px-4 py-3">User ID</th><th class="px-4 py-3">Balance</th><th class="px-4 py-3">PPH</th><th class="px-4 py-3">Verified</th><th class="px-4 py-3 text-right">Actions</th></tr></thead><tbody id="users-table-body" class="divide-y divide-slate-800/50 text-slate-200"></tbody></table></div></div>
             </div>
 
             <!-- Withdrawals View -->
             <div id="view-withdrawals" class="space-y-4 hidden">
                 <h2 class="text-2xl font-black text-white">Withdrawal Requests</h2>
-                <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800"><div class="overflow-x-auto"><table class="w-full text-left text-sm whitespace-nowrap"><thead class="bg-slate-900/50 text-slate-400 text-xs uppercase font-bold"><tr><th class="px-4 py-3">Time</th><th class="px-4 py-3">User ID</th><th class="px-4 py-3">Method & Address</th><th class="px-4 py-3">Amount (TAX)</th><th class="px-4 py-3">Status</th><th class="px-4 py-3 text-right">Controls</th></tr></thead><tbody id="withdraw-table-body" class="divide-y divide-slate-800/50 text-slate-200"><tr><td colspan="6" class="px-4 py-8 text-center text-slate-500">No pending withdrawals.</td></tr></tbody></table></div></div>
+                <div class="glass-panel rounded-2xl overflow-hidden border border-slate-800"><div class="overflow-x-auto"><table class="w-full text-left text-sm whitespace-nowrap"><thead class="bg-slate-900/50 text-slate-400 text-xs uppercase font-bold"><tr><th class="px-4 py-3">Time</th><th class="px-4 py-3">User ID</th><th class="px-4 py-3">Method & Address</th><th class="px-4 py-3">Amount</th><th class="px-4 py-3">Status</th><th class="px-4 py-3 text-right">Controls</th></tr></thead><tbody id="withdraw-table-body" class="divide-y divide-slate-800/50 text-slate-200"></tbody></table></div></div>
             </div>
 
         </div>
@@ -187,6 +173,7 @@
     <script type="module" src="js/admin/auth.js"></script>
     <script type="module" src="js/admin/tasks.js"></script>
     <script type="module" src="js/admin/users.js"></script>
+    <script type="module" src="js/admin/games.js"></script> <!-- NEW SCRIPT -->
 
 </body>
 </html>
