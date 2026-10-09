@@ -8,20 +8,21 @@ window.leagues = [
     { name: "Diamond Chancellor", min: 500000, next: 2000000 }, { name: "Supreme Tax Boss", min: 2000000, next: 10000000 }
 ];
 
-window.getRefMessage = function() { return `🔥 Join TAX COIN and earn free crypto!\n\n👑 Play games, mine coins, and unlock daily rewards.\n💎 Click my link below to get an instant startup bonus!\n\n👇 Play Now:`; };
+// UPDATED: Format matches your screenshot (Link at top, text below)
+window.getRefMessage = function(link) { 
+    return `${link}\n\n🔥 Join TAX COIN and earn free crypto!\n👑 Play games, mine coins, and unlock daily rewards.\n💎 Click the link to get an instant startup bonus!`; 
+};
 
-// UPDATED REFERRAL LINK FORMAT FOR TELEGRAM PREVIEW
 window.copyRefLink = function() { 
-    // Using /app?startapp= format for rich preview
     const link = `https://t.me/TaxCoinArcadeBot/app?startapp=ref_${window.state.numericUid}`; 
-    const fullText = `${window.getRefMessage()}\n${link}`;
+    const fullText = window.getRefMessage(link);
     const tempInput = document.createElement('textarea'); tempInput.value = fullText; document.body.appendChild(tempInput); tempInput.select(); document.execCommand('copy'); document.body.removeChild(tempInput); 
     window.playSound('tap'); window.showToast("📋 Professional Message & Link Copied!"); 
 };
 
 window.shareRefLink = function() {
-    // Using /app?startapp= format for rich preview
-    const link = `https://t.me/TaxCoinArcadeBot/app?startapp=ref_${window.state.numericUid}`; const text = window.getRefMessage();
+    const link = `https://t.me/TaxCoinArcadeBot/app?startapp=ref_${window.state.numericUid}`; 
+    const text = `🔥 Join TAX COIN and earn free crypto!\n👑 Play games, mine coins, and unlock daily rewards.`;
     const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`;
     if (window.tg && window.tg.openTelegramLink) { window.tg.openTelegramLink(shareUrl); } else { window.open(shareUrl, '_blank'); }
     window.playSound('tap');
@@ -205,57 +206,37 @@ setInterval(() => {
 // REAL-TIME MAINTENANCE LISTENER & SECURITY
 // ==========================================
 window.appMaintenance = {};
-
 window.checkMaintenanceStatus = async function() {
     try {
         const res = await fetch("https://tax-coin-ce652-default-rtdb.asia-southeast1.firebasedatabase.app/settings/maintenance.json");
         const data = await res.json();
         if (data) {
             window.appMaintenance = data;
-            
-            // 1. Control Global App Screen
             const globalScreen = document.getElementById('global-maintenance-screen');
             if (globalScreen) {
-                if (data.global === true) {
-                    globalScreen.classList.remove('hidden'); globalScreen.classList.add('flex');
-                } else {
-                    globalScreen.classList.add('hidden'); globalScreen.classList.remove('flex');
-                }
+                if (data.global === true) { globalScreen.classList.remove('hidden'); globalScreen.classList.add('flex'); } 
+                else { globalScreen.classList.add('hidden'); globalScreen.classList.remove('flex'); }
             }
         }
-    } catch (e) { console.log("Maintenance check skipped"); }
+    } catch (e) {}
 };
-
-// Check maintenance immediately, then every 10 seconds
-window.checkMaintenanceStatus();
-setInterval(window.checkMaintenanceStatus, 10000);
+window.checkMaintenanceStatus(); setInterval(window.checkMaintenanceStatus, 10000);
 
 document.addEventListener("DOMContentLoaded", () => { 
     setTimeout(() => { 
         window.updateAllUI(); 
-
-        // 2. Setup Security Locks for Games & Withdrawals
-        const featuresToLock = [
-            { fn: 'openWithdrawModal', key: 'withdraw', name: 'Withdrawals' },
-            { fn: 'openAviatorModal', key: 'aviator', name: 'Aviator Game' },
-            { fn: 'openMinesModal', key: 'mines', name: 'Mines Game' },
-            { fn: 'openCoinFlipModal', key: 'coinflip', name: 'Coin Flip' },
-            { fn: 'openSpinModal', key: 'spin', name: 'Spin Wheel' }
-        ];
-        
+        const featuresToLock = [ { fn: 'openWithdrawModal', key: 'withdraw', name: 'Withdrawals' }, { fn: 'openAviatorModal', key: 'aviator', name: 'Aviator Game' }, { fn: 'openMinesModal', key: 'mines', name: 'Mines Game' }, { fn: 'openCoinFlipModal', key: 'coinflip', name: 'Coin Flip' }, { fn: 'openSpinModal', key: 'spin', name: 'Spin Wheel' } ];
         featuresToLock.forEach(feat => {
             if(window[feat.fn]) {
                 const originalFunction = window[feat.fn];
-                // Overwrite the function to check maintenance first
                 window[feat.fn] = function() {
                     if (window.appMaintenance && window.appMaintenance[feat.key] === true) {
                         if (window.playSound) window.playSound('error');
                         return window.showToast(`🛠 ${feat.name} is currently under maintenance!`, true);
                     }
-                    originalFunction(); // Proceed normally if not locked
+                    originalFunction();
                 }
             }
         });
-
     }, 1000); 
 });
