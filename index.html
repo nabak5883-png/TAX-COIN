@@ -12,6 +12,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="css/style.css?v=7">
+    <style>
+      html, body { width:100%; max-width:100%; overflow-x:hidden; }
+      #tab-games { width:100%; min-width:0; }
+      #tab-games > * { min-width:0; max-width:100%; }
+      #tab-games .grid.grid-cols-2 { width:100%; min-width:0; }
+      #tab-games .grid.grid-cols-2 > * { min-width:0; max-width:100%; }
+      #tab-games button { max-width:100%; white-space:normal; }
+    </style>
 </head>
 <body class="select-none">
 
@@ -152,25 +160,23 @@
             <!-- Games Grid (Your 4 Original Games) -->
             <div class="grid grid-cols-2 gap-3 mt-2">
                 
-               ​<!-- Aviator Game Card (Triggers the Pro Modal) -->
-<div class="glass-card rounded-2xl p-3 border border-rose-500/30 hover:border-rose-400 transition group relative overflow-hidden shadow-lg shadow-rose-500/10 bg-slate-900/80">
-<div class="absolute top-0 right-0 px-2 py-0.5 bg-rose-500 rounded-bl-lg text-[8px] font-black text-white uppercase">Hot</div>
-<div class="flex items-center gap-3 mb-3 mt-1">
-<div class="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-500 to-red-700 flex items-center justify-center text-2xl shadow-inner">✈️</div>
-<div>
-<div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between">
-  <span class="text-[10px] text-emerald-400 font-bold">
-    <i class="fa-solid fa-chart-line mr-1"></i>RTP 96%
-  </span>
-  <button 
-    type="button" 
-    onclick="openAviatorModal()" 
-    class="px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white font-black text-xs shadow-md shadow-red-500/30 active:scale-95 transition flex items-center gap-1.5">
-    <i class="fa-solid fa-play text-[10px]"></i>
-    Play Aviator
-  </button>
-</div>
-
+               ​<!-- Aviator Game Card -->
+                <div class="glass-card rounded-2xl p-3 border border-rose-500/30 hover:border-rose-400 transition group relative overflow-hidden shadow-lg shadow-rose-500/10 bg-slate-900/80 min-w-0 w-full">
+                    <div class="absolute top-0 right-0 px-2 py-0.5 bg-rose-500 rounded-bl-lg text-[8px] font-black text-white uppercase">Hot</div>
+                    <div class="flex items-center gap-3 mb-3 mt-1 min-w-0">
+                        <div class="w-12 h-12 shrink-0 rounded-xl bg-gradient-to-br from-rose-500 to-red-700 flex items-center justify-center text-2xl shadow-inner">✈️</div>
+                        <div class="min-w-0">
+                            <h3 class="font-black text-white text-sm">Aviator</h3>
+                            <p class="text-[9px] text-rose-300 font-bold">Crash Game</p>
+                        </div>
+                    </div>
+                    <div class="pt-2.5 border-t border-white/5 flex flex-wrap items-center justify-between gap-2">
+                        <span class="text-[10px] text-emerald-400 font-bold"><i class="fa-solid fa-chart-line mr-1"></i>RTP 96%</span>
+                        <button type="button" onclick="openAviatorModal()" class="px-3 py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white font-black text-xs shadow-md shadow-red-500/30 active:scale-95 transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-play text-[10px]"></i> Play Aviator
+                        </button>
+                    </div>
+                </div>
 
                 <!-- 2. Flip -->
                 <div class="glass-card rounded-2xl p-3 border border-amber-500/30 hover:border-amber-400 transition group relative overflow-hidden shadow-lg shadow-amber-500/10 bg-slate-900/80">
