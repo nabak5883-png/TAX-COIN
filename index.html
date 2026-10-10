@@ -27,56 +27,59 @@
         </div>
     </div>
 
-                <!-- ========================================== -->
-    <!-- 1. HEADER (ALL JS IDs RESTORED TO PREVENT CRASH) -->
+                    <!-- ========================================== -->
+    <!-- HEADER (EXACT ORIGINAL IDs FROM YOUR SCREENSHOTS) -->
     <!-- ========================================== -->
-    <header id="main-top-header" class="w-full px-4 pt-3 pb-1 flex items-center justify-between shrink-0 relative z-20 max-w-md mx-auto">
-        <!-- User Info -->
-        <div class="flex items-center gap-2.5">
-            <div class="w-10 h-10 rounded-xl bg-slate-900 border border-amber-500/30 p-0.5 flex items-center justify-center text-amber-400 font-black text-lg shadow-inner relative overflow-hidden">
-                <img id="user-profile-pic" src="" alt="Profile" class="w-full h-full object-cover hidden">
-                <i id="default-profile-icon" class="fa-solid fa-crown relative z-10"></i>
-                <span id="user-initial" class="hidden">N</span>
-            </div>
-            <div>
-                <div class="flex items-center gap-1.5">
-                    <!-- Added both IDs so JS never crashes -->
-                    <h2 id="player-name" class="font-bold text-sm text-white tracking-tight">Nabakumar</h2>
-                    <h2 id="user-name" class="hidden">Nabakumar</h2>
-                    <span id="verified-mini-icon" class="text-emerald-400 text-[10px]" title="Verified"><i class="fa-solid fa-circle-check"></i></span>
+    <header id="main-top-header" class="px-4 pt-3 pb-1 flex flex-col gap-2 z-20 shrink-0">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-700 p-0.5 shadow-lg shadow-amber-500/20">
+                    <div class="w-full h-full bg-slate-900 rounded-[10px] overflow-hidden flex items-center justify-center text-amber-400 font-bold text-lg">
+                        <img id="user-profile-pic" src="" alt="Profile" class="w-full h-full object-cover hidden">
+                        <i id="default-profile-icon" class="fa-solid fa-crown"></i>
+                    </div>
                 </div>
-                <div class="flex items-center gap-1.5 text-[10px] text-slate-400 mt-0.5">
-                    <span id="header-league" class="font-bold text-amber-400">Bronze Auditor</span>
-                    <span class="font-mono">ID: <span id="user-id">Loading...</span></span>
+                <div class="flex flex-col mt-0.5">
+                    <div class="flex items-center gap-1.5">
+                        <span id="player-name" class="font-bold text-sm text-white tracking-tight">Tax Collector</span>
+                        <span id="verified-mini-icon" class="hidden text-emerald-400 text-xs" title="Verified"><i class="fa-solid fa-circle-check"></i></span>
+                    </div>
+                    <div class="flex items-center gap-1 text-[11px] text-amber-400 font-semibold">
+                        <span id="league-name">Bronze Auditor</span>
+                        <span class="text-slate-500">•</span>
+                        <span id="uid-display" class="text-slate-400 font-mono text-[10px]">ID: Loading...</span>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Controls & Wallet -->
-        <div class="flex items-center gap-2">
-            <button onclick="window.toggleSound && window.toggleSound()" class="w-8 h-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center text-amber-400 active:scale-95 transition">
-                <i id="sound-icon" class="fa-solid fa-volume-high text-xs"></i>
-            </button>
-            
-            <!-- Hidden original TON connect div just in case JS needs it -->
-            <div id="ton-connect" class="hidden"></div> 
-            
-            <button id="ton-connect-btn" class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 flex items-center gap-1.5 active:scale-95 transition">
-                <i class="fa-regular fa-gem text-sky-400 text-xs"></i>
-                <span id="wallet-address" class="text-xs font-bold text-white font-mono">Connect</span>
-            </button>
+            <div class="flex items-center gap-2">
+                <button type="button" id="sound-btn" onclick="toggleSound()" class="w-8 h-8 rounded-full glass-card flex items-center justify-center text-amber-400 active:scale-90 transition">
+                    <i class="fa-solid fa-volume-high text-[11px]" id="sound-icon"></i>
+                </button>
+                <button type="button" id="btn-connect-wallet" onclick="openWalletModal()" class="px-3.5 py-1.5 rounded-full bg-blue-500 hover:bg-blue-400 text-white text-[11px] font-bold flex items-center gap-1.5 shadow-lg shadow-blue-500/20 active:scale-95 transition">
+                    <i class="fa-solid fa-gem text-[10px]"></i>
+                    <span id="wallet-btn-text">Connect Wallet</span>
+                </button>
+            </div>
         </div>
     </header>
 
+    <!-- HIDDEN STATS BOXES (So your JavaScript doesn't crash trying to update them) -->
+    <div id="top-stats-strip" class="hidden">
+        <span id="stat-tap"></span>
+        <span id="stat-usd-val"></span>
+    </div>
+
     <!-- ========================================== -->
-    <!-- 2. MAIN WORKSPACE (SCROLL FIXED) -->
+    <!-- MAIN WORKSPACE (EXACT ORIGINAL MAIN TAG FOR SCROLL) -->
     <!-- ========================================== -->
-    <main class="flex-1 w-full max-w-md mx-auto relative overflow-y-auto overflow-x-hidden h-full pb-20">
+    <main class="flex-1 overflow-y-auto px-4 pb-24 pt-2 relative z-10">
         
+        <!-- ========================================== -->
         <!-- TAB 1: MINE -->
-        <div id="tab-mine" class="tab-page flex flex-col h-full pt-2 pb-6 relative">
+        <!-- ========================================== -->
+        <section id="tab-mine" class="tab-page flex flex-col h-full relative overflow-hidden pb-4 block">
             
-            <!-- BIG BALANCE & LEAGUE (CLEAN) -->
+            <!-- 1. BIG BALANCE -->
             <div class="flex flex-col items-center justify-center shrink-0 z-10 mb-2 mt-2">
                 <div class="flex items-center justify-center gap-2 text-4xl sm:text-5xl font-black text-white font-cyber drop-shadow-md">
                     <svg class="w-9 h-9 sm:w-10 sm:h-10 drop-shadow-[0_0_10px_rgba(251,191,36,0.6)] shrink-0" viewBox="0 0 64 64">
@@ -85,12 +88,12 @@
                         <circle cx="32" cy="32" r="22" fill="none" stroke="#78350f" stroke-width="1.5" stroke-dasharray="4 2"/>
                         <text x="32" y="39" text-anchor="middle" fill="#451a03" font-weight="900" font-size="20" font-family="'Orbitron', sans-serif">T</text>
                     </svg>
-                    <span id="balance-display" class="tracking-tight">0.0000</span>
+                    <h1 id="balance-display" class="tracking-tight m-0">0.0000</h1>
                 </div>
                 
-                <div class="w-full max-w-xs mx-auto mt-4 shrink-0 px-4">
+                <div class="w-full max-w-xs mx-auto mt-4 shrink-0">
                     <div class="flex justify-between items-end mb-1">
-                        <span id="league-name-main" class="text-[11px] font-bold text-slate-300">Bronze Auditor</span>
+                        <span id="league-progress-label" class="text-[11px] font-bold text-slate-300">Bronze Auditor (1/6)</span>
                         <span id="league-percent" class="text-[10px] text-slate-400 font-bold">0%</span>
                     </div>
                     <div class="w-full bg-slate-800 rounded-full h-1.5 border border-slate-700 overflow-hidden">
@@ -99,21 +102,21 @@
                 </div>
             </div>
 
-            <!-- CUSTOM UPLOADED IMAGE (tax_coin.png) -->
+            <!-- 2. COIN (UPLOADED IMAGE) -->
             <div class="flex-1 flex items-center justify-center w-full relative z-0 min-h-0 shrink py-2">
                 <div id="coin-touch-area" class="w-56 h-56 sm:w-72 sm:h-72 max-h-[65vw] max-w-[65vw] rounded-full cursor-pointer flex items-center justify-center relative select-none drop-shadow-[0_0_40px_rgba(56,189,248,0.4)] shrink">
                     <img id="coin-svg" src="tax_coin.png" alt="TAX Coin" class="w-full h-full object-contain active:scale-95 transition-transform duration-75 pointer-events-none" draggable="false">
                 </div>
             </div>
 
-            <!-- ENERGY BAR & BOOST -->
-            <div class="px-5 w-full max-w-md mx-auto shrink-0 z-10 mt-auto">
+            <!-- 3. ENERGY BAR & BOOST -->
+            <div class="w-full max-w-md mx-auto shrink-0 z-10 mt-auto">
                 <div class="flex justify-between items-center mb-2">
                     <div class="flex items-center gap-1.5">
                         <i class="fa-solid fa-bolt text-amber-400 text-sm"></i>
                         <span id="energy-display" class="text-xs font-black text-white font-mono">1000 / 1000</span>
                     </div>
-                    <button onclick="switchTab('boost')" class="flex items-center gap-1.5 px-4 py-1 bg-gradient-to-r from-amber-500 to-orange-600 text-slate-900 rounded-full font-black text-[11px] uppercase tracking-wider shadow-lg shadow-orange-500/20 active:scale-95 transition">
+                    <button type="button" onclick="switchTab('boost')" class="flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-600 text-slate-900 rounded-full font-black text-[10px] uppercase tracking-wider shadow-lg shadow-orange-500/20 active:scale-95 transition">
                         <i class="fa-solid fa-rocket"></i> Boost
                     </button>
                 </div>
@@ -122,40 +125,8 @@
                 </div>
             </div>
             
-        </div>
-    </main>
-
-        <!-- TAB 2: GAMES HUB -->
-        <section id="tab-games" class="tab-page hidden space-y-3.5 pt-1">
-            <div class="glass-card gold-border-glow rounded-3xl p-4 relative overflow-hidden">
-                <div class="flex items-center justify-between relative z-10">
-                    <div>
-                        <div class="flex items-center gap-2"><span class="px-2.5 py-0.5 rounded-md text-[10px] font-black bg-gradient-to-r from-amber-500/30 to-orange-500/30 text-amber-300 border border-amber-400/40 font-cyber">TAX ARCADE</span><span class="text-xs text-emerald-400 font-bold flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Live Games</span></div>
-                        <h2 class="text-xl font-black text-white font-cyber mt-1.5 tracking-tight">TAX CASINO & GAMES</h2>
-                        <p class="text-xs text-slate-300 mt-0.5">Pick a game, bet TAX coins & multiply your pool earnings!</p>
-                    </div>
-                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-rose-600 flex items-center justify-center text-slate-950 text-2xl shadow-xl shadow-orange-500/30"><i class="fa-solid fa-gamepad"></i></div>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div class="glass-card rounded-2xl p-4 border border-rose-500/30 relative overflow-hidden flex flex-col justify-between hover:border-rose-400/60 transition group">
-                    <div class="flex items-start justify-between"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-600 to-red-600 flex items-center justify-center text-white text-xl shadow-lg shadow-red-500/30"><i class="fa-solid fa-plane-departure"></i></div><div><div class="flex items-center gap-1.5"><h3 class="font-cyber font-extrabold text-white text-sm">TAX Aviator</h3></div><div class="text-[11px] text-slate-400 mt-0.5">Crash Jet • Up to 100x Multiplier</div></div></div></div>
-                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between"><span class="text-[10px] text-emerald-400 font-bold"><i class="fa-solid fa-chart-line mr-1"></i>RTP 96%</span><button type="button" onclick="openAviatorModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white font-black text-xs shadow-md shadow-red-500/30 active:scale-95 transition flex items-center gap-1.5"><i class="fa-solid fa-play text-[10px]"></i> Play Aviator</button></div>
-                </div>
-                <div class="glass-card rounded-2xl p-4 border border-emerald-500/30 relative overflow-hidden flex flex-col justify-between hover:border-emerald-400/60 transition group">
-                    <div class="flex items-start justify-between"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-600 flex items-center justify-center text-white text-xl shadow-lg shadow-emerald-500/30"><i class="fa-solid fa-bomb text-amber-300 animate-pulse"></i></div><div><div class="flex items-center gap-1.5"><h3 class="font-cyber font-extrabold text-white text-sm">TAX Mines</h3></div><div class="text-[11px] text-slate-400 mt-0.5">Pick 1-24 Mines • Uncover TAX Gems</div></div></div></div>
-                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between"><span class="text-[10px] text-cyan-400 font-bold"><i class="fa-solid fa-gem mr-1"></i>RTP 97%</span><button type="button" onclick="openMinesModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black text-xs shadow-md shadow-emerald-500/30 active:scale-95 transition flex items-center gap-1.5"><i class="fa-solid fa-gem text-[10px]"></i> Play Mines</button></div>
-                </div>
-                <div class="glass-card rounded-2xl p-4 border border-amber-500/30 relative overflow-hidden flex flex-col justify-between hover:border-amber-400/60 transition group">
-                    <div class="flex items-start justify-between"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-600 flex items-center justify-center text-slate-950 text-xl shadow-lg shadow-amber-500/30"><i class="fa-solid fa-coins"></i></div><div><div class="flex items-center gap-1.5"><h3 class="font-cyber font-extrabold text-white text-sm">TAX Coin Flip</h3></div><div class="text-[11px] text-slate-400 mt-0.5">Heads or Tails • Double or Nothing</div></div></div></div>
-                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between"><span class="text-[10px] text-amber-300 font-bold"><i class="fa-solid fa-bolt mr-1"></i>Instant 1.95x</span><button type="button" onclick="openCoinFlipModal()" class="px-4 py-2 rounded-xl gold-pill-btn text-xs font-black shadow-md shadow-amber-500/20 active:scale-95 transition flex items-center gap-1.5"><i class="fa-solid fa-rotate text-[10px]"></i> Play Flip</button></div>
-                </div>
-                <div class="glass-card rounded-2xl p-4 border border-purple-500/30 relative overflow-hidden flex flex-col justify-between hover:border-purple-400/60 transition group">
-                    <div class="flex items-start justify-between"><div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-white text-xl shadow-lg shadow-purple-500/30"><i class="fa-solid fa-dharmachakra animate-spin text-amber-300"></i></div><div><div class="flex items-center gap-1.5"><h3 class="font-cyber font-extrabold text-white text-sm">Lucky Wheel</h3></div><div class="text-[11px] text-slate-400 mt-0.5">Spin & Win Huge Multipliers</div></div></div></div>
-                    <div class="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between"><span class="text-[10px] text-purple-400 font-bold"><i class="fa-solid fa-gift mr-1"></i>Free 12h Spin</span><button type="button" onclick="openSpinModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-black text-xs shadow-md shadow-purple-500/20 active:scale-95 transition flex items-center gap-1.5"><i class="fa-solid fa-dharmachakra text-[10px]"></i> Spin Wheel</button></div>
-                </div>
-            </div>
         </section>
+
 
         <!-- TAB 3: TASKS -->
         <section id="tab-tasks" class="tab-page hidden space-y-3 pt-1">
