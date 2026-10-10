@@ -63,29 +63,13 @@
 
     <main class="flex-1 overflow-y-auto px-4 pb-24 pt-2 relative z-10">
 
-         <!-- ========================================== -->
-    <!-- TAB 1: MINE (100% RESPONSIVE FOR ALL MOBILES) -->
+             <!-- ========================================== -->
+    <!-- TAB 1: MINE (CLEAN & 100% RESPONSIVE) -->
     <!-- ========================================== -->
-    <div id="tab-mine" class="tab-page flex flex-col h-full pt-2 pb-24 relative overflow-hidden">
+    <div id="tab-mine" class="tab-page flex flex-col h-full pt-4 pb-24 relative overflow-hidden">
         
-        <!-- 1. STATS BOXES -->
-        <div class="grid grid-cols-2 gap-3 px-4 mb-2 shrink-0">
-            <div class="glass-card rounded-xl p-2.5 flex flex-col items-center justify-center border border-slate-700/50 shadow-md">
-                <div class="text-slate-400 text-[10px] font-bold mb-0.5">Earn per tap</div>
-                <div class="text-amber-400 text-sm font-black flex items-center gap-1">
-                    <i class="fa-solid fa-coins text-xs"></i> +<span id="earn-per-tap-display">0.0700</span>
-                </div>
-            </div>
-            <div class="glass-card rounded-xl p-2.5 flex flex-col items-center justify-center border border-slate-700/50 shadow-md">
-                <div class="text-slate-400 text-[10px] font-bold mb-0.5">Pool Balance</div>
-                <div class="text-sky-400 text-sm font-black flex items-center gap-1">
-                    ≈ $<span id="pool-balance-display">21.221</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 2. BIG BALANCE & LEAGUE -->
-        <div class="flex flex-col items-center justify-center shrink-0 z-10 mb-1">
+        <!-- 1. BIG BALANCE & LEAGUE (NO STAT BOXES) -->
+        <div class="flex flex-col items-center justify-center shrink-0 z-10 mb-2 mt-4">
             <div class="flex items-center justify-center gap-2 text-4xl sm:text-5xl font-black text-white font-cyber drop-shadow-md">
                 <svg class="w-9 h-9 sm:w-10 sm:h-10 drop-shadow-[0_0_10px_rgba(251,191,36,0.6)] shrink-0" viewBox="0 0 64 64">
                     <defs>
@@ -98,7 +82,7 @@
                 <span id="balance-display" class="tracking-tight">0.0000</span>
             </div>
             
-            <div class="w-full max-w-xs mx-auto mt-2 shrink-0 px-4">
+            <div class="w-full max-w-xs mx-auto mt-4 shrink-0 px-4">
                 <div class="flex justify-between items-end mb-1">
                     <span id="league-name" class="text-[11px] font-bold text-slate-300">Bronze Auditor</span>
                     <span id="league-percent" class="text-[10px] text-slate-400 font-bold">0%</span>
@@ -109,20 +93,17 @@
             </div>
         </div>
 
-                <!-- 3. COIN (FLEXIBLE - SHRINKS ON SMALL SCREENS) -->
-        <div class="flex-1 flex items-center justify-center w-full relative z-0 min-h-[160px] py-1 shrink">
-            
-            <div id="coin-touch-area" class="w-48 h-48 sm:w-56 sm:h-56 max-h-[70vw] max-w-[70vw] rounded-full cursor-pointer flex items-center justify-center relative select-none drop-shadow-[0_0_40px_rgba(56,189,248,0.4)] shrink">
+        <!-- 2. COIN (UPLOADED IMAGE - PERFECTLY CENTERED) -->
+        <div class="flex-1 flex items-center justify-center w-full relative z-0 min-h-[160px] py-2 shrink">
+            <div id="coin-touch-area" class="w-52 h-52 sm:w-64 sm:h-64 max-h-[70vw] max-w-[70vw] rounded-full cursor-pointer flex items-center justify-center relative select-none drop-shadow-[0_0_40px_rgba(56,189,248,0.4)] shrink">
                 
-                <!-- YOUR UPLOADED CUSTOM IMAGE (tax_coin.png) -->
+                <!-- আপনার আপলোড করা অরিজিনাল ছবি -->
                 <img id="coin-svg" src="tax_coin.png" alt="TAX Coin" class="w-full h-full object-contain active:scale-95 transition-transform duration-75 pointer-events-none" draggable="false">
                 
             </div>
-            
         </div>
 
-
-        <!-- 4. ENERGY BAR & BOOST (BOTTOM) -->
+        <!-- 3. ENERGY BAR & BOOST (BOTTOM) -->
         <div class="px-5 w-full max-w-md mx-auto shrink-0 z-10 mt-auto">
             <div class="flex justify-between items-center mb-2">
                 <div class="flex items-center gap-1.5">
@@ -140,8 +121,6 @@
         
     </div>
     <!-- ========================================== -->
-
-
 
         <!-- TAB 2: GAMES HUB -->
         <section id="tab-games" class="tab-page hidden space-y-3.5 pt-1">
