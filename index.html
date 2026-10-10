@@ -63,46 +63,90 @@
 
     <main class="flex-1 overflow-y-auto px-4 pb-24 pt-2 relative z-10">
 
-     <!-- ========================================== -->
-    <!-- TAB 1: MINE (CLEAN & CENTERED) -->
+         <!-- ========================================== -->
+    <!-- TAB 1: MINE (100% RESPONSIVE FOR ALL MOBILES) -->
     <!-- ========================================== -->
-    <div id="tab-mine" class="tab-page flex flex-col h-full overflow-hidden pt-6 pb-20 relative">
+    <div id="tab-mine" class="tab-page flex flex-col h-full pt-2 pb-24 relative overflow-hidden">
         
-        <!-- 1. BIG BALANCE (TOP) -->
-        <div class="flex flex-col items-center justify-center shrink-0 z-10">
-            <div class="flex items-center justify-center gap-3 text-4xl sm:text-5xl font-black text-white font-cyber drop-shadow-md">
-                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-tr from-amber-400 to-amber-600 flex items-center justify-center text-slate-900 border-2 border-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.5)]">
-                    <i class="fa-solid fa-t text-xl"></i>
+        <!-- 1. STATS BOXES -->
+        <div class="grid grid-cols-2 gap-3 px-4 mb-2 shrink-0">
+            <div class="glass-card rounded-xl p-2.5 flex flex-col items-center justify-center border border-slate-700/50 shadow-md">
+                <div class="text-slate-400 text-[10px] font-bold mb-0.5">Earn per tap</div>
+                <div class="text-amber-400 text-sm font-black flex items-center gap-1">
+                    <i class="fa-solid fa-coins text-xs"></i> +<span id="earn-per-tap-display">0.0700</span>
                 </div>
+            </div>
+            <div class="glass-card rounded-xl p-2.5 flex flex-col items-center justify-center border border-slate-700/50 shadow-md">
+                <div class="text-slate-400 text-[10px] font-bold mb-0.5">Pool Balance</div>
+                <div class="text-sky-400 text-sm font-black flex items-center gap-1">
+                    ≈ $<span id="pool-balance-display">21.221</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. BIG BALANCE & LEAGUE -->
+        <div class="flex flex-col items-center justify-center shrink-0 z-10 mb-1">
+            <div class="flex items-center justify-center gap-2 text-4xl sm:text-5xl font-black text-white font-cyber drop-shadow-md">
+                <svg class="w-9 h-9 sm:w-10 sm:h-10 drop-shadow-[0_0_10px_rgba(251,191,36,0.6)] shrink-0" viewBox="0 0 64 64">
+                    <defs>
+                        <radialGradient id="miniCoinGrad" cx="30%" cy="30%" r="70%"><stop offset="0%" stop-color="#fef08a"/><stop offset="50%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#92400e"/></radialGradient>
+                    </defs>
+                    <circle cx="32" cy="32" r="29" fill="url(#miniCoinGrad)" stroke="#fde047" stroke-width="3"/>
+                    <circle cx="32" cy="32" r="22" fill="none" stroke="#78350f" stroke-width="1.5" stroke-dasharray="4 2"/>
+                    <text x="32" y="39" text-anchor="middle" fill="#451a03" font-weight="900" font-size="20" font-family="'Orbitron', sans-serif">T</text>
+                </svg>
                 <span id="balance-display" class="tracking-tight">0.0000</span>
             </div>
             
-            <!-- League Progress Bar (Minimal) -->
-            <div class="w-full max-w-xs mx-auto mt-4 shrink-0 px-4">
+            <div class="w-full max-w-xs mx-auto mt-2 shrink-0 px-4">
                 <div class="flex justify-between items-end mb-1">
-                    <span id="league-name" class="text-xs font-bold text-slate-400">Bronze Auditor</span>
-                    <span id="league-percent" class="text-[10px] text-slate-500 font-bold">0%</span>
+                    <span id="league-name" class="text-[11px] font-bold text-slate-300">Bronze Auditor</span>
+                    <span id="league-percent" class="text-[10px] text-slate-400 font-bold">0%</span>
                 </div>
-                <div class="w-full bg-slate-900/80 rounded-full h-1.5 border border-slate-800">
-                    <div id="league-bar" class="bg-gradient-to-r from-amber-500 via-yellow-400 to-emerald-400 rounded-full transition-all duration-300 h-full" style="width: 4%"></div>
+                <div class="w-full bg-slate-800 rounded-full h-1.5 border border-slate-700 overflow-hidden">
+                    <div id="league-bar" class="bg-gradient-to-r from-amber-500 to-emerald-400 rounded-full h-full" style="width: 0%"></div>
                 </div>
             </div>
         </div>
 
-            <!-- 2. COIN (CUSTOM 3D IMAGE) -->
-        <div class="flex-1 flex items-center justify-center w-full relative z-0 pt-1 pb-10">
-            <!-- Coin Area (Tap Animation Added) -->
-            <div id="coin-touch-area" class="w-64 h-64 sm:w-72 sm:h-72 rounded-full cursor-pointer flex items-center justify-center relative select-none drop-shadow-[0_0_40px_rgba(56,189,248,0.3)]">
+        <!-- 3. COIN (FLEXIBLE - SHRINKS ON SMALL SCREENS) -->
+        <div class="flex-1 flex items-center justify-center w-full relative z-0 min-h-[160px] py-1 shrink">
+            <div id="coin-touch-area" class="coin-3d w-48 h-48 sm:w-56 sm:h-56 max-h-[70vw] max-w-[70vw] rounded-full cursor-pointer flex items-center justify-center relative select-none drop-shadow-[0_0_30px_rgba(245,158,11,0.3)] shrink">
                 
-                <!-- YOUR EXACT PHOTO -->
-                <img src="tax_coin.png" alt="TAX Coin" class="w-full h-full object-contain active:scale-95 transition-transform duration-75" draggable="false">
-                
+                <!-- YOUR HEAVY 3D TEXTURED COIN SVG -->
+                <svg id="coin-svg" viewBox="0 0 260 260" class="w-full h-full pointer-events-none">
+                    <defs>
+                        <linearGradient id="coinGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fde047" /><stop offset="40%" stop-color="#eab308" /><stop offset="80%" stop-color="#b45309" /><stop offset="100%" stop-color="#78350f" /></linearGradient>
+                        <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fef08a" /><stop offset="50%" stop-color="#d97706" /><stop offset="100%" stop-color="#451a03" /></linearGradient>
+                        <linearGradient id="textBorderGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#fef08a" /><stop offset="50%" stop-color="#f59e0b" /><stop offset="100%" stop-color="#92400e" /></linearGradient>
+                        <filter id="mainShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="15" stdDeviation="10" flood-color="#000" flood-opacity="0.8"/></filter>
+                        <filter id="text3DShadow"><feDropShadow dx="0" dy="6" stdDeviation="3" flood-color="#000" flood-opacity="0.9"/></filter>
+                        <filter id="hammeredTexture"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="4" result="noise" /><feColorMatrix type="luminanceToAlpha" in="noise" result="alphaNoise" /><feDiffuseLighting in="alphaNoise" surfaceScale="5" diffuseConstant="1.2" lighting-color="#fbbf24" result="light"><feDistantLight azimuth="60" elevation="50" /></feDiffuseLighting><feBlend mode="multiply" in="light" in2="SourceGraphic" /></filter>
+                    </defs>
+                    <circle cx="130" cy="130" r="122" fill="#000" filter="url(#mainShadow)" opacity="0.6"/>
+                    <circle cx="130" cy="130" r="125" fill="url(#rimGrad)" />
+                    <circle cx="130" cy="130" r="122" fill="none" stroke="#fef08a" stroke-width="2" opacity="0.6"/>
+                    <circle cx="130" cy="130" r="110" fill="none" stroke="url(#coinGrad)" stroke-width="18" stroke-dasharray="4 5" opacity="0.9"/>
+                    <circle cx="130" cy="130" r="102" fill="url(#rimGrad)" />
+                    <circle cx="130" cy="130" r="99" fill="none" stroke="#451a03" stroke-width="4" opacity="0.8" />
+                    <circle cx="130" cy="130" r="97" fill="none" stroke="#fef08a" stroke-width="1.5" opacity="0.5" />
+                    <circle cx="130" cy="130" r="96" fill="url(#coinGrad)" filter="url(#hammeredTexture)" />
+                    <ellipse cx="130" cy="55" rx="70" ry="25" fill="#fff" opacity="0.15" filter="blur(4px)" />
+                    <g filter="url(#text3DShadow)" transform="translate(0, 0)">
+                        <path d="M 100 85 L 110 60 L 130 80 L 150 60 L 160 85 L 130 95 Z" fill="#240f00" stroke="url(#textBorderGrad)" stroke-width="2"/>
+                        <circle cx="110" cy="60" r="3" fill="#fef08a"/><circle cx="130" cy="80" r="4" fill="#fef08a"/><circle cx="150" cy="60" r="3" fill="#fef08a"/>
+                        <text x="130" y="165" font-family="'Inter', 'Arial Black', sans-serif" font-size="70" font-weight="900" fill="#1a0a00" text-anchor="middle" letter-spacing="1">TAX</text>
+                        <text x="130" y="160" font-family="'Inter', 'Arial Black', sans-serif" font-size="70" font-weight="900" fill="none" stroke="url(#textBorderGrad)" stroke-width="5" stroke-linejoin="round" text-anchor="middle" letter-spacing="1">TAX</text>
+                        <text x="130" y="160" font-family="'Inter', 'Arial Black', sans-serif" font-size="70" font-weight="900" fill="#240f00" text-anchor="middle" letter-spacing="1">TAX</text>
+                        <text x="130" y="200" font-family="'Inter', 'Arial Black', sans-serif" font-size="28" font-weight="900" fill="none" stroke="url(#textBorderGrad)" stroke-width="3" stroke-linejoin="round" text-anchor="middle" letter-spacing="3">COIN</text>
+                        <text x="130" y="200" font-family="'Inter', 'Arial Black', sans-serif" font-size="28" font-weight="900" fill="#240f00" text-anchor="middle" letter-spacing="3">COIN</text>
+                    </g>
+                </svg>
             </div>
         </div>
 
-
-        <!-- 3. ENERGY BAR & BOOST (BOTTOM) -->
-        <div class="px-6 w-full max-w-md mx-auto shrink-0 z-10 mb-4">
+        <!-- 4. ENERGY BAR & BOOST (BOTTOM) -->
+        <div class="px-5 w-full max-w-md mx-auto shrink-0 z-10 mt-auto">
             <div class="flex justify-between items-center mb-2">
                 <div class="flex items-center gap-1.5">
                     <i class="fa-solid fa-bolt text-amber-400 animate-pulse text-sm"></i>
@@ -113,12 +157,13 @@
                 </button>
             </div>
             <div class="w-full bg-slate-900 rounded-full h-2.5 border border-slate-700 overflow-hidden shadow-inner">
-                <div id="energy-bar" class="bg-gradient-to-r from-amber-400 to-orange-500 h-full rounded-full transition-all duration-300 shadow-[0_0_10px_rgba(245,158,11,0.5)]" style="width: 100%;"></div>
+                <div id="energy-bar" class="bg-gradient-to-r from-amber-400 to-orange-500 h-full rounded-full transition-all duration-300" style="width: 100%;"></div>
             </div>
         </div>
         
     </div>
     <!-- ========================================== -->
+
 
 
         <!-- TAB 2: GAMES HUB -->
