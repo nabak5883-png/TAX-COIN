@@ -109,41 +109,18 @@
             </div>
         </div>
 
-        <!-- 3. COIN (FLEXIBLE - SHRINKS ON SMALL SCREENS) -->
+                <!-- 3. COIN (FLEXIBLE - SHRINKS ON SMALL SCREENS) -->
         <div class="flex-1 flex items-center justify-center w-full relative z-0 min-h-[160px] py-1 shrink">
-            <div id="coin-touch-area" class="coin-3d w-48 h-48 sm:w-56 sm:h-56 max-h-[70vw] max-w-[70vw] rounded-full cursor-pointer flex items-center justify-center relative select-none drop-shadow-[0_0_30px_rgba(245,158,11,0.3)] shrink">
+            
+            <div id="coin-touch-area" class="w-48 h-48 sm:w-56 sm:h-56 max-h-[70vw] max-w-[70vw] rounded-full cursor-pointer flex items-center justify-center relative select-none drop-shadow-[0_0_40px_rgba(56,189,248,0.4)] shrink">
                 
-                <!-- YOUR HEAVY 3D TEXTURED COIN SVG -->
-                <svg id="coin-svg" viewBox="0 0 260 260" class="w-full h-full pointer-events-none">
-                    <defs>
-                        <linearGradient id="coinGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fde047" /><stop offset="40%" stop-color="#eab308" /><stop offset="80%" stop-color="#b45309" /><stop offset="100%" stop-color="#78350f" /></linearGradient>
-                        <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#fef08a" /><stop offset="50%" stop-color="#d97706" /><stop offset="100%" stop-color="#451a03" /></linearGradient>
-                        <linearGradient id="textBorderGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#fef08a" /><stop offset="50%" stop-color="#f59e0b" /><stop offset="100%" stop-color="#92400e" /></linearGradient>
-                        <filter id="mainShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="15" stdDeviation="10" flood-color="#000" flood-opacity="0.8"/></filter>
-                        <filter id="text3DShadow"><feDropShadow dx="0" dy="6" stdDeviation="3" flood-color="#000" flood-opacity="0.9"/></filter>
-                        <filter id="hammeredTexture"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="4" result="noise" /><feColorMatrix type="luminanceToAlpha" in="noise" result="alphaNoise" /><feDiffuseLighting in="alphaNoise" surfaceScale="5" diffuseConstant="1.2" lighting-color="#fbbf24" result="light"><feDistantLight azimuth="60" elevation="50" /></feDiffuseLighting><feBlend mode="multiply" in="light" in2="SourceGraphic" /></filter>
-                    </defs>
-                    <circle cx="130" cy="130" r="122" fill="#000" filter="url(#mainShadow)" opacity="0.6"/>
-                    <circle cx="130" cy="130" r="125" fill="url(#rimGrad)" />
-                    <circle cx="130" cy="130" r="122" fill="none" stroke="#fef08a" stroke-width="2" opacity="0.6"/>
-                    <circle cx="130" cy="130" r="110" fill="none" stroke="url(#coinGrad)" stroke-width="18" stroke-dasharray="4 5" opacity="0.9"/>
-                    <circle cx="130" cy="130" r="102" fill="url(#rimGrad)" />
-                    <circle cx="130" cy="130" r="99" fill="none" stroke="#451a03" stroke-width="4" opacity="0.8" />
-                    <circle cx="130" cy="130" r="97" fill="none" stroke="#fef08a" stroke-width="1.5" opacity="0.5" />
-                    <circle cx="130" cy="130" r="96" fill="url(#coinGrad)" filter="url(#hammeredTexture)" />
-                    <ellipse cx="130" cy="55" rx="70" ry="25" fill="#fff" opacity="0.15" filter="blur(4px)" />
-                    <g filter="url(#text3DShadow)" transform="translate(0, 0)">
-                        <path d="M 100 85 L 110 60 L 130 80 L 150 60 L 160 85 L 130 95 Z" fill="#240f00" stroke="url(#textBorderGrad)" stroke-width="2"/>
-                        <circle cx="110" cy="60" r="3" fill="#fef08a"/><circle cx="130" cy="80" r="4" fill="#fef08a"/><circle cx="150" cy="60" r="3" fill="#fef08a"/>
-                        <text x="130" y="165" font-family="'Inter', 'Arial Black', sans-serif" font-size="70" font-weight="900" fill="#1a0a00" text-anchor="middle" letter-spacing="1">TAX</text>
-                        <text x="130" y="160" font-family="'Inter', 'Arial Black', sans-serif" font-size="70" font-weight="900" fill="none" stroke="url(#textBorderGrad)" stroke-width="5" stroke-linejoin="round" text-anchor="middle" letter-spacing="1">TAX</text>
-                        <text x="130" y="160" font-family="'Inter', 'Arial Black', sans-serif" font-size="70" font-weight="900" fill="#240f00" text-anchor="middle" letter-spacing="1">TAX</text>
-                        <text x="130" y="200" font-family="'Inter', 'Arial Black', sans-serif" font-size="28" font-weight="900" fill="none" stroke="url(#textBorderGrad)" stroke-width="3" stroke-linejoin="round" text-anchor="middle" letter-spacing="3">COIN</text>
-                        <text x="130" y="200" font-family="'Inter', 'Arial Black', sans-serif" font-size="28" font-weight="900" fill="#240f00" text-anchor="middle" letter-spacing="3">COIN</text>
-                    </g>
-                </svg>
+                <!-- YOUR UPLOADED CUSTOM IMAGE (tax_coin.png) -->
+                <img id="coin-svg" src="tax_coin.png" alt="TAX Coin" class="w-full h-full object-contain active:scale-95 transition-transform duration-75 pointer-events-none" draggable="false">
+                
             </div>
+            
         </div>
+
 
         <!-- 4. ENERGY BAR & BOOST (BOTTOM) -->
         <div class="px-5 w-full max-w-md mx-auto shrink-0 z-10 mt-auto">
