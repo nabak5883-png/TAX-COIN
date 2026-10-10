@@ -127,6 +127,83 @@
             
         </section>
 
+        <!-- ========================================== -->
+        <!-- TAB 2: GAMES HUB -->
+        <!-- ========================================== -->
+        <section id="tab-games" class="tab-page hidden space-y-4 pt-2 pb-24 relative block">
+            
+            <!-- Premium Casino Banner -->
+            <div class="glass-card rounded-3xl p-5 border border-amber-500/30 relative overflow-hidden shadow-[0_0_30px_rgba(245,158,11,0.15)] bg-gradient-to-br from-slate-900 to-slate-950">
+                <div class="absolute -right-10 -top-10 w-32 h-32 bg-amber-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="flex items-center justify-between relative z-10">
+                    <div class="flex-1">
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black bg-amber-500/20 text-amber-400 border border-amber-400/30 uppercase tracking-widest mb-2">
+                            <i class="fa-solid fa-gamepad"></i> Game Hub
+                        </div>
+                        <h2 class="text-white font-black text-2xl font-cyber tracking-wide drop-shadow-md">TAX CASINO</h2>
+                        <p class="text-[11px] text-slate-400 mt-1 font-medium">Bet your coins & multiply your wealth!</p>
+                    </div>
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center text-3xl shadow-lg shadow-orange-500/40 drop-shadow-lg">
+                        🎰
+                    </div>
+                </div>
+            </div>
+
+            <!-- Games Grid (Your 4 Original Games) -->
+            <div class="grid grid-cols-2 gap-3 mt-2">
+                
+                <!-- 1. Aviator -->
+                <div class="glass-card rounded-2xl p-3 border border-rose-500/30 hover:border-rose-400 transition group relative overflow-hidden shadow-lg shadow-rose-500/10 bg-slate-900/80">
+                    <div class="absolute top-0 right-0 px-2 py-0.5 bg-rose-500 rounded-bl-lg text-[8px] font-black text-white uppercase">Hot</div>
+                    <div class="flex items-center gap-3 mb-3 mt-1">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-500 to-red-700 flex items-center justify-center text-2xl shadow-inner">✈️</div>
+                        <div>
+                            <h3 class="font-black text-white text-sm">Aviator</h3>
+                            <p class="text-[9px] text-rose-400 font-bold">Crash & Win</p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="openGameModal('aviator')" class="w-full py-2 rounded-xl bg-rose-500/20 text-rose-400 font-black text-[11px] uppercase tracking-wider group-hover:bg-rose-500 group-hover:text-white transition">Play Now</button>
+                </div>
+
+                <!-- 2. Flip -->
+                <div class="glass-card rounded-2xl p-3 border border-amber-500/30 hover:border-amber-400 transition group relative overflow-hidden shadow-lg shadow-amber-500/10 bg-slate-900/80">
+                    <div class="flex items-center gap-3 mb-3 mt-1">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center text-2xl shadow-inner">🪙</div>
+                        <div>
+                            <h3 class="font-black text-white text-sm">Coin Flip</h3>
+                            <p class="text-[9px] text-amber-400 font-bold">2x Payout</p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="openGameModal('flip')" class="w-full py-2 rounded-xl bg-amber-500/20 text-amber-400 font-black text-[11px] uppercase tracking-wider group-hover:bg-amber-500 group-hover:text-slate-900 transition">Play Now</button>
+                </div>
+
+                <!-- 3. Spin -->
+                <div class="glass-card rounded-2xl p-3 border border-purple-500/30 hover:border-purple-400 transition group relative overflow-hidden shadow-lg shadow-purple-500/10 bg-slate-900/80">
+                    <div class="flex items-center gap-3 mb-3 mt-1">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-600 flex items-center justify-center text-2xl shadow-inner">🎡</div>
+                        <div>
+                            <h3 class="font-black text-white text-sm">Spin</h3>
+                            <p class="text-[9px] text-purple-400 font-bold">Lucky Wheel</p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="openGameModal('spin')" class="w-full py-2 rounded-xl bg-purple-500/20 text-purple-400 font-black text-[11px] uppercase tracking-wider group-hover:bg-purple-500 group-hover:text-white transition">Play Now</button>
+                </div>
+
+                <!-- 4. Mines -->
+                <div class="glass-card rounded-2xl p-3 border border-emerald-500/30 hover:border-emerald-400 transition group relative overflow-hidden shadow-lg shadow-emerald-500/10 bg-slate-900/80">
+                    <div class="flex items-center gap-3 mb-3 mt-1">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-2xl shadow-inner">💣</div>
+                        <div>
+                            <h3 class="font-black text-white text-sm">Mines</h3>
+                            <p class="text-[9px] text-emerald-400 font-bold">Find Gems</p>
+                        </div>
+                    </div>
+                    <button type="button" onclick="openGameModal('mines')" class="w-full py-2 rounded-xl bg-emerald-500/20 text-emerald-400 font-black text-[11px] uppercase tracking-wider group-hover:bg-emerald-500 group-hover:text-slate-900 transition">Play Now</button>
+                </div>
+
+            </div>
+        </section>
+
         
         <!-- TAB 3: TASKS -->
         <section id="tab-tasks" class="tab-page hidden space-y-3 pt-1">
@@ -307,32 +384,91 @@
         </div>
     </div>
 
-    <!-- AVIATOR MODAL -->
-    <div id="aviator-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex-col justify-between p-3 sm:p-4 overflow-y-auto">
-        <div class="max-w-md w-full mx-auto flex flex-col h-full justify-between space-y-2.5">
-            <div class="glass-card rounded-2xl p-3 flex items-center justify-between border border-rose-500/30">
-                <div class="flex items-center gap-2.5"><div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-rose-600 to-red-500 flex items-center justify-center text-white text-xl shadow-lg shadow-red-500/40"><i class="fa-solid fa-plane"></i></div><div><div class="flex items-center gap-2"><span class="font-cyber font-extrabold text-sm text-white tracking-wide">TAX AVIATOR</span></div><div class="text-[11px] text-slate-400">Cash out before the Tax Jet flies away!</div></div></div>
-                <button type="button" onclick="closeAviatorModal()" class="w-9 h-9 rounded-xl bg-slate-800/90 text-slate-300 hover:text-white flex items-center justify-center active:scale-90 transition"><i class="fa-solid fa-xmark text-sm"></i></button>
-            </div>
-            <div id="aviator-history-bar" class="flex items-center gap-1.5 overflow-x-auto py-1 px-0.5 no-scrollbar shrink-0"></div>
-            <div class="glass-card rounded-2xl border border-rose-500/20 aviator-grid-bg relative h-64 sm:h-72 w-full overflow-hidden flex items-center justify-center">
-                <canvas id="aviator-canvas" class="absolute inset-0 w-full h-full block"></canvas>
-                <div class="relative z-10 flex flex-col items-center justify-center text-center pointer-events-none px-4">
-                    <div id="aviator-status-badge" class="text-xs font-bold uppercase tracking-widest text-amber-400 mb-1 flex items-center gap-1.5 drop-shadow"><i class="fa-solid fa-plane text-xs animate-pulse"></i><span id="aviator-status-text">FLIGHT IN PROGRESS</span></div>
-                    <div id="aviator-multiplier-display" class="font-cyber font-black text-5xl sm:text-6xl text-white tracking-tight drop-shadow-[0_4px_25px_rgba(245,158,11,0.5)]">1.00x</div>
-                    <div id="aviator-win-badge" class="mt-2 px-4 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-900/30">Win: <span id="aviator-potential-win">+0.0000 TAX</span></div>
+        <!-- ========================================== -->
+    <!-- GAME MODAL: AVIATOR -->
+    <!-- ========================================== -->
+    <div id="aviator-modal" class="hidden fixed inset-0 z-[100] bg-slate-950/95 backdrop-blur-md flex-col items-center justify-center p-2 sm:p-4">
+        
+        <div class="w-full max-w-md bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden flex flex-col shadow-[0_0_50px_rgba(225,29,72,0.15)] relative">
+            
+            <!-- Top Header -->
+            <div class="px-4 py-3 border-b border-slate-800 flex items-center justify-between bg-slate-950/50">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-rose-500/20 flex items-center justify-center text-rose-500 border border-rose-500/30">✈️</div>
+                    <h3 class="font-black text-white text-lg tracking-wider font-cyber">AVIATOR</h3>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="text-right">
+                        <div class="text-[9px] text-slate-400 font-bold uppercase">Balance</div>
+                        <div id="aviator-pool-bal" class="text-xs font-black text-amber-400 font-mono">0.00 TAX</div>
+                    </div>
+                    <button onclick="closeAviatorModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center hover:bg-rose-500 hover:text-white transition active:scale-90">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
                 </div>
             </div>
-            <div class="glass-card rounded-2xl p-3.5 space-y-3 border border-white/10">
-                <div class="grid grid-cols-2 gap-2">
-                    <div class="flex items-center bg-slate-900/90 rounded-xl border border-slate-700/80 px-2 py-1"><input id="aviator-bet-input" type="number" step="any" value="25" min="1" class="w-full bg-transparent text-amber-400 font-cyber font-bold text-sm focus:outline-none"><div class="flex items-center gap-1 text-[11px] font-bold text-slate-400 ml-1"><button type="button" onclick="halveAviatorBet()" class="px-1.5 py-0.5 rounded hover:bg-slate-800 text-slate-300 active:scale-90 transition">½</button><button type="button" onclick="doubleAviatorBet()" class="px-1.5 py-0.5 rounded hover:bg-slate-800 text-slate-300 active:scale-90 transition">2x</button></div></div>
-                    <div class="flex items-center bg-slate-900/90 rounded-xl border border-slate-700/80 px-2.5 py-1"><input id="aviator-auto-val" type="number" step="0.1" value="2.00" min="1.01" class="w-full bg-transparent text-emerald-400 font-cyber font-bold text-sm focus:outline-none text-right"><span class="text-xs text-slate-400 font-bold ml-1">x</span></div>
-                </div>
-                <div class="grid grid-cols-4 gap-1.5"><button type="button" onclick="setAviatorBet(25)" class="py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">25</button><button type="button" onclick="setAviatorBet(50)" class="py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">50</button><button type="button" onclick="setAviatorBet(100)" class="py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs border border-white/5 active:scale-95 transition">100</button><button type="button" onclick="setAviatorBetMax()" class="py-1.5 rounded-xl bg-amber-500/20 text-amber-300 font-extrabold text-xs border border-amber-400/40 active:scale-95 transition">MAX</button></div>
-                <button type="button" id="aviator-action-btn" onclick="handleAviatorAction()" class="w-full py-3.5 rounded-xl aviator-cashout-btn text-sm font-black tracking-wide flex items-center justify-center gap-2 transition"><i class="fa-solid fa-rocket"></i><span id="aviator-btn-label">BET 25 TAX</span></button>
+
+            <!-- Multiplier History -->
+            <div class="w-full h-9 bg-slate-950 flex items-center gap-2 px-3 overflow-x-auto no-scrollbar border-b border-slate-800" id="aviator-history-bar">
+                <!-- JS will add multiplier pills here -->
             </div>
+
+            <!-- Game Canvas Area -->
+            <div class="w-full h-52 sm:h-60 bg-slate-950 relative overflow-hidden flex items-center justify-center">
+                <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(#334155 1px, transparent 1px), linear-gradient(90deg, #334155 1px, transparent 1px); background-size: 20px 20px;"></div>
+                
+                <canvas id="aviator-canvas" class="absolute inset-0 w-full h-full z-10"></canvas>
+                
+                <div class="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none">
+                    <div id="aviator-status-badge" class="text-xs font-bold uppercase tracking-widest text-amber-400 mb-1 flex items-center gap-1.5 drop-shadow">
+                        <span id="aviator-status-text">⏳ WAITING...</span>
+                    </div>
+                    <div id="aviator-multiplier-display" class="font-cyber font-black text-6xl text-white tracking-tight drop-shadow-[0_4px_25px_rgba(245,158,11,0.5)]">
+                        1.00x
+                    </div>
+                </div>
+            </div>
+
+            <!-- Betting Controls -->
+            <div class="p-4 bg-slate-900 border-t border-slate-700">
+                
+                <div class="flex items-center justify-between mb-3 bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+                    <div class="flex items-center gap-2">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="aviator-auto-toggle" class="sr-only peer">
+                            <div class="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-amber-500"></div>
+                        </label>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase">Auto Cashout</span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-[10px] font-bold text-slate-500">@</span>
+                        <input type="number" id="aviator-auto-val" value="2.00" step="0.1" class="w-16 bg-slate-800 border border-slate-600 rounded-lg text-center text-xs font-bold text-white py-1 focus:outline-none focus:border-amber-500">
+                        <span class="text-xs text-amber-400 font-bold">x</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 mb-4">
+                    <button onclick="halveAviatorBet()" class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 font-bold active:scale-95">/2</button>
+                    <div class="flex-1 relative">
+                        <input type="number" id="aviator-bet-input" value="100" class="w-full h-10 bg-slate-950 border border-slate-600 rounded-xl text-center text-sm font-black text-white focus:outline-none focus:border-amber-500" placeholder="Bet amount">
+                        <div class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-amber-500 font-bold">TAX</div>
+                    </div>
+                    <button onclick="doubleAviatorBet()" class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 font-bold active:scale-95">x2</button>
+                    <button onclick="setAviatorBetMax()" class="w-12 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 font-bold text-[10px] uppercase active:scale-95">Max</button>
+                </div>
+
+                <button id="aviator-action-btn" onclick="handleAviatorAction()" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-slate-900 font-black text-sm uppercase tracking-widest shadow-lg shadow-emerald-500/20 active:scale-95 transition">
+                    <span id="aviator-btn-label">BET 100 TAX</span>
+                </button>
+                
+                <div id="aviator-potential-win" class="text-center text-[11px] font-bold text-amber-400 mt-2.5 h-4">
+                    Win: +0.00 TAX
+                </div>
+            </div>
+
         </div>
     </div>
+
 
     <!-- MINES MODAL -->
     <div id="mines-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex-col justify-between p-3 sm:p-4 overflow-y-auto">
