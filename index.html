@@ -27,56 +27,56 @@
         </div>
     </div>
 
-            <!-- ========================================== -->
-    <!-- HEADER (ORIGINAL IDs RESTORED FOR JS) -->
+                <!-- ========================================== -->
+    <!-- 1. HEADER (ALL JS IDs RESTORED TO PREVENT CRASH) -->
     <!-- ========================================== -->
-    <header id="main-top-header" class="px-4 pt-3 pb-1 flex flex-col gap-2 z-20 shrink-0 max-w-md mx-auto w-full">
-        <div class="flex items-center justify-between">
-            
-            <!-- User Info (Matches your original JS) -->
-            <div class="flex items-center gap-2.5">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-700 p-0.5 shadow-lg shadow-amber-500/20">
-                    <div class="w-full h-full bg-slate-900 rounded-[10px] overflow-hidden flex items-center justify-center text-amber-400 font-bold text-lg">
-                        <img id="user-profile-pic" src="" alt="Profile" class="w-full h-full object-cover hidden">
-                        <i id="default-profile-icon" class="fa-solid fa-crown"></i>
-                    </div>
+    <header id="main-top-header" class="w-full px-4 pt-3 pb-1 flex items-center justify-between shrink-0 relative z-20 max-w-md mx-auto">
+        <!-- User Info -->
+        <div class="flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-xl bg-slate-900 border border-amber-500/30 p-0.5 flex items-center justify-center text-amber-400 font-black text-lg shadow-inner relative overflow-hidden">
+                <img id="user-profile-pic" src="" alt="Profile" class="w-full h-full object-cover hidden">
+                <i id="default-profile-icon" class="fa-solid fa-crown relative z-10"></i>
+                <span id="user-initial" class="hidden">N</span>
+            </div>
+            <div>
+                <div class="flex items-center gap-1.5">
+                    <!-- Added both IDs so JS never crashes -->
+                    <h2 id="player-name" class="font-bold text-sm text-white tracking-tight">Nabakumar</h2>
+                    <h2 id="user-name" class="hidden">Nabakumar</h2>
+                    <span id="verified-mini-icon" class="text-emerald-400 text-[10px]" title="Verified"><i class="fa-solid fa-circle-check"></i></span>
                 </div>
-                <div>
-                    <div class="flex items-center gap-1.5">
-                        <span id="player-name" class="font-bold text-sm text-white tracking-tight">Tax Collector</span>
-                        <span id="verified-mini-icon" class="hidden text-emerald-400 text-xs" title="Verified"><i class="fa-solid fa-circle-check"></i></span>
-                    </div>
-                    <div class="flex items-center gap-1.5 text-[10px] text-slate-400">
-                        <span id="header-league" class="font-bold text-amber-400">Bronze</span>
-                        <span>•</span>
-                        <span>ID: <span id="user-id">Loading...</span></span>
-                    </div>
+                <div class="flex items-center gap-1.5 text-[10px] text-slate-400 mt-0.5">
+                    <span id="header-league" class="font-bold text-amber-400">Bronze Auditor</span>
+                    <span class="font-mono">ID: <span id="user-id">Loading...</span></span>
                 </div>
             </div>
+        </div>
+
+        <!-- Controls & Wallet -->
+        <div class="flex items-center gap-2">
+            <button onclick="window.toggleSound && window.toggleSound()" class="w-8 h-8 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center text-amber-400 active:scale-95 transition">
+                <i id="sound-icon" class="fa-solid fa-volume-high text-xs"></i>
+            </button>
             
-            <!-- Controls & TON Connect Wallet -->
-            <div class="flex items-center gap-2">
-                <button onclick="window.toggleSound && window.toggleSound()" class="text-amber-400 active:scale-95 transition px-2">
-                    <i id="sound-icon" class="fa-solid fa-volume-high text-sm"></i>
-                </button>
-                <!-- This is where your wallet script puts the connect button -->
-                <div id="ton-connect"></div> 
-            </div>
+            <!-- Hidden original TON connect div just in case JS needs it -->
+            <div id="ton-connect" class="hidden"></div> 
             
+            <button id="ton-connect-btn" class="px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 flex items-center gap-1.5 active:scale-95 transition">
+                <i class="fa-regular fa-gem text-sky-400 text-xs"></i>
+                <span id="wallet-address" class="text-xs font-bold text-white font-mono">Connect</span>
+            </button>
         </div>
     </header>
 
     <!-- ========================================== -->
-    <!-- MAIN WORKSPACE (SCROLL FIXED: overflow-y-auto) -->
+    <!-- 2. MAIN WORKSPACE (SCROLL FIXED) -->
     <!-- ========================================== -->
     <main class="flex-1 w-full max-w-md mx-auto relative overflow-y-auto overflow-x-hidden h-full pb-20">
         
-        <!-- ========================================== -->
         <!-- TAB 1: MINE -->
-        <!-- ========================================== -->
         <div id="tab-mine" class="tab-page flex flex-col h-full pt-2 pb-6 relative">
             
-            <!-- 1. BIG BALANCE (NO EXTRA BOXES) -->
+            <!-- BIG BALANCE & LEAGUE (CLEAN) -->
             <div class="flex flex-col items-center justify-center shrink-0 z-10 mb-2 mt-2">
                 <div class="flex items-center justify-center gap-2 text-4xl sm:text-5xl font-black text-white font-cyber drop-shadow-md">
                     <svg class="w-9 h-9 sm:w-10 sm:h-10 drop-shadow-[0_0_10px_rgba(251,191,36,0.6)] shrink-0" viewBox="0 0 64 64">
@@ -99,21 +99,21 @@
                 </div>
             </div>
 
-            <!-- 2. COIN (UPLOADED tax_coin.png) -->
+            <!-- CUSTOM UPLOADED IMAGE (tax_coin.png) -->
             <div class="flex-1 flex items-center justify-center w-full relative z-0 min-h-0 shrink py-2">
                 <div id="coin-touch-area" class="w-56 h-56 sm:w-72 sm:h-72 max-h-[65vw] max-w-[65vw] rounded-full cursor-pointer flex items-center justify-center relative select-none drop-shadow-[0_0_40px_rgba(56,189,248,0.4)] shrink">
                     <img id="coin-svg" src="tax_coin.png" alt="TAX Coin" class="w-full h-full object-contain active:scale-95 transition-transform duration-75 pointer-events-none" draggable="false">
                 </div>
             </div>
 
-            <!-- 3. ENERGY BAR & BOOST -->
+            <!-- ENERGY BAR & BOOST -->
             <div class="px-5 w-full max-w-md mx-auto shrink-0 z-10 mt-auto">
                 <div class="flex justify-between items-center mb-2">
                     <div class="flex items-center gap-1.5">
-                        <i class="fa-solid fa-bolt text-amber-400 animate-pulse text-sm"></i>
+                        <i class="fa-solid fa-bolt text-amber-400 text-sm"></i>
                         <span id="energy-display" class="text-xs font-black text-white font-mono">1000 / 1000</span>
                     </div>
-                    <button onclick="switchTab('boost')" class="flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-600 text-slate-900 rounded-full font-black text-[10px] uppercase tracking-wider shadow-lg shadow-orange-500/20 active:scale-95 transition">
+                    <button onclick="switchTab('boost')" class="flex items-center gap-1.5 px-4 py-1 bg-gradient-to-r from-amber-500 to-orange-600 text-slate-900 rounded-full font-black text-[11px] uppercase tracking-wider shadow-lg shadow-orange-500/20 active:scale-95 transition">
                         <i class="fa-solid fa-rocket"></i> Boost
                     </button>
                 </div>
@@ -123,7 +123,7 @@
             </div>
             
         </div>
-
+    </main>
 
         <!-- TAB 2: GAMES HUB -->
         <section id="tab-games" class="tab-page hidden space-y-3.5 pt-1">
